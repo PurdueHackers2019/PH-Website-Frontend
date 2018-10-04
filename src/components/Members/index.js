@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { MemberTable, Header } from '../Common';
-import routes, { hasPermission } from '../../constants';
-import { fetchMembers } from '../../actions';
+import routes, { hasPermission, err } from '../../constants';
+import { fetchMembers, sendFlashMessage, clearFlashMessages } from '../../actions';
 
 // TODO: Implement pagination
 // TODO: Implement permissions
@@ -14,6 +14,8 @@ class MembersPage extends Component {
 		history: PropTypes.shape({
 			push: PropTypes.func
 		}).isRequired,
+		flash: PropTypes.func.isRequired,
+		clear: PropTypes.func.isRequired,
 		user: PropTypes.object
 	};
 
@@ -28,9 +30,17 @@ class MembersPage extends Component {
 	}
 
 	componentDidMount = async () => {
-		const { members } = await fetchMembers({});
-		console.log('MembersPage fetched members:', members);
-		this.setState({ members, loading: false });
+		const { flash, clear } = this.props;
+		try {
+			clear();
+			const { members } = await fetchMembers({});
+			console.log('MembersPage fetched members:', members);
+			this.setState({ members, loading: false });
+		} catch (e) {
+			console.error('Error:', e);
+			this.setState({ loading: false });
+			flash(err(e));
+		}
 	};
 
 	render() {
@@ -88,5 +98,5 @@ const mapStateToProps = state => ({
 
 export default connect(
 	mapStateToProps,
-	{}
+	{ flash: sendFlashMessage, clear: clearFlashMessages }
 )(MembersPage);

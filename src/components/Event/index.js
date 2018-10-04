@@ -45,9 +45,10 @@ class EventPage extends Component {
 			clear();
 			const event = await fetchEvent(id);
 			this.setState({ event, loading: false });
-		} catch (error) {
+		} catch (e) {
+			console.error('Event Page error:', e);
 			this.setState({ loading: false });
-			flash(err(error));
+			flash(err(e));
 		}
 	};
 
