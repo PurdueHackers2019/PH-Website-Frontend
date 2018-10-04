@@ -6,7 +6,7 @@ export const CONFIG = {
 	NODE_ENV: REACT_APP_NODE_ENV || 'development',
 	SERVER_URL:
 		REACT_APP_NODE_ENV === 'production'
-			? 'https://purduehackers-212319.appspot.com'
+			? 'https://purduehackers.herokuapp.com'
 			: 'http://localhost:5000'
 };
 
