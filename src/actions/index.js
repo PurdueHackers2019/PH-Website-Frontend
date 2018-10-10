@@ -99,6 +99,37 @@ export const clearFlashMessages = () => dispatch => {
 	dispatch(setRedFlash(''));
 };
 
+export const fetchMajors = async () => {
+	try {
+		const {
+			data: { response }
+		} = await axios.get('/api/members/majors');
+		return response;
+	} catch (error) {
+		throw error.response.data;
+	}
+};
+export const fetchEventsPriorToEvent = async id => {
+	try {
+		const {
+			data: { response }
+		} = await axios.get(`/api/events/before/${id}`);
+		return response;
+	} catch (error) {
+		throw error.response.data;
+	}
+};
+export const fetchMembersNumEvents = async () => {
+	try {
+		const {
+			data: { response }
+		} = await axios.get('/api/members/num_events');
+		return response;
+	} catch (error) {
+		throw error.response.data;
+	}
+};
+
 export const fetchMembers = async params => {
 	try {
 		const token = getToken();
@@ -587,4 +618,135 @@ export const storageChanged = e => dispatch => {
 	console.log('Local storage changed event:', e);
 	dispatch(setToken(getToken()));
 	dispatch(setUser(getCurrentUser()));
+};
+
+// Getting Graph Data Functions
+export const getClassData = (gradeData, msg) => {
+	const data = {
+		labels: ['Freshman', 'Sophomore', 'Junior', 'Senior'],
+		datasets: [
+			{
+				label: msg ? `Class Distribution ${msg}` : 'Class Distribution',
+				backgroundColor: 'rgba(255,99,132,0.2)',
+				borderColor: 'rgba(255,99,132,1)',
+				borderWidth: 1,
+				hoverBackgroundColor: 'rgba(255,99,132,0.4)',
+				hoverBorderColor: 'rgba(255,99,132,1)',
+				data: gradeData
+			}
+		]
+	};
+	return data;
+};
+export const getMajorData = majorDataDict => {
+	//TODO:_> Sort by greatest to least
+	const data = {
+		labels: ['CS', 'CGT', 'CIT', 'ECE', 'EE', 'FYE', 'ME', 'Other'],
+		datasets: [
+			{
+				label: 'Major Distribution',
+				backgroundColor: 'rgba(0, 102, 255, 0.2)',
+				borderColor: 'rgba(0, 82, 204, 1)',
+				borderWidth: 1,
+				hoverBackgroundColor: 'rgba(0, 102, 255, 0.4)',
+				hoverBorderColor: 'rgba(0, 82, 204, 1)',
+				data: Object.values(majorDataDict)
+			}
+		]
+	};
+	return data;
+};
+export const getMembersEventAttendance = (eventAttendance, title) => {
+	// Group all data with >10 events into one >10 box
+	const maxEventValue = 10;
+	var refinedEventAttendance = {};
+	for (var i = 0; i < Object.keys(eventAttendance).length; i++) {
+		var gTEMaxEventValue = false;
+		if (Object.keys(eventAttendance)[i] >= maxEventValue) {
+			gTEMaxEventValue = true;
+		}
+		if (!gTEMaxEventValue) {
+			refinedEventAttendance[Object.keys(eventAttendance)[i]] =
+				eventAttendance[Object.keys(eventAttendance)[i]];
+		} else {
+			if (refinedEventAttendance[`>${maxEventValue}`]) {
+				refinedEventAttendance[`>${maxEventValue}`] +=
+					eventAttendance[Object.keys(eventAttendance)[i]];
+			} else {
+				refinedEventAttendance[`>${maxEventValue}`] =
+					eventAttendance[Object.keys(eventAttendance)[i]];
+			}
+		}
+	}
+	console.log(refinedEventAttendance);
+	const data = {
+		labels: Object.keys(refinedEventAttendance),
+		datasets: [
+			{
+				label: `${title}`,
+				backgroundColor: 'rgba(179, 102, 255, 0.2)',
+				borderColor: 'rgba(140, 26, 255, 1)',
+				borderWidth: 1,
+				hoverBackgroundColor: 'rgba(179, 102, 255, 0.4)',
+				hoverBorderColor: 'rgba(140, 26, 255, 1)',
+				data: Object.values(refinedEventAttendance)
+			}
+		]
+	};
+	return data;
+};
+// Getting graph option(s) functions
+export const getClassOptions = () => {
+	return {
+		scales: {
+			yAxes: [
+				{
+					ticks: {
+						beginAtZero: true,
+						callback: function(value) {
+							if (Number.isInteger(value)) {
+								return value;
+							}
+						}
+					}
+				}
+			]
+		}
+	};
+};
+export const getMajorOptions = () => {
+	return {
+		scales: {
+			yAxes: [
+				{
+					ticks: {
+						beginAtZero: true,
+						callback: function(value) {
+							if (Number.isInteger(value)) {
+								return value;
+							}
+						}
+					}
+				}
+			]
+		}
+	};
+};
+export const getMembersEventAttendanceOptions = () => {
+	return {
+		scales: {
+			yAxes: [
+				{
+					ticks: {
+						beginAtZero: true,
+						callback: function(value) {
+							if (Number.isInteger(value)) {
+								return value;
+							}
+						}
+					}
+				}
+			]
+		}
+	};
 };
