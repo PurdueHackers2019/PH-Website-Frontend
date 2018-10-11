@@ -3,10 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Header } from '../Common';
 import {
-	fetchMembers,
-	fetchMajors,
-	fetchMembersNumEvents,
-	fetchEvents,
+	fetchMembersReport,
 	getClassData,
 	getClassOptions,
 	getMajorData,
@@ -14,6 +11,7 @@ import {
 	getMembersEventAttendance,
 	getMembersEventAttendanceOptions
 } from '../../actions';
+
 import { Bar, Line } from 'react-chartjs-2';
 
 class ReportsPage extends Component {
@@ -29,104 +27,32 @@ class ReportsPage extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			members: [],
-			majors: [],
-			membersNumEvents: [],
-			events: [],
+			classData: {},
+			cumulativeDateJoinedData: {},
+			eventAttendancePerMonthData: {},
+			majorData: {},
+			membersEventAttendanceData: {},
+			numPeoplePerDateJoinedData: {},
+			eventAttendancePerMonthData: {},
 			loading: true
 		};
 	}
 
 	componentDidMount = async () => {
-		const { members } = await fetchMembers({});
-		const { majors } = await fetchMajors();
-		const { membersNumEvents } = await fetchMembersNumEvents();
-		const { events } = await fetchEvents({});
+		const { classData, cumulativeDateJoinedData,
+			majorData, membersEventAttendanceData, numPeoplePerDateJoinedData, eventAttendancePerMonthData } = await fetchMembersReport();
 
-		console.log('ReportsPage fetched members:', members);
-		console.log('ReportsPage fetched majors:', majors);
-		console.log('ReportsPage fetched membersNumEvents:', membersNumEvents);
-		console.log('ReportsPage fetched events:', events);
-		this.setState({ members, majors, membersNumEvents, events, loading: false });
-	};
-
-	setupClassData = () => {
-		const gradeData = [0, 0, 0, 0];
-
-		for (var i = 0; i < this.state.members.length; i++) {
-			if (this.state.members[i].graduationYear) {
-				switch (this.state.members[i].graduationYear) {
-					//freshman
-					case 2022:
-						gradeData[0] += 1;
-						break;
-					//sophomore
-					case 2021:
-						gradeData[1] += 1;
-						break;
-					//junior
-					case 2020:
-						gradeData[2] += 1;
-						break;
-					//senior
-					case 2019:
-						gradeData[3] += 1;
-						break;
-					default:
-						break;
-				}
-			}
-		}
-
-		return getClassData(gradeData);
-	};
-	setupMajorData = () => {
-		const majorDataDict = {
-			'Computer Science': 0,
-			'Computer Graphics Technology': 0,
-			'Computer Information Technology': 0,
-			'Electrical Computer Engineering': 0,
-			'Electrical Engineering': 0,
-			'First Year Engineering': 0,
-			Math: 0,
-			'Mechanical Engineering': 0,
-			Other: 0
-		};
-
-		for (var i = 0; i < this.state.majors.length; i++) {
-			if (this.state.majors[i]) {
-				majorDataDict[this.state.majors[i]] += 1;
-			}
-		}
-
-		return getMajorData(majorDataDict);
+		console.log('ReportsPage fetched classData', classData);
+		console.log('ReportsPage fetched cumulativeDateJoinedData', cumulativeDateJoinedData);
+		console.log('ReportsPage fetched majorData', majorData);
+		console.log('ReportsPage fetched membersEventAttendanceData', membersEventAttendanceData);
+		console.log('ReportsPage fetched numPeoplePerDateJoinedData', numPeoplePerDateJoinedData);
+		this.setState({ classData, cumulativeDateJoinedData, majorData, membersEventAttendanceData, numPeoplePerDateJoinedData, eventAttendancePerMonthData, loading: false });
 	};
 
 	getSpecificDateJoinedData = () => {
-		var numPeoplePerDateJoined = {};
-
-		for (var i = 0; i < this.state.members.length; i++) {
-			if (this.state.members[i].createdAt) {
-				const date = new Date(this.state.members[i].createdAt);
-				const month = date.getMonth();
-				const year = date.getFullYear();
-				var formattedDate;
-				if (month + 1 < 10) {
-					formattedDate = `0${month + 1}/${year}`;
-				} else {
-					formattedDate = `${month + 1}/${year}`;
-				}
-
-				if (!numPeoplePerDateJoined[formattedDate]) {
-					numPeoplePerDateJoined[formattedDate] = 1;
-				} else {
-					numPeoplePerDateJoined[formattedDate] += 1;
-				}
-			}
-		}
-
 		const data = {
-			labels: Object.keys(numPeoplePerDateJoined).reverse(),
+			labels: Object.keys(this.state.numPeoplePerDateJoinedData),
 			datasets: [
 				{
 					label: '# New Members Per Month',
@@ -147,7 +73,7 @@ class ReportsPage extends Component {
 					pointHoverBorderWidth: 2,
 					pointRadius: 1,
 					pointHitRadius: 10,
-					data: Object.values(numPeoplePerDateJoined).reverse()
+					data: Object.values(this.state.numPeoplePerDateJoinedData)
 				}
 			]
 		};
@@ -156,36 +82,8 @@ class ReportsPage extends Component {
 	};
 
 	getCumulativeDateJoinedData = () => {
-		var numPeopleAtDate = {};
-
-		for (var i = 0; i < this.state.members.length; i++) {
-			if (this.state.members[i].createdAt) {
-				const date = new Date(this.state.members[i].createdAt);
-				const month = date.getMonth();
-				const year = date.getFullYear();
-				var formattedDate;
-				if (month + 1 < 10) {
-					formattedDate = `0${month + 1}/${year}`;
-				} else {
-					formattedDate = `${month + 1}/${year}`;
-				}
-
-				if (!numPeopleAtDate[formattedDate]) {
-					numPeopleAtDate[formattedDate] = 1;
-				} else {
-					numPeopleAtDate[formattedDate] += 1;
-				}
-			}
-		}
-
-		for (var j = Object.keys(numPeopleAtDate).length - 2; j >= 0; j--) {
-			const currDate = Object.keys(numPeopleAtDate)[j];
-			const prevDate = Object.keys(numPeopleAtDate)[j + 1];
-			numPeopleAtDate[currDate] = numPeopleAtDate[currDate] + numPeopleAtDate[prevDate];
-		}
-
 		const data = {
-			labels: Object.keys(numPeopleAtDate).reverse(),
+			labels: Object.keys(this.state.cumulativeDateJoinedData),
 			datasets: [
 				{
 					label: '# Members',
@@ -206,7 +104,7 @@ class ReportsPage extends Component {
 					pointHoverBorderWidth: 2,
 					pointRadius: 1,
 					pointHitRadius: 10,
-					data: Object.values(numPeopleAtDate).reverse()
+					data: Object.values(this.state.cumulativeDateJoinedData)
 				}
 			]
 		};
@@ -214,45 +112,9 @@ class ReportsPage extends Component {
 		return data;
 	};
 
-	setupMembersEventAttendance = () => {
-		const eventAttendance = {};
-
-		for (var i = 0; i < this.state.membersNumEvents.length; i++) {
-			if (eventAttendance[this.state.membersNumEvents[i]]) {
-				eventAttendance[this.state.membersNumEvents[i]] += 1;
-			} else {
-				eventAttendance[this.state.membersNumEvents[i]] = 1;
-			}
-		}
-
-		return getMembersEventAttendance(eventAttendance, 'Members Event Attendance');
-	};
-
 	getEventAttendance = () => {
-		var numAttendeesPerDate = {};
-
-		for (var i = 0; i < this.state.events.length; i++) {
-			if (this.state.events[i].members && this.state.events[i].members.length > 0) {
-				const date = new Date(this.state.events[i].eventTime);
-				const month = date.getMonth();
-				const year = date.getFullYear();
-				var formattedDate;
-				if (month + 1 < 10) {
-					formattedDate = `0${month + 1}/${year}`;
-				} else {
-					formattedDate = `${month + 1}/${year}`;
-				}
-
-				if (!numAttendeesPerDate[formattedDate]) {
-					numAttendeesPerDate[formattedDate] = this.state.events[i].members.length;
-				} else {
-					numAttendeesPerDate[formattedDate] += this.state.events[i].members.length;
-				}
-			}
-		}
-
 		const data = {
-			labels: Object.keys(numAttendeesPerDate).reverse(),
+			labels: Object.keys(this.state.eventAttendancePerMonthData),
 			datasets: [
 				{
 					label: 'Total Event Attendance Per Month',
@@ -273,7 +135,7 @@ class ReportsPage extends Component {
 					pointHoverBorderWidth: 2,
 					pointRadius: 1,
 					pointHitRadius: 10,
-					data: Object.values(numAttendeesPerDate).reverse()
+					data: Object.values(this.state.eventAttendancePerMonthData)
 				}
 			]
 		};
@@ -296,12 +158,12 @@ class ReportsPage extends Component {
 					style={{ paddingBottom: '30px' }}
 				>
 					<div className="section-container">
-						<Bar data={this.setupClassData()} options={getClassOptions()} />
+						<Bar data={getClassData(this.state.classData)} options={getClassOptions()} />
 					</div>
 				</div>
 				<div className="section" style={{ paddingBottom: '30px' }}>
 					<div className="section-container">
-						<Bar data={this.setupMajorData()} options={getMajorOptions()} />
+						<Bar data={getMajorData(this.state.majorData)} options={getMajorOptions()} />
 					</div>
 				</div>
 				<div className="section" style={{ paddingBottom: '30px' }}>
@@ -317,7 +179,7 @@ class ReportsPage extends Component {
 				<div className="section" style={{ paddingBottom: '30px' }}>
 					<div className="section-container">
 						<Bar
-							data={this.setupMembersEventAttendance()}
+							data={getMembersEventAttendance(this.state.membersEventAttendanceData)}
 							options={getMembersEventAttendanceOptions()}
 						/>
 					</div>

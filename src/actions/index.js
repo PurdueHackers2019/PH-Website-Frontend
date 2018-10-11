@@ -99,37 +99,6 @@ export const clearFlashMessages = () => dispatch => {
 	dispatch(setRedFlash(''));
 };
 
-export const fetchMajors = async () => {
-	try {
-		const {
-			data: { response }
-		} = await axios.get('/api/members/majors');
-		return response;
-	} catch (error) {
-		throw error.response.data;
-	}
-};
-export const fetchEventsPriorToEvent = async id => {
-	try {
-		const {
-			data: { response }
-		} = await axios.get(`/api/events/before/${id}`);
-		return response;
-	} catch (error) {
-		throw error.response.data;
-	}
-};
-export const fetchMembersNumEvents = async () => {
-	try {
-		const {
-			data: { response }
-		} = await axios.get('/api/members/num_events');
-		return response;
-	} catch (error) {
-		throw error.response.data;
-	}
-};
-
 export const fetchMembers = async params => {
 	try {
 		const token = getToken();
@@ -620,28 +589,52 @@ export const storageChanged = e => dispatch => {
 	dispatch(setUser(getCurrentUser()));
 };
 
+// *Reports Page* Actions
+export const fetchMembersReport = async () => {
+	try {
+		const {
+			data: { response }
+		} = await axios.get('/api/report/members');
+		return response;
+	} catch (error) {
+		throw error.response.data;
+	}
+};
+
+export const fetchEventReport = async id => {
+	try {
+		const {
+			data: { response }
+		} = await axios.get(`/api/report/event/${id}`);
+		return response;
+	} catch (error) {
+		throw error.response.data;
+	}
+}
+
 // Getting Graph Data Functions
-export const getClassData = (gradeData, msg) => {
+export const getClassData = (gradeData) => {
 	const data = {
-		labels: ['Freshman', 'Sophomore', 'Junior', 'Senior'],
+		labels: Object.keys(gradeData),
 		datasets: [
 			{
-				label: msg ? `Class Distribution ${msg}` : 'Class Distribution',
+				label: 'Class Distribution',
 				backgroundColor: 'rgba(255,99,132,0.2)',
 				borderColor: 'rgba(255,99,132,1)',
 				borderWidth: 1,
 				hoverBackgroundColor: 'rgba(255,99,132,0.4)',
 				hoverBorderColor: 'rgba(255,99,132,1)',
-				data: gradeData
+				data: Object.values(gradeData),
 			}
 		]
 	};
 	return data;
 };
-export const getMajorData = majorDataDict => {
+export const getMajorData = majorData => {
 	//TODO:_> Sort by greatest to least
+	//['CS', 'CGT', 'CIT', 'ECE', 'EE', 'FYE', 'ME', 'Other']
 	const data = {
-		labels: ['CS', 'CGT', 'CIT', 'ECE', 'EE', 'FYE', 'ME', 'Other'],
+		labels: Object.keys(majorData),
 		datasets: [
 			{
 				label: 'Major Distribution',
@@ -650,46 +643,24 @@ export const getMajorData = majorDataDict => {
 				borderWidth: 1,
 				hoverBackgroundColor: 'rgba(0, 102, 255, 0.4)',
 				hoverBorderColor: 'rgba(0, 82, 204, 1)',
-				data: Object.values(majorDataDict)
+				data: Object.values(majorData)
 			}
 		]
 	};
 	return data;
 };
-export const getMembersEventAttendance = (eventAttendance, title) => {
-	// Group all data with >10 events into one >10 box
-	const maxEventValue = 10;
-	var refinedEventAttendance = {};
-	for (var i = 0; i < Object.keys(eventAttendance).length; i++) {
-		var gTEMaxEventValue = false;
-		if (Object.keys(eventAttendance)[i] >= maxEventValue) {
-			gTEMaxEventValue = true;
-		}
-		if (!gTEMaxEventValue) {
-			refinedEventAttendance[Object.keys(eventAttendance)[i]] =
-				eventAttendance[Object.keys(eventAttendance)[i]];
-		} else {
-			if (refinedEventAttendance[`>${maxEventValue}`]) {
-				refinedEventAttendance[`>${maxEventValue}`] +=
-					eventAttendance[Object.keys(eventAttendance)[i]];
-			} else {
-				refinedEventAttendance[`>${maxEventValue}`] =
-					eventAttendance[Object.keys(eventAttendance)[i]];
-			}
-		}
-	}
-	console.log(refinedEventAttendance);
+export const getMembersEventAttendance = (membersEventAttendanceData) => {
 	const data = {
-		labels: Object.keys(refinedEventAttendance),
+		labels: Object.keys(membersEventAttendanceData),
 		datasets: [
 			{
-				label: `${title}`,
+				label: `Members Event Attendance`,
 				backgroundColor: 'rgba(179, 102, 255, 0.2)',
 				borderColor: 'rgba(140, 26, 255, 1)',
 				borderWidth: 1,
 				hoverBackgroundColor: 'rgba(179, 102, 255, 0.4)',
 				hoverBorderColor: 'rgba(140, 26, 255, 1)',
-				data: Object.values(refinedEventAttendance)
+				data: Object.values(membersEventAttendanceData)
 			}
 		]
 	};
@@ -703,7 +674,7 @@ export const getClassOptions = () => {
 				{
 					ticks: {
 						beginAtZero: true,
-						callback: function(value) {
+						callback: function (value) {
 							if (Number.isInteger(value)) {
 								return value;
 							}
@@ -721,7 +692,7 @@ export const getMajorOptions = () => {
 				{
 					ticks: {
 						beginAtZero: true,
-						callback: function(value) {
+						callback: function (value) {
 							if (Number.isInteger(value)) {
 								return value;
 							}
@@ -739,7 +710,7 @@ export const getMembersEventAttendanceOptions = () => {
 				{
 					ticks: {
 						beginAtZero: true,
-						callback: function(value) {
+						callback: function (value) {
 							if (Number.isInteger(value)) {
 								return value;
 							}
