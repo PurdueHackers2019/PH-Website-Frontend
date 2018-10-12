@@ -162,12 +162,12 @@ class ReportsPage extends Component {
 				</div>
 				<div className="section" style={{ paddingBottom: '30px' }}>
 					<div className="section-container">
-						<Bar data={getClassData(this.state.classData)} options={getClassOptions()} />
+						<Bar data={getClassData(this.state.classData)} options={getClassOptions().options} />
 					</div>
 				</div>
 				<div className="section" style={{ paddingBottom: '30px' }}>
 					<div className="section-container">
-						<Bar data={getMajorData(this.state.majorData)} options={getMajorOptions()} />
+						<Bar data={getMajorData(this.state.majorData)} options={getMajorOptions().options} />
 					</div>
 				</div>
 				<div className="section" style={{ paddingBottom: '30px' }}>
@@ -184,7 +184,7 @@ class ReportsPage extends Component {
 					<div className="section-container">
 						<Bar
 							data={getMembersEventAttendance(this.state.membersEventAttendanceData)}
-							options={getMembersEventAttendanceOptions()}
+							options={getMembersEventAttendanceOptions().options}
 						/>
 					</div>
 				</div>

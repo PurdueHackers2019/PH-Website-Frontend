@@ -96,13 +96,13 @@ class ReportsPage extends Component {
 				<div className="section">
 					<div className="section-container" style={{ paddingBottom: '30px' }}>
 						<Header message="Class Data" />
-						<Bar data={getClassData(classData)} options={getClassOptions()} />
+						<Bar data={getClassData(classData)} options={getClassOptions().options} />
 					</div>
 				</div>
 				<div className="section" style={{ paddingBottom: '30px' }}>
 					<div className="section-container">
 						<Header message="Major Data" />
-						<Bar data={getMajorData(majorData)} options={getMajorOptions()} />
+						<Bar data={getMajorData(majorData)} options={getMajorOptions().options} />
 					</div>
 				</div>
 				<div className="section">
@@ -110,7 +110,7 @@ class ReportsPage extends Component {
 						<Header message="Member Event Attendance" />
 						<Bar
 							data={getMembersEventAttendance(membersEventAttendanceData)}
-							options={getMembersEventAttendanceOptions()}
+							options={getMembersEventAttendanceOptions().options}
 						/>
 					</div>
 				</div>
