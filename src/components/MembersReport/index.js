@@ -18,11 +18,8 @@ class ReportsPage extends Component {
 	static propTypes = {
 		history: PropTypes.shape({
 			push: PropTypes.func
-		}).isRequired,
-		user: PropTypes.object
+		}).isRequired
 	};
-
-	static defaultProps = { user: null };
 
 	constructor(props) {
 		super(props);
@@ -32,22 +29,33 @@ class ReportsPage extends Component {
 			eventAttendancePerMonthData: {},
 			majorData: {},
 			membersEventAttendanceData: {},
-			numPeoplePerDateJoinedData: {},
-			eventAttendancePerMonthData: {},
-			loading: true
+			numPeoplePerDateJoinedData: {}
 		};
 	}
 
 	componentDidMount = async () => {
-		const { classData, cumulativeDateJoinedData,
-			majorData, membersEventAttendanceData, numPeoplePerDateJoinedData, eventAttendancePerMonthData } = await fetchMembersReport();
+		const {
+			classData,
+			cumulativeDateJoinedData,
+			majorData,
+			membersEventAttendanceData,
+			numPeoplePerDateJoinedData,
+			eventAttendancePerMonthData
+		} = await fetchMembersReport();
 
 		console.log('ReportsPage fetched classData', classData);
 		console.log('ReportsPage fetched cumulativeDateJoinedData', cumulativeDateJoinedData);
 		console.log('ReportsPage fetched majorData', majorData);
 		console.log('ReportsPage fetched membersEventAttendanceData', membersEventAttendanceData);
 		console.log('ReportsPage fetched numPeoplePerDateJoinedData', numPeoplePerDateJoinedData);
-		this.setState({ classData, cumulativeDateJoinedData, majorData, membersEventAttendanceData, numPeoplePerDateJoinedData, eventAttendancePerMonthData, loading: false });
+		this.setState({
+			classData,
+			cumulativeDateJoinedData,
+			majorData,
+			membersEventAttendanceData,
+			numPeoplePerDateJoinedData,
+			eventAttendancePerMonthData
+		});
 	};
 
 	getSpecificDateJoinedData = () => {
@@ -152,11 +160,7 @@ class ReportsPage extends Component {
 						<h3>Members Report</h3>
 					</div>
 				</div>
-				<div
-					className="section"
-					style={{ textAlign: 'left' }}
-					style={{ paddingBottom: '30px' }}
-				>
+				<div className="section" style={{ paddingBottom: '30px' }}>
 					<div className="section-container">
 						<Bar data={getClassData(this.state.classData)} options={getClassOptions()} />
 					</div>

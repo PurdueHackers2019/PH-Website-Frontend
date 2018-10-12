@@ -610,10 +610,10 @@ export const fetchEventReport = async id => {
 	} catch (error) {
 		throw error.response.data;
 	}
-}
+};
 
 // Getting Graph Data Functions
-export const getClassData = (gradeData) => {
+export const getClassData = gradeData => {
 	const data = {
 		labels: Object.keys(gradeData),
 		datasets: [
@@ -624,15 +624,13 @@ export const getClassData = (gradeData) => {
 				borderWidth: 1,
 				hoverBackgroundColor: 'rgba(255,99,132,0.4)',
 				hoverBorderColor: 'rgba(255,99,132,1)',
-				data: Object.values(gradeData),
+				data: Object.values(gradeData)
 			}
 		]
 	};
 	return data;
 };
 export const getMajorData = majorData => {
-	//TODO:_> Sort by greatest to least
-	//['CS', 'CGT', 'CIT', 'ECE', 'EE', 'FYE', 'ME', 'Other']
 	const data = {
 		labels: Object.keys(majorData),
 		datasets: [
@@ -649,7 +647,7 @@ export const getMajorData = majorData => {
 	};
 	return data;
 };
-export const getMembersEventAttendance = (membersEventAttendanceData) => {
+export const getMembersEventAttendance = membersEventAttendanceData => {
 	const data = {
 		labels: Object.keys(membersEventAttendanceData),
 		datasets: [
@@ -667,57 +665,61 @@ export const getMembersEventAttendance = (membersEventAttendanceData) => {
 	return data;
 };
 // Getting graph option(s) functions
-export const getClassOptions = () => {
-	return {
+export const getClassOptions = () => ({
+	options: {
 		scales: {
 			yAxes: [
 				{
 					ticks: {
 						beginAtZero: true,
-						callback: function (value) {
+						callback: value => {
 							if (Number.isInteger(value)) {
 								return value;
 							}
+							return null;
 						}
 					}
 				}
 			]
 		}
-	};
-};
-export const getMajorOptions = () => {
-	return {
+	}
+});
+
+export const getMajorOptions = () => ({
+	options: {
 		scales: {
 			yAxes: [
 				{
 					ticks: {
 						beginAtZero: true,
-						callback: function (value) {
+						callback: value => {
 							if (Number.isInteger(value)) {
 								return value;
 							}
+							return null;
 						}
 					}
 				}
 			]
 		}
-	};
-};
-export const getMembersEventAttendanceOptions = () => {
-	return {
+	}
+});
+export const getMembersEventAttendanceOptions = () => ({
+	options: {
 		scales: {
 			yAxes: [
 				{
 					ticks: {
 						beginAtZero: true,
-						callback: function (value) {
+						callback: value => {
 							if (Number.isInteger(value)) {
 								return value;
 							}
+							return null;
 						}
 					}
 				}
 			]
 		}
-	};
-};
+	}
+});

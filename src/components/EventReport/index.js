@@ -5,14 +5,12 @@ import { Link } from 'react-router-dom';
 import {
 	sendFlashMessage,
 	clearFlashMessages,
-	fetchEvent,
 	getClassData,
 	getClassOptions,
 	getMajorData,
 	getMajorOptions,
 	getMembersEventAttendance,
 	getMembersEventAttendanceOptions,
-	fetchEventsPriorToEvent,
 	fetchEventReport
 } from '../../actions';
 import { err } from '../../constants';
@@ -33,7 +31,7 @@ class ReportsPage extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			eventName: "",
+			eventName: '',
 			classData: {},
 			majorData: {},
 			membersEventAttendanceData: {},
@@ -52,9 +50,20 @@ class ReportsPage extends Component {
 		} = this.props;
 		try {
 			clear();
-			const { eventName, classData, majorData, membersEventAttendanceData } = await fetchEventReport(id);
+			const {
+				eventName,
+				classData,
+				majorData,
+				membersEventAttendanceData
+			} = await fetchEventReport(id);
 
-			this.setState({ eventName, classData, majorData, membersEventAttendanceData, loading: false });
+			this.setState({
+				eventName,
+				classData,
+				majorData,
+				membersEventAttendanceData,
+				loading: false
+			});
 		} catch (error) {
 			this.setState({ loading: false });
 			flash(err(error));
