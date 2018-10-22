@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 import { Header } from '../Common';
 import {
 	fetchMembersReport,
-	getClassData,
-	getClassOptions,
+	getGradeData,
+	getGradeOptions,
 	getMajorData,
 	getMajorOptions,
-	getMembersEventAttendance,
+	getMembersEventAttendanceData,
 	getMembersEventAttendanceOptions
 } from '../../actions';
 
@@ -24,43 +24,38 @@ class ReportsPage extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			classData: {},
-			cumulativeDateJoinedData: {},
-			eventAttendancePerMonthData: {},
 			majorData: {},
+			classData: {},
 			membersEventAttendanceData: {},
-			numPeoplePerDateJoinedData: {}
+			numNewMembersPerMonthData: {},
+			numMembersPerMonthData: {},
+			eventAttendancePerMonthData: {}
 		};
 	}
 
 	componentDidMount = async () => {
 		const {
-			classData,
-			cumulativeDateJoinedData,
-			majorData,
-			membersEventAttendanceData,
-			numPeoplePerDateJoinedData,
-			eventAttendancePerMonthData
+			majors: majorData,
+			grades: classData,
+			membersEventAttendance: membersEventAttendanceData,
+			numNewMembersPerMonth: numNewMembersPerMonthData,
+			numMembersPerMonth: numMembersPerMonthData,
+			eventAttendancePerMonth: eventAttendancePerMonthData
 		} = await fetchMembersReport();
 
-		console.log('ReportsPage fetched classData', classData);
-		console.log('ReportsPage fetched cumulativeDateJoinedData', cumulativeDateJoinedData);
-		console.log('ReportsPage fetched majorData', majorData);
-		console.log('ReportsPage fetched membersEventAttendanceData', membersEventAttendanceData);
-		console.log('ReportsPage fetched numPeoplePerDateJoinedData', numPeoplePerDateJoinedData);
 		this.setState({
 			classData,
-			cumulativeDateJoinedData,
 			majorData,
 			membersEventAttendanceData,
-			numPeoplePerDateJoinedData,
+			numNewMembersPerMonthData,
+			numMembersPerMonthData,
 			eventAttendancePerMonthData
 		});
 	};
 
-	getSpecificDateJoinedData = () => {
+	getNumNewMembersPerMonthData = () => {
 		const data = {
-			labels: Object.keys(this.state.numPeoplePerDateJoinedData),
+			labels: Object.keys(this.state.numNewMembersPerMonthData),
 			datasets: [
 				{
 					label: '# New Members Per Month',
@@ -81,7 +76,7 @@ class ReportsPage extends Component {
 					pointHoverBorderWidth: 2,
 					pointRadius: 1,
 					pointHitRadius: 10,
-					data: Object.values(this.state.numPeoplePerDateJoinedData)
+					data: Object.values(this.state.numNewMembersPerMonthData)
 				}
 			]
 		};
@@ -89,9 +84,9 @@ class ReportsPage extends Component {
 		return data;
 	};
 
-	getCumulativeDateJoinedData = () => {
+	getNumMembersPerMonthData = () => {
 		const data = {
-			labels: Object.keys(this.state.cumulativeDateJoinedData),
+			labels: Object.keys(this.state.numMembersPerMonthData),
 			datasets: [
 				{
 					label: '# Members',
@@ -112,7 +107,7 @@ class ReportsPage extends Component {
 					pointHoverBorderWidth: 2,
 					pointRadius: 1,
 					pointHitRadius: 10,
-					data: Object.values(this.state.cumulativeDateJoinedData)
+					data: Object.values(this.state.numMembersPerMonthData)
 				}
 			]
 		};
@@ -162,28 +157,34 @@ class ReportsPage extends Component {
 				</div>
 				<div className="section" style={{ paddingBottom: '30px' }}>
 					<div className="section-container">
-						<Bar data={getClassData(this.state.classData)} options={getClassOptions().options} />
-					</div>
-				</div>
-				<div className="section" style={{ paddingBottom: '30px' }}>
-					<div className="section-container">
-						<Bar data={getMajorData(this.state.majorData)} options={getMajorOptions().options} />
-					</div>
-				</div>
-				<div className="section" style={{ paddingBottom: '30px' }}>
-					<div className="section-container">
-						<Line data={this.getSpecificDateJoinedData()} />
-					</div>
-				</div>
-				<div className="section" style={{ paddingBottom: '30px' }}>
-					<div className="section-container">
-						<Line data={this.getCumulativeDateJoinedData()} />
+						<Bar
+							data={getGradeData(this.state.classData)}
+							options={getGradeOptions().options}
+						/>
 					</div>
 				</div>
 				<div className="section" style={{ paddingBottom: '30px' }}>
 					<div className="section-container">
 						<Bar
-							data={getMembersEventAttendance(this.state.membersEventAttendanceData)}
+							data={getMajorData(this.state.majorData)}
+							options={getMajorOptions().options}
+						/>
+					</div>
+				</div>
+				<div className="section" style={{ paddingBottom: '30px' }}>
+					<div className="section-container">
+						<Line data={this.getNumNewMembersPerMonthData()} />
+					</div>
+				</div>
+				<div className="section" style={{ paddingBottom: '30px' }}>
+					<div className="section-container">
+						<Line data={this.getNumMembersPerMonthData()} />
+					</div>
+				</div>
+				<div className="section" style={{ paddingBottom: '30px' }}>
+					<div className="section-container">
+						<Bar
+							data={getMembersEventAttendanceData(this.state.membersEventAttendanceData)}
 							options={getMembersEventAttendanceOptions().options}
 						/>
 					</div>

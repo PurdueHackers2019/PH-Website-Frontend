@@ -5,11 +5,11 @@ import { Link } from 'react-router-dom';
 import {
 	sendFlashMessage,
 	clearFlashMessages,
-	getClassData,
-	getClassOptions,
+	getGradeData,
+	getGradeOptions,
 	getMajorData,
 	getMajorOptions,
-	getMembersEventAttendance,
+	getMembersEventAttendanceData,
 	getMembersEventAttendanceOptions,
 	fetchEventReport
 } from '../../actions';
@@ -32,9 +32,10 @@ class ReportsPage extends Component {
 		super(props);
 		this.state = {
 			eventName: '',
-			classData: {},
+			gradeData: {},
 			majorData: {},
-			membersEventAttendanceData: {},
+			membersEventAttendancePriorToTheEventData: {},
+			membersCurrentEventAttendanceData: {},
 			loading: true
 		};
 		console.log('Event report page props', this.props);
@@ -52,16 +53,18 @@ class ReportsPage extends Component {
 			clear();
 			const {
 				eventName,
-				classData,
-				majorData,
-				membersEventAttendanceData
+				majors: majorData,
+				grades: gradeData,
+				membersEventAttendancePriorToTheEvent: membersEventAttendancePriorToTheEventData,
+				membersCurrentEventAttendance: membersCurrentEventAttendanceData
 			} = await fetchEventReport(id);
 
 			this.setState({
 				eventName,
-				classData,
+				gradeData,
 				majorData,
-				membersEventAttendanceData,
+				membersEventAttendancePriorToTheEventData,
+				membersCurrentEventAttendanceData,
 				loading: false
 			});
 		} catch (error) {
@@ -72,7 +75,14 @@ class ReportsPage extends Component {
 
 	render() {
 		const { match } = this.props;
-		const { eventName, classData, majorData, membersEventAttendanceData, loading } = this.state;
+		const {
+			eventName,
+			gradeData,
+			majorData,
+			membersEventAttendancePriorToTheEventData,
+			membersCurrentEventAttendanceData,
+			loading
+		} = this.state;
 
 		if (loading) return <span>Loading...</span>;
 		if (!loading && !eventName) return <CustomRedirect msgRed="Event not found" />;
@@ -81,7 +91,7 @@ class ReportsPage extends Component {
 			<div>
 				<div className="section">
 					<div className="section-container">
-						<Header message={eventName} />
+						<Header message={`Report for ${eventName}`} />
 						<h3>
 							<Link key={`${match.params.id}-1`} to={`/event/${match.params.id}`}>
 								<button type="button" className="pull-left btn btn-primary btn-sm">
@@ -95,21 +105,49 @@ class ReportsPage extends Component {
 				</div>
 				<div className="section">
 					<div className="section-container" style={{ paddingBottom: '30px' }}>
-						<Header message="Class Data" />
-						<Bar data={getClassData(classData)} options={getClassOptions().options} />
+						<Bar data={getGradeData(gradeData)} options={getGradeOptions().options} />
 					</div>
 				</div>
 				<div className="section" style={{ paddingBottom: '30px' }}>
 					<div className="section-container">
-						<Header message="Major Data" />
 						<Bar data={getMajorData(majorData)} options={getMajorOptions().options} />
 					</div>
 				</div>
 				<div className="section">
 					<div className="section-container">
-						<Header message="Member Event Attendance" />
 						<Bar
-							data={getMembersEventAttendance(membersEventAttendanceData)}
+							data={{
+								...getMembersEventAttendanceData(membersEventAttendancePriorToTheEventData),
+								datasets: [
+									{
+										...getMembersEventAttendanceData(
+											membersEventAttendancePriorToTheEventData
+										).datasets[0],
+										label: 'Attendees Event Attendance Prior to the Event'
+									}
+								]
+							}}
+							options={getMembersEventAttendanceOptions().options}
+						/>
+					</div>
+				</div>
+				<div className="section">
+					<div className="section-container">
+						<Bar
+							data={{
+								...getMembersEventAttendanceData(membersCurrentEventAttendanceData),
+								datasets: [
+									{
+										...getMembersEventAttendanceData(membersCurrentEventAttendanceData)
+											.datasets[0],
+										label: 'Attendees Current Event Attendance',
+										backgroundColor: 'rgba(89, 217, 138, 0.2)',
+										borderColor: 'rgba(89, 217, 138, 1)',
+										hoverBackgroundColor: 'rgba(89, 217, 138, 0.2)',
+										hoverBorderColor: 'rgba(89, 217, 138, 1)'
+									}
+								]
+							}}
 							options={getMembersEventAttendanceOptions().options}
 						/>
 					</div>

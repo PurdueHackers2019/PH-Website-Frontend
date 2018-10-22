@@ -613,7 +613,7 @@ export const fetchEventReport = async id => {
 };
 
 // Getting Graph Data Functions
-export const getClassData = gradeData => {
+export const getGradeData = gradeData => {
 	const data = {
 		labels: Object.keys(gradeData),
 		datasets: [
@@ -647,7 +647,7 @@ export const getMajorData = majorData => {
 	};
 	return data;
 };
-export const getMembersEventAttendance = membersEventAttendanceData => {
+export const getMembersEventAttendanceData = membersEventAttendanceData => {
 	const data = {
 		labels: Object.keys(membersEventAttendanceData),
 		datasets: [
@@ -665,7 +665,7 @@ export const getMembersEventAttendance = membersEventAttendanceData => {
 	return data;
 };
 // Getting graph option(s) functions
-export const getClassOptions = () => ({
+export const getGradeOptions = () => ({
 	options: {
 		scales: {
 			yAxes: [

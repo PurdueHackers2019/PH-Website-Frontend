@@ -143,6 +143,14 @@ class App extends Component {
 							token={token}
 							user={user}
 							exact
+							path={routes.PERMISSION}
+							roles={['permissions']}
+							component={Permission}
+						/>
+						<ProtectedRoute
+							token={token}
+							user={user}
+							exact
 							path={routes.ANVIL_WIFI}
 							component={AnvilWifi}
 						/>
