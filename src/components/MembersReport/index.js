@@ -2,15 +2,20 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Header } from '../Common';
+import { sendFlashMessage, clearFlashMessages, fetchMembersReport } from '../../actions';
 import {
-	fetchMembersReport,
-	getGradeData,
-	getGradeOptions,
-	getMajorData,
-	getMajorOptions,
-	getMembersEventAttendanceData,
-	getMembersEventAttendanceOptions
-} from '../../actions';
+	getGradeGraphData,
+	getGradeGraphOptions,
+	getMajorGraphData,
+	getMajorGraphOptions,
+	getNumNewMembersPerMonthGraphData,
+	getNumMembersPerMonthGraphData,
+	getMembersEventAttendanceGraphData,
+	getEventAttendanceGraphData,
+	getMembersEventAttendanceGraphOptions
+} from '../../constants/reports';
+
+import { err } from '../../constants';
 
 import { Bar, Line } from 'react-chartjs-2';
 
@@ -18,140 +23,84 @@ class ReportsPage extends Component {
 	static propTypes = {
 		history: PropTypes.shape({
 			push: PropTypes.func
-		}).isRequired
+		}).isRequired,
+		flash: PropTypes.func.isRequired,
+		clear: PropTypes.func.isRequired
 	};
 
 	constructor(props) {
 		super(props);
 		this.state = {
 			majorData: {},
-			classData: {},
+			gradeData: {},
 			membersEventAttendanceData: {},
 			numNewMembersPerMonthData: {},
 			numMembersPerMonthData: {},
-			eventAttendancePerMonthData: {}
+			eventAttendanceData: {},
+			loading: true
 		};
 	}
 
 	componentDidMount = async () => {
+		const { flash, clear } = this.props;
+		try {
+			clear();
+			const {
+				majors: majorData,
+				grades: gradeData,
+				membersEventAttendance: membersEventAttendanceData,
+				numNewMembersPerMonth: numNewMembersPerMonthData,
+				numMembersPerMonth: numMembersPerMonthData,
+				eventAttendancePerMonth: eventAttendanceData
+			} = await fetchMembersReport();
 
-		// TODO: Add try catch
-		const {
-			majors: majorData,
-			grades: classData,
-			membersEventAttendance: membersEventAttendanceData,
-			numNewMembersPerMonth: numNewMembersPerMonthData,
-			numMembersPerMonth: numMembersPerMonthData,
-			eventAttendancePerMonth: eventAttendancePerMonthData
-		} = await fetchMembersReport();
-
-		this.setState({
-			classData,
-			majorData,
-			membersEventAttendanceData,
-			numNewMembersPerMonthData,
-			numMembersPerMonthData,
-			eventAttendancePerMonthData
-		});
-	};
-
-
-	// TODO: Move these to constants
-	getNumNewMembersPerMonthData = () => {
-		const data = {
-			labels: Object.keys(this.state.numNewMembersPerMonthData),
-			datasets: [
-				{
-					label: '# New Members Per Month',
-					fill: false,
-					lineTension: 0.1,
-					backgroundColor: 'rgba(155, 232, 184, 0.4)',
-					borderColor: 'rgba(155, 232, 184, 1)',
-					borderCapStyle: 'butt',
-					borderDash: [],
-					borderDashOffset: 0.0,
-					borderJoinStyle: 'miter',
-					pointBorderColor: 'rgba(155, 232, 184, 1)',
-					pointBackgroundColor: '#fff',
-					pointBorderWidth: 1,
-					pointHoverRadius: 5,
-					pointHoverBackgroundColor: 'rgba(155, 232, 184, 1)',
-					pointHoverBorderColor: 'rgba(155, 232, 1840, 1)',
-					pointHoverBorderWidth: 2,
-					pointRadius: 1,
-					pointHitRadius: 10,
-					data: Object.values(this.state.numNewMembersPerMonthData)
-				}
-			]
-		};
-
-		return data;
-	};
-
-	getNumMembersPerMonthData = () => {
-		const data = {
-			labels: Object.keys(this.state.numMembersPerMonthData),
-			datasets: [
-				{
-					label: '# Members',
-					fill: false,
-					lineTension: 0.1,
-					backgroundColor: 'rgba(238, 218, 105, 0.4)',
-					borderColor: 'rgba(238, 218, 105, 1)',
-					borderCapStyle: 'butt',
-					borderDash: [],
-					borderDashOffset: 0.0,
-					borderJoinStyle: 'miter',
-					pointBorderColor: 'rgba(238, 218, 105, 1)',
-					pointBackgroundColor: '#fff',
-					pointBorderWidth: 1,
-					pointHoverRadius: 5,
-					pointHoverBackgroundColor: 'rgba(238, 218, 105, 1)',
-					pointHoverBorderColor: 'rgba((238, 218, 105, 1)',
-					pointHoverBorderWidth: 2,
-					pointRadius: 1,
-					pointHitRadius: 10,
-					data: Object.values(this.state.numMembersPerMonthData)
-				}
-			]
-		};
-
-		return data;
-	};
-
-	getEventAttendance = () => {
-		const data = {
-			labels: Object.keys(this.state.eventAttendancePerMonthData),
-			datasets: [
-				{
-					label: 'Total Event Attendance Per Month',
-					fill: false,
-					lineTension: 0.12,
-					backgroundColor: 'rgba(255, 99, 132, 0.4)',
-					borderColor: 'rgba(255, 99, 132, 1)',
-					borderCapStyle: 'butt',
-					borderDash: [],
-					borderDashOffset: 0.0,
-					borderJoinStyle: 'miter',
-					pointBorderColor: 'rgba(255, 99, 132, 1)',
-					pointBackgroundColor: '#fff',
-					pointBorderWidth: 1,
-					pointHoverRadius: 5,
-					pointHoverBackgroundColor: 'rgba(255, 99, 132, 1)',
-					pointHoverBorderColor: 'rgba(255, 99, 132, 1)',
-					pointHoverBorderWidth: 2,
-					pointRadius: 1,
-					pointHitRadius: 10,
-					data: Object.values(this.state.eventAttendancePerMonthData)
-				}
-			]
-		};
-
-		return data;
+			this.setState({
+				gradeData,
+				majorData,
+				membersEventAttendanceData,
+				numNewMembersPerMonthData,
+				numMembersPerMonthData,
+				eventAttendanceData,
+				loading: false
+			});
+		} catch (error) {
+			this.setState({ loading: false });
+			flash(err(error));
+		}
 	};
 
 	render() {
 		// TODO: Make vars that hold the result of the functions
+		const {
+			gradeData,
+			majorData,
+			membersEventAttendanceData,
+			numNewMembersPerMonthData,
+			numMembersPerMonthData,
+			eventAttendanceData,
+			loading
+		} = this.state;
+
+		if (loading) return <span>Loading...</span>;
+
+		const gradeGraphData = getGradeGraphData(gradeData);
+		const gradeGraphOptions = getGradeGraphOptions().options;
+
+		const majorGraphData = getMajorGraphData(majorData);
+		const majorGraphOptions = getMajorGraphOptions().options;
+
+		const numNewMembersPerMonthGraphData = getNumNewMembersPerMonthGraphData(
+			numNewMembersPerMonthData
+		);
+
+		const numMembersPerMonthGraphData = getNumMembersPerMonthGraphData(numMembersPerMonthData);
+		const membersEventAttendanceGraphData = getMembersEventAttendanceGraphData(
+			membersEventAttendanceData
+		);
+		const membersEventAttendanceGraphOptions = getMembersEventAttendanceGraphOptions().options;
+
+		const eventAttendanceGraphData = getEventAttendanceGraphData(eventAttendanceData);
+
 		return (
 			<div>
 				<div className="section">
@@ -162,41 +111,35 @@ class ReportsPage extends Component {
 				</div>
 				<div className="section" style={{ paddingBottom: '30px' }}>
 					<div className="section-container">
-						<Bar
-							data={getGradeData(this.state.classData)}
-							options={getGradeOptions().options}
-						/>
+						<Bar data={gradeGraphData} options={gradeGraphOptions} />
+					</div>
+				</div>
+				<div className="section" style={{ paddingBottom: '30px' }}>
+					<div className="section-container">
+						<Bar data={majorGraphData} options={majorGraphOptions} />
+					</div>
+				</div>
+				<div className="section" style={{ paddingBottom: '30px' }}>
+					<div className="section-container">
+						<Line data={numNewMembersPerMonthGraphData} />
+					</div>
+				</div>
+				<div className="section" style={{ paddingBottom: '30px' }}>
+					<div className="section-container">
+						<Line data={numMembersPerMonthGraphData} />
 					</div>
 				</div>
 				<div className="section" style={{ paddingBottom: '30px' }}>
 					<div className="section-container">
 						<Bar
-							data={getMajorData(this.state.majorData)}
-							options={getMajorOptions().options}
-						/>
-					</div>
-				</div>
-				<div className="section" style={{ paddingBottom: '30px' }}>
-					<div className="section-container">
-						<Line data={this.getNumNewMembersPerMonthData()} />
-					</div>
-				</div>
-				<div className="section" style={{ paddingBottom: '30px' }}>
-					<div className="section-container">
-						<Line data={this.getNumMembersPerMonthData()} />
-					</div>
-				</div>
-				<div className="section" style={{ paddingBottom: '30px' }}>
-					<div className="section-container">
-						<Bar
-							data={getMembersEventAttendanceData(this.state.membersEventAttendanceData)}
-							options={getMembersEventAttendanceOptions().options}
+							data={membersEventAttendanceGraphData}
+							options={membersEventAttendanceGraphOptions}
 						/>
 					</div>
 				</div>
 				<div className="section">
 					<div className="section-container">
-						<Line data={this.getEventAttendance()} />
+						<Line data={eventAttendanceGraphData} />
 					</div>
 				</div>
 			</div>
@@ -210,5 +153,8 @@ const mapStateToProps = state => ({
 
 export default connect(
 	mapStateToProps,
-	{}
+	{
+		flash: sendFlashMessage,
+		clear: clearFlashMessages
+	}
 )(ReportsPage);

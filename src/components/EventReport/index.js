@@ -2,17 +2,18 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { sendFlashMessage, clearFlashMessages, fetchEventReport } from '../../actions';
+
 import {
-	sendFlashMessage,
-	clearFlashMessages,
-	getGradeData,
-	getGradeOptions,
-	getMajorData,
-	getMajorOptions,
-	getMembersEventAttendanceData,
-	getMembersEventAttendanceOptions,
-	fetchEventReport
-} from '../../actions';
+	getGradeGraphData,
+	getGradeGraphOptions,
+	getMajorGraphData,
+	getMajorGraphOptions,
+	getMembersEventAttendanceGraphData,
+	getMembersCurrentEventAttendanceGraphData,
+	getMembersEventAttendanceGraphOptions
+} from '../../constants/reports';
+
 import { err } from '../../constants';
 import { CustomRedirect, Header } from '../Common';
 import { Bar } from 'react-chartjs-2';
@@ -87,6 +88,22 @@ class ReportsPage extends Component {
 		if (loading) return <span>Loading...</span>;
 		if (!loading && !eventName) return <CustomRedirect msgRed="Event not found" />;
 
+		const gradeGraphData = getGradeGraphData(gradeData);
+		const gradeGraphOptions = getGradeGraphOptions().options;
+
+		const majorGraphData = getMajorGraphData(majorData);
+		const majorGraphOptions = getMajorGraphOptions().options;
+
+		const membersEventAttendancePriorToTheEventGraphData = getMembersEventAttendanceGraphData(
+			membersEventAttendancePriorToTheEventData,
+			'Attendees Event Attendance Prior to the Event'
+		);
+
+		const membersCurrentEventAttendanceGraphData = getMembersCurrentEventAttendanceGraphData(
+			membersCurrentEventAttendanceData
+		);
+
+		const membersEventAttendanceGraphOptions = getMembersEventAttendanceGraphOptions().options;
 		return (
 			<div>
 				<div className="section">
@@ -105,50 +122,27 @@ class ReportsPage extends Component {
 				</div>
 				<div className="section">
 					<div className="section-container" style={{ paddingBottom: '30px' }}>
-						<Bar data={getGradeData(gradeData)} options={getGradeOptions().options} />
+						<Bar data={gradeGraphData} options={gradeGraphOptions} />
 					</div>
 				</div>
 				<div className="section" style={{ paddingBottom: '30px' }}>
 					<div className="section-container">
-						<Bar data={getMajorData(majorData)} options={getMajorOptions().options} />
+						<Bar data={majorGraphData} options={majorGraphOptions} />
 					</div>
 				</div>
 				<div className="section">
 					<div className="section-container">
 						<Bar
-							data={{
-								...getMembersEventAttendanceData(membersEventAttendancePriorToTheEventData),
-								datasets: [
-									{
-										...getMembersEventAttendanceData(
-											membersEventAttendancePriorToTheEventData
-										).datasets[0],
-										label: 'Attendees Event Attendance Prior to the Event'
-									}
-								]
-							}}
-							options={getMembersEventAttendanceOptions().options}
+							data={membersEventAttendancePriorToTheEventGraphData}
+							options={membersEventAttendanceGraphOptions}
 						/>
 					</div>
 				</div>
 				<div className="section">
 					<div className="section-container">
 						<Bar
-							data={{
-								...getMembersEventAttendanceData(membersCurrentEventAttendanceData),
-								datasets: [
-									{
-										...getMembersEventAttendanceData(membersCurrentEventAttendanceData)
-											.datasets[0],
-										label: 'Attendees Current Event Attendance',
-										backgroundColor: 'rgba(89, 217, 138, 0.2)',
-										borderColor: 'rgba(89, 217, 138, 1)',
-										hoverBackgroundColor: 'rgba(89, 217, 138, 0.2)',
-										hoverBorderColor: 'rgba(89, 217, 138, 1)'
-									}
-								]
-							}}
-							options={getMembersEventAttendanceOptions().options}
+							data={membersCurrentEventAttendanceGraphData}
+							options={membersEventAttendanceGraphOptions}
 						/>
 					</div>
 				</div>
