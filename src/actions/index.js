@@ -612,6 +612,7 @@ export const fetchEventReport = async id => {
 	}
 };
 
+// TODO: Move to constants folder
 // Getting Graph Data Functions
 export const getGradeData = gradeData => {
 	const data = {

@@ -34,6 +34,8 @@ class ReportsPage extends Component {
 	}
 
 	componentDidMount = async () => {
+
+		// TODO: Add try catch
 		const {
 			majors: majorData,
 			grades: classData,
@@ -53,6 +55,8 @@ class ReportsPage extends Component {
 		});
 	};
 
+
+	// TODO: Move these to constants
 	getNumNewMembersPerMonthData = () => {
 		const data = {
 			labels: Object.keys(this.state.numNewMembersPerMonthData),
@@ -147,6 +151,7 @@ class ReportsPage extends Component {
 	};
 
 	render() {
+		// TODO: Make vars that hold the result of the functions
 		return (
 			<div>
 				<div className="section">
