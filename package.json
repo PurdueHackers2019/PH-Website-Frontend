@@ -45,7 +45,9 @@
 		"redux-logger": "^3.0.6",
 		"redux-thunk": "^2.2.0",
 		"sanitize.css": "^5.0.0",
-		"validator": "^10.1.0"
+		"validator": "^10.1.0",
+		"winston": "^3.1.0",
+		"winston-mail": "^1.5.1"
 	},
 	"scripts": {
 		"start": "react-scripts start",
