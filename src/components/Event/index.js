@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { hasPermission, formatDate, shortName, err } from '../../constants';
 import { sendFlashMessage, clearFlashMessages, fetchEvent } from '../../actions';
 import { MembersAttendedTable, CustomRedirect, Header } from '../Common';
+import { logger } from '../../constants/logger';
 
 // TODO: Add autocomplete to input tags
 
@@ -30,7 +31,7 @@ class EventPage extends Component {
 			event: null,
 			loading: true
 		};
-		console.log('EventPage props:', this.props);
+		logger.info('EventPage props:', this.props);
 	}
 
 	componentDidMount = async () => {
@@ -46,7 +47,7 @@ class EventPage extends Component {
 			const event = await fetchEvent(id);
 			this.setState({ event, loading: false });
 		} catch (e) {
-			console.error('Event Page error:', e);
+			logger.error('Event Page error:', e);
 			this.setState({ loading: false });
 			flash(err(e));
 		}
@@ -130,8 +131,8 @@ class EventPage extends Component {
 						{event.members && event.members.length ? (
 							<MembersAttendedTable members={event.members} />
 						) : (
-							<h3>No Members attended</h3>
-						)}
+								<h3>No Members attended</h3>
+							)}
 					</div>
 				</div>
 			</div>

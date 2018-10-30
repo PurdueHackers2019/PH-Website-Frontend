@@ -13,6 +13,7 @@ import {
 	autocompleteMembers
 } from '../../actions';
 import { CustomRedirect, Header } from '../Common';
+import { logger } from '../../constants/logger';
 
 // TODO: Add autocomplete to input tags
 
@@ -42,7 +43,7 @@ class EventCheckinPage extends Component {
 			email: '',
 			selectedMember: null
 		};
-		console.log('EventCheckinPage props:', this.props);
+		logger.info('EventCheckinPage props:', this.props);
 	}
 
 	componentDidMount = async () => {
@@ -72,33 +73,33 @@ class EventCheckinPage extends Component {
 			// 	term: e.target.value,
 			// 	field
 			// });
-			// console.log('Autocomplete for:', field, response);
+			// logger.info('Autocomplete for:', field, response);
 			// return this.setState({ members: response });
 
 			const { value, id } = e.target;
-			console.log('ID:', id, '\tValue:', value);
+			logger.info('ID:', id, '\tValue:', value);
 			this.setState({ [id]: value });
 			if (value) {
 				const response = await autocompleteMembers({
 					term: value,
 					field
 				});
-				console.log('Autocomplete for:', field, response);
+				logger.info('Autocomplete for:', field, response);
 				return this.setState({ members: response });
 			}
 			return null;
 		} catch (error) {
-			console.error('EventCheckinPage error:', error);
+			logger.error('EventCheckinPage error:', error);
 			return flash(err(error));
 		}
 	};
 
 	onSelectionChange = async selection => {
-		console.log('Selection:', selection);
+		logger.info('Selection:', selection);
 		const nextState = { selectedMember: selection };
 		if (selection.name) nextState.name = selection.name;
 		if (selection.email) nextState.email = selection.email;
-		console.log('Next State:', selection);
+		logger.info('Next State:', selection);
 		this.setState(nextState);
 	};
 
@@ -111,12 +112,12 @@ class EventCheckinPage extends Component {
 			if (!event) return flash('Event does not exist');
 			if (!name) return flash('Please provide your name');
 			if (!email) return flash('Please provide your email');
-			console.log('Checking in member:', name, '\t', email);
+			logger.info('Checking in member:', name, '\t', email);
 			await checkinEvent(event._id, name, email);
 			this.setState({ selectedMember: null, name: '', email: '' });
 			return flash(`Checked in member: ${name}`, 'green');
 		} catch (error) {
-			console.error('EventCheckinPage error:', error);
+			logger.error('EventCheckinPage error:', error);
 			return flash(err(error));
 		}
 	};
@@ -129,12 +130,12 @@ class EventCheckinPage extends Component {
 			clear();
 			if (!event) return flash('Event does not exist');
 			if (!selectedMember) return flash('Please provide your name and email');
-			console.log('Selected Member:', selectedMember);
+			logger.info('Selected Member:', selectedMember);
 			await checkoutEvent(event._id, selectedMember._id);
 			this.setState({ selectedMember: null, name: '', email: '' });
 			return flash(`Checked out member: ${selectedMember.name}`, 'green');
 		} catch (error) {
-			console.error('EventCheckinPage error:', error);
+			logger.error('EventCheckinPage error:', error);
 			return flash(err(error));
 		}
 	};
@@ -176,56 +177,56 @@ class EventCheckinPage extends Component {
 										highlightedIndex,
 										isOpen
 									}) => (
-										<div>
-											<div className="input-group">
-												<span className="input-group-addon" id="memberNameTitle">
-													Name:
+											<div>
+												<div className="input-group">
+													<span className="input-group-addon" id="memberNameTitle">
+														Name:
 												</span>
-												<input
-													{...getInputProps({
-														onChange: e => this.onInputChange(e, 'name'),
-														id: 'name',
-														name: 'name',
-														className: 'form-control membersautocomplete',
-														placeholder: 'Member Name',
-														pattern: '([a-zA-Z]+ )+[a-zA-Z]+',
-														title: 'Please enter first and last name'
-													})}
-												/>
+													<input
+														{...getInputProps({
+															onChange: e => this.onInputChange(e, 'name'),
+															id: 'name',
+															name: 'name',
+															className: 'form-control membersautocomplete',
+															placeholder: 'Member Name',
+															pattern: '([a-zA-Z]+ )+[a-zA-Z]+',
+															title: 'Please enter first and last name'
+														})}
+													/>
+												</div>
+												{isOpen &&
+													members.length && (
+														<div>
+															{members
+																.filter(
+																	item =>
+																		!inputValue || item.name.includes(inputValue)
+																)
+																.map((item, index) => (
+																	<div
+																		{...getItemProps({
+																			key: item.name,
+																			index,
+																			item,
+																			style: {
+																				backgroundColor:
+																					highlightedIndex === index
+																						? 'lightgray'
+																						: 'white',
+																				fontWeight:
+																					selectedItem === item
+																						? 'bold'
+																						: 'normal'
+																			}
+																		})}
+																	>
+																		{item.name}
+																	</div>
+																))}
+														</div>
+													)}
 											</div>
-											{isOpen &&
-												members.length && (
-													<div>
-														{members
-															.filter(
-																item =>
-																	!inputValue || item.name.includes(inputValue)
-															)
-															.map((item, index) => (
-																<div
-																	{...getItemProps({
-																		key: item.name,
-																		index,
-																		item,
-																		style: {
-																			backgroundColor:
-																				highlightedIndex === index
-																					? 'lightgray'
-																					: 'white',
-																			fontWeight:
-																				selectedItem === item
-																					? 'bold'
-																					: 'normal'
-																		}
-																	})}
-																>
-																	{item.name}
-																</div>
-															))}
-													</div>
-												)}
-										</div>
-									)}
+										)}
 								</Downshift>
 								<br />
 								<Downshift
@@ -242,54 +243,54 @@ class EventCheckinPage extends Component {
 										highlightedIndex,
 										isOpen
 									}) => (
-										<div>
-											<div className="input-group">
-												<span className="input-group-addon" id="memberEmailTitle">
-													Email:
+											<div>
+												<div className="input-group">
+													<span className="input-group-addon" id="memberEmailTitle">
+														Email:
 												</span>
-												<input
-													{...getInputProps({
-														onChange: e => this.onInputChange(e, 'email'),
-														id: 'email',
-														name: 'email',
-														className: 'form-control',
-														placeholder: 'Member Email'
-													})}
-												/>
+													<input
+														{...getInputProps({
+															onChange: e => this.onInputChange(e, 'email'),
+															id: 'email',
+															name: 'email',
+															className: 'form-control',
+															placeholder: 'Member Email'
+														})}
+													/>
+												</div>
+												{isOpen &&
+													members.length && (
+														<div>
+															{members
+																.filter(
+																	item =>
+																		!inputValue || item.email.includes(inputValue)
+																)
+																.map((item, index) => (
+																	<div
+																		{...getItemProps({
+																			key: item.email,
+																			index,
+																			item,
+																			style: {
+																				backgroundColor:
+																					highlightedIndex === index
+																						? 'lightgray'
+																						: 'white',
+																				fontWeight:
+																					selectedItem === item
+																						? 'bold'
+																						: 'normal'
+																			}
+																		})}
+																	>
+																		{item.email}
+																	</div>
+																))}
+														</div>
+													)}
 											</div>
-											{isOpen &&
-												members.length && (
-													<div>
-														{members
-															.filter(
-																item =>
-																	!inputValue || item.email.includes(inputValue)
-															)
-															.map((item, index) => (
-																<div
-																	{...getItemProps({
-																		key: item.email,
-																		index,
-																		item,
-																		style: {
-																			backgroundColor:
-																				highlightedIndex === index
-																					? 'lightgray'
-																					: 'white',
-																			fontWeight:
-																				selectedItem === item
-																					? 'bold'
-																					: 'normal'
-																		}
-																	})}
-																>
-																	{item.email}
-																</div>
-															))}
-													</div>
-												)}
-										</div>
-									)}
+										)}
 								</Downshift>
 								<br />
 								<div className="input-group">

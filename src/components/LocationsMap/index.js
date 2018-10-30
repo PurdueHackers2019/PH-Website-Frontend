@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import routes from '../../constants';
 import { sendFlashMessage, clearFlashMessages, fetchJobs } from '../../actions';
 import { Header, MembersMap } from '../Common';
+import { logger } from '../../constants/logger';
 
 class LocationsMapPage extends Component {
 	static propTypes = {
@@ -25,11 +26,11 @@ class LocationsMapPage extends Component {
 			clear();
 			const jobs = await fetchJobs();
 			const locations = jobs.map(job => job.location);
-			console.log('Fetched locations:', locations);
+			logger.info('Fetched locations:', locations);
 			this.setState({ locations });
 		} catch (error) {
 			flash('Whoops! Something went wrong!');
-			console.error('LocationsPage error:', error);
+			logger.error('LocationsPage error:', error);
 		}
 	};
 

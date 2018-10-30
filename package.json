@@ -47,7 +47,7 @@
 		"sanitize.css": "^5.0.0",
 		"validator": "^10.1.0",
 		"winston": "^3.1.0",
-		"winston-mail": "^1.5.1"
+		"winston-transport": "^4.2.0"
 	},
 	"scripts": {
 		"start": "react-scripts start",
@@ -55,6 +55,6 @@
 		"test": "react-scripts test --env=jsdom",
 		"eject": "react-scripts eject",
 		"lint": "eslint src",
-		"deploy": "REACT_APP_NODE_ENV=production yarn build && firebase deploy"
+		"deploy": "REACT_APP_NODE_ENV=production yarn build"
 	}
 }

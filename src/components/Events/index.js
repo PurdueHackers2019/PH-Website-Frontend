@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { EventTable, Header } from '../Common';
 import routes, { hasPermission } from '../../constants';
 import { fetchEvents } from '../../actions';
+import { logger } from '../../constants/logger';
 
 // TODO: Implement pagination
 // TODO: Implement permissions
@@ -32,7 +33,7 @@ class EventsPage extends Component {
 
 	componentDidMount = async () => {
 		const { events } = await fetchEvents({});
-		console.log('EventsPage fetched events:', events);
+		logger.info('EventsPage fetched events:', events);
 		this.setState({ events, loading: false });
 	};
 
@@ -72,8 +73,8 @@ class EventsPage extends Component {
 					{loading ? (
 						<span>Loading...</span>
 					) : (
-						<EventTable events={events} push={this.props.history.push} allowed={allowed} />
-					)}
+							<EventTable events={events} push={this.props.history.push} allowed={allowed} />
+						)}
 				</div>
 			</div>
 		);

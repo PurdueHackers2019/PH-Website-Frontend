@@ -7,29 +7,17 @@
  */
 
 import { createLogger, format, transports } from 'winston';
-import util from 'util';
 import { CONFIG } from './';
-import { Mail } from 'winston-mail';
 
 const { combine, timestamp, printf } = format;
 
 const customFormat = printf(
-	info => `${info.level}: ${info.message}\n\n${util.inspect(info.meta)}\n\n${info.timestamp}`
+	info => `${info.level}: ${info.message}\n\n${JSON.stringify(info.meta)}\n\n${info.timestamp}`
 );
 
 const transport =
-	CONFIG.NODE_ENV === 'development'
-		? new transports.Console()
-		: new Mail({
-			to: 'prakrit_duangsutha@outlook.com',
-			from: 'pduangsu@gmail.com',
-			subject: 'PH-LOG',
-			host: 'smtp.gmail.com',
-			username: 'brillytest@gmail.com',
-			password: 'Abcdef123?',
-			port: 587,
-			tls: true
-		});
+	// FIXME: Connect to email backend
+	CONFIG.NODE_ENV === 'development' ? new transports.Console() : new transports.Console();
 
 export const logger = createLogger({
 	transports: [transport],

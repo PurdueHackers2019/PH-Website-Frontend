@@ -10,6 +10,7 @@ import {
 	addOrganizer
 } from '../../actions';
 import { Header } from '../Common';
+import { logger } from '../../constants/logger';
 
 class PermissionsPage extends Component {
 	static propTypes = {
@@ -30,7 +31,7 @@ class PermissionsPage extends Component {
 			organizerName: ''
 			// loading: true
 		};
-		console.log();
+		logger.info();
 	}
 
 	componentDidMount = async () => {
@@ -38,10 +39,10 @@ class PermissionsPage extends Component {
 		try {
 			clear();
 			const permissions = await fetchPermissions();
-			console.log('Fetched permissions:', permissions);
+			logger.info('Fetched permissions:', permissions);
 			this.setState({ permissions });
 		} catch (error) {
-			console.error('Permissions Page error:', error);
+			logger.error('Permissions Page error:', error);
 			flash(err(error));
 		}
 	};
@@ -69,7 +70,7 @@ class PermissionsPage extends Component {
 			});
 			return flash(`Successfully added permission: ${permission.name}`, 'green');
 		} catch (error) {
-			console.error('Permissions Page error:', error);
+			logger.error('Permissions Page error:', error);
 			return flash(err(error));
 		}
 	};
@@ -82,12 +83,12 @@ class PermissionsPage extends Component {
 			clear();
 			if (!organizerName) return flash('Permission must have name');
 			const { member, permissions } = await addOrganizer(organizerName);
-			console.log('Member:', member);
-			console.log('Permissions:', permissions);
+			logger.info('Member:', member);
+			logger.info('Permissions:', permissions);
 			this.setState({ organizerName: '', permissions });
 			return flash(`Successfully added organizer: ${member.name}`, 'green');
 		} catch (error) {
-			console.error('Permissions Page error:', error);
+			logger.error('Permissions Page error:', error);
 			return flash(err(error));
 		}
 	};

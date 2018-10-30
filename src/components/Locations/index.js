@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import routes from '../../constants';
 import { sendFlashMessage, clearFlashMessages, fetchLocations } from '../../actions';
 import { Header } from '../Common';
+import { logger } from '../../constants/logger';
 
 class LocationsPage extends Component {
 	static propTypes = {
@@ -27,11 +28,11 @@ class LocationsPage extends Component {
 		try {
 			clear();
 			const locations = await fetchLocations();
-			console.log('Fetched locations:', locations);
+			logger.info('Fetched locations:', locations);
 			this.setState({ locations });
 		} catch (error) {
 			flash('Whoops! Something went wrong!');
-			console.error('LocationsPage error:', error);
+			logger.error('LocationsPage error:', error);
 		}
 	};
 
