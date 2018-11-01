@@ -588,3 +588,26 @@ export const storageChanged = e => dispatch => {
 	dispatch(setToken(getToken()));
 	dispatch(setUser(getCurrentUser()));
 };
+
+// Reports Page Actions
+export const fetchMembersReport = async () => {
+	try {
+		const {
+			data: { response }
+		} = await axios.get('/api/report/members');
+		return response;
+	} catch (error) {
+		throw error.response.data;
+	}
+};
+
+export const fetchEventReport = async id => {
+	try {
+		const {
+			data: { response }
+		} = await axios.get(`/api/report/event/${id}`);
+		return response;
+	} catch (error) {
+		throw error.response.data;
+	}
+};
