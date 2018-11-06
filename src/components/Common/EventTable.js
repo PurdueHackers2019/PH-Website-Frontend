@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Table } from 'react-bootstrap';
+import { Table, Panel } from 'react-bootstrap';
 import { formatDate } from '../../constants';
 
 class EventTable extends Component {
@@ -15,7 +15,7 @@ class EventTable extends Component {
 	render() {
 		const { events, allowed } = this.props;
 		return (
-			<div className="panel panel-default">
+			<Panel>
 				<Table bordered hover className="table-clickable panel-body sortableTable">
 					<thead>
 						<tr>
@@ -38,7 +38,7 @@ class EventTable extends Component {
 							))}
 					</tbody>
 				</Table>
-			</div>
+			</Panel>
 		);
 	}
 }

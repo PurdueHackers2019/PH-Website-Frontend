@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table } from 'react-bootstrap';
+import { Table, Panel } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { formatDate, hasPermission } from '../../constants';
 
@@ -17,7 +17,7 @@ export default class extends Component {
 	render() {
 		const { members, user } = this.props;
 		return (
-			<div className="panel panel-default">
+			<Panel>
 				<Table bordered hover className="table-clickable panel-body sortableTable">
 					<thead>
 						<tr>
@@ -43,7 +43,7 @@ export default class extends Component {
 							))}
 					</tbody>
 				</Table>
-			</div>
+			</Panel>
 		);
 	}
 }

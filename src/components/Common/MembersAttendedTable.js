@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table } from 'react-bootstrap';
+import { Table, Panel } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 const MembersAttendedTable = ({ members }) => (
@@ -7,7 +7,7 @@ const MembersAttendedTable = ({ members }) => (
 		<hr />
 
 		<h3>Members Attended</h3>
-		<div className="panel panel-default">
+		<Panel>
 			<Table bordered hover className="table-clickable panel-body sortableTable">
 				<thead>
 					<tr>
@@ -26,7 +26,7 @@ const MembersAttendedTable = ({ members }) => (
 					))}
 				</tbody>
 			</Table>
-		</div>
+		</Panel>
 	</React.Fragment>
 );
 
