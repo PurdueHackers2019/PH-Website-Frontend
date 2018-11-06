@@ -7,23 +7,25 @@
  */
 
 import { createLogger, format, transports } from 'winston';
+import { Mail } from './logger-config';
 import { CONFIG } from './';
 
-const { combine, timestamp, printf } = format;
+const { combine, timestamp, printf, colorize } = format;
 
 const customFormat = printf(
-	info => `${info.level}: ${info.message}\n\n${JSON.stringify(info.meta)}\n\n${info.timestamp}`
+	// eslint-disable-next-line prettier/prettier
+	info => `${info.level}: ${info.message}\n\n${JSON.stringify(info.meta, null, '\t')}\n\n${info.timestamp}`
 );
 
 const transport =
 	// FIXME: Connect to email backend
-	CONFIG.NODE_ENV === 'development' ? new transports.Console() : new transports.Console();
+	CONFIG.NODE_ENV === 'development' ? new transports.Console() : new Mail();
 
 export const logger = createLogger({
 	transports: [transport],
-	format: combine(format.splat(), timestamp(), customFormat)
+	format: combine(colorize(), format.splat(), timestamp(), customFormat)
 });
 
 logger.on('error', err => {
-	console.log('Logger Error:', err);
+	console.error('Logger Error:', err);
 });
