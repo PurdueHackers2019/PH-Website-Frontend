@@ -8,22 +8,43 @@
 
 import { createLogger, format, transports } from 'winston';
 import { Mail } from './logger-config';
+import * as colorJSON from 'json-colorizer';
 import { CONFIG } from './';
 
 const { combine, timestamp, printf, colorize } = format;
 
-const customFormat = printf(
+// FIXME: JSON Colorizer doesn't work here, but works in the shell
+const customConsoleFormat = printf(
 	// eslint-disable-next-line prettier/prettier
-	info => `${info.level}: ${info.message}\n\n${JSON.stringify(info.meta, null, '\t')}\n\n${info.timestamp}`
+	info =>
+		`[${info.level}] [${info.timestamp}]\n\n${info.message} ${colorJSON(
+			JSON.stringify(info.meta, null, '\t')
+		)}\n\n`
+);
+
+const customMailFormat = printf(
+	// eslint-disable-next-line prettier/prettier
+	info => `[${info.level.toUpperCase()}] [${info.timestamp}]\n\n${info.message} ${info.meta}\n\n`
 );
 
 const transport =
-	// FIXME: Connect to email backend
-	CONFIG.NODE_ENV === 'development' ? new transports.Console() : new Mail();
+	CONFIG.NODE_ENV === 'development'
+		? new transports.Console({
+				format: combine(
+					format(info => {
+						info.level = info.level.toUpperCase();
+						return info;
+					})(),
+					colorize(),
+					format.splat(),
+					timestamp(),
+					customConsoleFormat
+				)
+		  })
+		: new Mail({ format: combine(format.splat(), timestamp(), customMailFormat) });
 
 export const logger = createLogger({
-	transports: [transport],
-	format: combine(colorize(), format.splat(), timestamp(), customFormat)
+	transports: [transport]
 });
 
 logger.on('error', err => {
