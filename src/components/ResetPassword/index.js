@@ -5,6 +5,7 @@ import qs from 'qs';
 import { sendFlashMessage, clearFlashMessages, resetPassword } from '../../actions';
 import routes, { err } from '../../constants';
 import { Header } from '../Common';
+import { logger } from '../../constants/logger';
 
 class ResetPasswordPage extends Component {
 	static propTypes = {
@@ -21,7 +22,7 @@ class ResetPasswordPage extends Component {
 	constructor(props) {
 		super(props);
 		this.state = { password: '', passwordConfirm: '' };
-		console.log('ResetPasswordPage props:', this.props);
+		logger.info('ResetPasswordPage props:', this.props);
 	}
 
 	onChange = e => this.setState({ [e.target.id]: e.target.value });
@@ -46,7 +47,7 @@ class ResetPasswordPage extends Component {
 			push(routes.LOGIN);
 			return flash(response, 'green');
 		} catch (error) {
-			console.error('EditProfile Page error:', error);
+			logger.error('EditProfile Page error:', error);
 			return flash(err(error));
 		}
 	};

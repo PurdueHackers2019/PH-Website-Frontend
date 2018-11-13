@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import routes, { hasPermission, formatDate, err } from '../../constants';
 import { sendFlashMessage, clearFlashMessages, fetchLocation, updateLocation } from '../../actions';
 import { CustomRedirect, Header } from '../Common';
+import { logger } from '../../constants/logger';
 
 // TODO: Add autocomplete to input tags
 
@@ -35,7 +36,7 @@ class LocationPage extends Component {
 			city: '',
 			loading: true
 		};
-		console.log('LocationPage props:', this.props);
+		logger.info('LocationPage props:', this.props);
 	}
 
 	componentDidMount = async () => {
@@ -49,7 +50,7 @@ class LocationPage extends Component {
 		try {
 			clear();
 			const location = await fetchLocation(id);
-			console.log('Fetched Location:', location);
+			logger.info('Fetched Location:', location);
 			this.setState({ location, ...location, loading: false });
 		} catch (error) {
 			this.setState({ loading: false });
@@ -79,7 +80,7 @@ class LocationPage extends Component {
 			this.setState({ name: location.name, city: location.city });
 			return flash('Successfully updated location', 'green');
 		} catch (error) {
-			console.log('Edit Event Page error:', error);
+			logger.info('Edit Event Page error:', error);
 			return flash(err(error));
 		}
 	};
@@ -137,11 +138,11 @@ class LocationPage extends Component {
 									/>
 								</form>
 							) : (
-								<div className="panel-body">
-									<div id="profile_name">{location.name}</div>
-									<div id="profile_major">City: {location.city}</div>
-								</div>
-							)}
+									<div className="panel-body">
+										<div id="profile_name">{location.name}</div>
+										<div id="profile_major">City: {location.city}</div>
+									</div>
+								)}
 						</div>
 
 						<hr />
@@ -166,12 +167,12 @@ class LocationPage extends Component {
 											</tr>
 										))
 									) : (
-										<tr>
-											<td>No Members</td>
-											<td />
-											<td />
-										</tr>
-									)}
+											<tr>
+												<td>No Members</td>
+												<td />
+												<td />
+											</tr>
+										)}
 								</tbody>
 							</table>
 						</div>

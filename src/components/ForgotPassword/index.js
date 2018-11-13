@@ -5,6 +5,7 @@ import { isEmail } from 'validator';
 import { sendFlashMessage, clearFlashMessages, forgotPassword } from '../../actions';
 import { err } from '../../constants';
 import { Header } from '../Common';
+import { logger } from '../../constants/logger';
 
 class ForgotPasswordPage extends Component {
 	static propTypes = {
@@ -28,11 +29,11 @@ class ForgotPasswordPage extends Component {
 			if (!email || !isEmail(email)) return flash('Please provide a valid email');
 			flash('Please wait...', 'green');
 			const response = await forgotPassword(email);
-			console.log('Response:', response);
+			logger.info('Response:', response);
 			return flash(response, 'green');
 		} catch (error) {
 			clear();
-			console.error('EditProfile Page error:', error);
+			logger.error('EditProfile Page error:', error);
 			return flash(err(error));
 		}
 	};

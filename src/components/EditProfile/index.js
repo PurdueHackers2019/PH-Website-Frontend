@@ -6,6 +6,7 @@ import { isMobilePhone } from 'validator';
 import { sendFlashMessage, clearFlashMessages, updateProfile, fetchMember } from '../../actions';
 import routes, { memberMatches, err } from '../../constants';
 import { CustomRedirect, Header } from '../Common';
+import { logger } from '../../constants/logger';
 
 class EditProfilePage extends Component {
 	static propTypes = {
@@ -46,7 +47,7 @@ class EditProfilePage extends Component {
 			resumeLink: '',
 			resumeType: 'Link'
 		};
-		console.log('Signup page props', this.props);
+		logger.info('Signup page props', this.props);
 	}
 
 	componentDidMount = async () => {
@@ -60,7 +61,7 @@ class EditProfilePage extends Component {
 		try {
 			clear();
 			const member = await fetchMember(id);
-			console.log('Fetched member:', member);
+			logger.info('Fetched member:', member);
 			const newMember = {};
 			Object.keys(member).forEach(prop => {
 				if (member[prop]) newMember[prop] = member[prop];
@@ -111,11 +112,11 @@ class EditProfilePage extends Component {
 		} = this.props;
 		try {
 			clear();
-			console.log('Submitting:', this.state);
-			console.log('Facebook matches:', /(facebook|fb)/.test(facebook));
-			console.log('Github matches:', /github/.test(github));
-			console.log('Linkedin matches:', /linkedin/.test(linkedin));
-			console.log('Devpost matches:', /devpost/.test(devpost));
+			logger.info('Submitting:', this.state);
+			logger.info('Facebook matches:', /(facebook|fb)/.test(facebook));
+			logger.info('Github matches:', /github/.test(github));
+			logger.info('Linkedin matches:', /linkedin/.test(linkedin));
+			logger.info('Devpost matches:', /devpost/.test(devpost));
 			if (!name) return flash('Please enter your full name');
 			if (!email) return flash('An email is required for your account');
 			if (!graduationYear) return flash('A graduation year is required');
@@ -136,11 +137,11 @@ class EditProfilePage extends Component {
 			if (resume) formData.append('resume', resume, resume.name);
 			flash('Saving profile...', 'green');
 			const response = await updateProfile(id, formData);
-			console.log('EditProfile response:', response);
+			logger.info('EditProfile response:', response);
 			return flash('Profile Saved!', 'green');
 		} catch (error) {
 			clear();
-			console.error('EditProfile Page error:', error);
+			logger.error('EditProfile Page error:', error);
 			return flash(err(error));
 		}
 	};
@@ -509,30 +510,30 @@ class EditProfilePage extends Component {
 									data-bvalidator-msg="Please enter a valid URL to your Resume."
 								/>
 							) : (
-								<div>
-									{resume && (
-										<a
-											href={
-												typeof resume.webkitRelativePath !== 'undefined'
-													? resume.webkitRelativePath
-													: resume
-											}
-											rel="noopener noreferrer"
-											target="_blank"
-											className="form-control"
-										>
-											{resume.name || `${name}'s Resume`}
-										</a>
-									)}
-									<input
-										type="file"
-										id="resume"
-										accept="application/pdf"
-										className="form-control pull-left"
-										onChange={this.onChange}
-									/>
-								</div>
-							)}
+									<div>
+										{resume && (
+											<a
+												href={
+													typeof resume.webkitRelativePath !== 'undefined'
+														? resume.webkitRelativePath
+														: resume
+												}
+												rel="noopener noreferrer"
+												target="_blank"
+												className="form-control"
+											>
+												{resume.name || `${name}'s Resume`}
+											</a>
+										)}
+										<input
+											type="file"
+											id="resume"
+											accept="application/pdf"
+											className="form-control pull-left"
+											onChange={this.onChange}
+										/>
+									</div>
+								)}
 							<br />
 							<br />
 							<a href={routes.FORGOT_PASSWORD} className="btn btn-warning pull-left">

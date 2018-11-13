@@ -5,6 +5,7 @@ import { isMobilePhone } from 'validator';
 import { err } from '../../constants';
 import { sendFlashMessage, clearFlashMessages, signUp } from '../../actions';
 import { Header } from '../Common';
+import { logger } from '../../constants/logger';
 
 class SignUpPage extends Component {
 	static propTypes = {
@@ -41,7 +42,7 @@ class SignUpPage extends Component {
 			resumeLink: '',
 			resumeType: 'Link'
 		};
-		console.log('Signup page props', this.props);
+		logger.info('Signup page props', this.props);
 	}
 
 	onChange = e => {
@@ -72,11 +73,11 @@ class SignUpPage extends Component {
 		const { flash, clear, signUp, history } = this.props;
 		try {
 			clear();
-			console.log('Submitting:', this.state);
-			console.log('Facebook matches:', /(facebook|fb)/.test(facebook));
-			console.log('Github matches:', /github/.test(github));
-			console.log('Linkedin matches:', /linkedin/.test(linkedin));
-			console.log('Devpost matches:', /devpost/.test(devpost));
+			logger.info('Submitting:', this.state);
+			logger.info('Facebook matches:', /(facebook|fb)/.test(facebook));
+			logger.info('Github matches:', /github/.test(github));
+			logger.info('Linkedin matches:', /linkedin/.test(linkedin));
+			logger.info('Devpost matches:', /devpost/.test(devpost));
 			if (!name) return flash('Please enter your full name');
 			if (!email) return flash('An email is required for your account');
 			if (!graduationYear) return flash('A graduation year is required');
@@ -100,7 +101,7 @@ class SignUpPage extends Component {
 			history.push('/');
 			return flash(`Welcome ${resp.user.name}!`, 'green');
 		} catch (error) {
-			console.error('EditProfile Page error:', error);
+			logger.error('EditProfile Page error:', error);
 			return flash(err(error));
 		}
 	};
@@ -453,29 +454,29 @@ class SignUpPage extends Component {
 									data-bvalidator-msg="Please enter a valid URL to your Resume."
 								/>
 							) : (
-								<div>
-									{resume && (
-										<a
-											href={
-												typeof resume.webkitRelativePath !== 'undefined'
-													? resume.webkitRelativePath
-													: resume
-											}
-											target="_blank"
-											className="form-control"
-										>
-											{resume.name || `${name}'s Resume`}
-										</a>
-									)}
-									<input
-										type="file"
-										id="resume"
-										accept="application/pdf"
-										className="form-control pull-left"
-										onChange={this.onChange}
-									/>
-								</div>
-							)}
+									<div>
+										{resume && (
+											<a
+												href={
+													typeof resume.webkitRelativePath !== 'undefined'
+														? resume.webkitRelativePath
+														: resume
+												}
+												target="_blank"
+												className="form-control"
+											>
+												{resume.name || `${name}'s Resume`}
+											</a>
+										)}
+										<input
+											type="file"
+											id="resume"
+											accept="application/pdf"
+											className="form-control pull-left"
+											onChange={this.onChange}
+										/>
+									</div>
+								)}
 							<br />
 							<br />
 							<input type="submit" value="Join" className="btn btn-primary" />

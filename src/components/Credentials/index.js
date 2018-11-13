@@ -12,6 +12,7 @@ import {
 } from '../../actions';
 import { err } from '../../constants';
 import { Header } from '../Common';
+import { logger } from '../../constants/logger';
 
 class CredentialsPage extends Component {
 	static propTypes = {
@@ -39,10 +40,10 @@ class CredentialsPage extends Component {
 				credential =>
 					(credential.password = AES.decrypt(credential.password, secret).toString(ENC))
 			);
-			console.log('Fetched credentials:', credentials, secret);
+			logger.info('Fetched credentials:', credentials, secret);
 			this.setState({ credentials });
 		} catch (error) {
-			console.error('Credentials error:', error);
+			logger.error('Credentials error:', error);
 			flash(err(error));
 		}
 	};
