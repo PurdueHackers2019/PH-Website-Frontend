@@ -6,6 +6,7 @@ import routes from '../../constants';
 import { sendFlashMessage, clearFlashMessages, fetchLocations } from '../../actions';
 import { Header } from '../Common';
 import { logger } from '../../constants/logger';
+import { Table } from 'react-bootstrap';
 
 class LocationsPage extends Component {
 	static propTypes = {
