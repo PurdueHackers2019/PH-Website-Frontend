@@ -188,7 +188,17 @@ class MemberPage extends Component {
 	};
 
 	render() {
-		const { member, events, jobs, memberMatched, notFound, name, city, start, end } = this.state;
+		const {
+			member,
+			events,
+			jobs,
+			memberMatched,
+			notFound,
+			name,
+			city,
+			start,
+			end
+		} = this.state;
 		if (notFound) return <CustomRedirect msgRed="Member not found" />;
 		if (!member) return <span>Loading...</span>;
 		return (
@@ -231,7 +241,7 @@ class MemberPage extends Component {
 
 						<h3>Job History</h3>
 						<div className="panel panel-default">
-							<table className="table table-bordered table-hover table-clickable panel-body">
+							<Table bordered hover className="table-clickable panel-body">
 								<thead>
 									<tr>
 										<th>Company</th>
@@ -262,13 +272,13 @@ class MemberPage extends Component {
 											</tr>
 										))
 									) : (
-											<tr>
-												<td>No Job History</td>
-												<td />
-												<td />
-												<td />
-											</tr>
-										)}
+										<tr>
+											<td>No Job History</td>
+											<td />
+											<td />
+											<td />
+										</tr>
+									)}
 
 									{memberMatched && (
 										<tr>
@@ -326,7 +336,7 @@ class MemberPage extends Component {
 										</tr>
 									)}
 								</tbody>
-							</table>
+							</Table>
 						</div>
 
 						<hr />

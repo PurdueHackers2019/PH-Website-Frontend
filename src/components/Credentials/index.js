@@ -13,6 +13,7 @@ import {
 import { err } from '../../constants';
 import { Header } from '../Common';
 import { logger } from '../../constants/logger';
+import { Table } from 'react-bootstrap';
 
 class CredentialsPage extends Component {
 	static propTypes = {
@@ -104,7 +105,7 @@ class CredentialsPage extends Component {
 					<Header message="Credentials" />
 					<h3>Credentials</h3>
 					<div className="panel panel-default">
-						<table className="table table-bordered panel-body sortableTable">
+						<Table bordered className="panel-body sortableTable">
 							<thead>
 								<tr>
 									<th>Site</th>
@@ -132,7 +133,7 @@ class CredentialsPage extends Component {
 									</tr>
 								))}
 							</tbody>
-						</table>
+						</Table>
 						<form className="panel-body validate">
 							<label htmlFor="site">
 								Site

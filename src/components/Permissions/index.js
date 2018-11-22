@@ -11,6 +11,7 @@ import {
 } from '../../actions';
 import { Header } from '../Common';
 import { logger } from '../../constants/logger';
+import { Table } from 'react-bootstrap';
 
 class PermissionsPage extends Component {
 	static propTypes = {
@@ -102,7 +103,7 @@ class PermissionsPage extends Component {
 					<Header message="Permissions" />
 					<h3>Permissions</h3>
 					<div className="panel panel-default">
-						<table className="table table-bordered panel-body table-hover table-clickable sortableTable">
+						<Table bordered hover className="panel-body table-clickable sortableTable">
 							<thead>
 								<tr>
 									<th>Name</th>
@@ -118,7 +119,9 @@ class PermissionsPage extends Component {
 									>
 										<td>{permission.name}</td>
 										<td>{permission.description}</td>
-										<td>{permission.members ? permission.members.length : 0}</td>
+										<td>
+											{permission.members ? permission.members.length : 0}
+										</td>
 									</tr>
 								))}
 								{hasPermission(user, 'adminpermissions') && (
@@ -180,7 +183,7 @@ class PermissionsPage extends Component {
 									</td>
 								</tr>
 							</tbody>
-						</table>
+						</Table>
 					</div>
 				</div>
 			</div>

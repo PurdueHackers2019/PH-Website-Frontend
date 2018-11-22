@@ -53,7 +53,7 @@ class LocationsPage extends Component {
 						</Link>
 					</h3>
 					<div className="panel panel-default">
-						<table className="table table-bordered table-hover table-clickable panel-body sortableTable">
+						<Table bordered hover className="table-clickable panel-body sortableTable">
 							<thead>
 								<tr>
 									<th>Location</th>
@@ -70,7 +70,7 @@ class LocationsPage extends Component {
 									</tr>
 								))}
 							</tbody>
-						</table>
+						</Table>
 					</div>
 				</div>
 			</div>

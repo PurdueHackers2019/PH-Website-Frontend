@@ -13,6 +13,7 @@ import {
 } from '../../actions';
 import { CustomRedirect, Header } from '../Common';
 import { logger } from '../../constants/logger';
+import { Table } from 'react-bootstrap';
 
 class PermissionPage extends Component {
 	static propTypes = {
@@ -124,7 +125,10 @@ class PermissionPage extends Component {
 						Permission: {permission.name}
 						<Link to={routes.PERMISSIONS} className="pull-left">
 							<button type="button" className="btn btn-primary btn-sm">
-								<span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
+								<span
+									className="glyphicon glyphicon-chevron-left"
+									aria-hidden="true"
+								/>
 								Permissions
 							</button>
 						</Link>
@@ -146,7 +150,7 @@ class PermissionPage extends Component {
 					<hr />
 					<h3>Users</h3>
 					<div className="panel panel-default">
-						<table className="table table-bordered table-hover table-clickable panel-body sortableTable">
+						<Table bordered hover className="table-clickable panel-body sortableTable">
 							<thead>
 								<tr>
 									<th>Member</th>
@@ -173,12 +177,12 @@ class PermissionPage extends Component {
 										</tr>
 									))
 								) : (
-										<tr>
-											<td>No Users</td>
-											<td />
-											<td />
-										</tr>
-									)}
+									<tr>
+										<td>No Users</td>
+										<td />
+										<td />
+									</tr>
+								)}
 								<tr>
 									<td />
 									<td>
@@ -203,7 +207,7 @@ class PermissionPage extends Component {
 									</td>
 								</tr>
 							</tbody>
-						</table>
+						</Table>
 					</div>
 					{hasPermission(user, 'adminpermissions') && (
 						<button

@@ -6,6 +6,7 @@ import routes, { hasPermission, formatDate, err } from '../../constants';
 import { sendFlashMessage, clearFlashMessages, fetchLocation, updateLocation } from '../../actions';
 import { CustomRedirect, Header } from '../Common';
 import { logger } from '../../constants/logger';
+import { Table } from 'react-bootstrap';
 
 // TODO: Add autocomplete to input tags
 
@@ -100,8 +101,14 @@ class LocationPage extends Component {
 						<h3>
 							{location.name}
 							<Link to={routes.LOCATIONS}>
-								<button type="button" className="pull-left btn btn-primary btn-sm marginR">
-									<span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
+								<button
+									type="button"
+									className="pull-left btn btn-primary btn-sm marginR"
+								>
+									<span
+										className="glyphicon glyphicon-chevron-left"
+										aria-hidden="true"
+									/>
 									List of Locations
 								</button>
 							</Link>
@@ -138,18 +145,18 @@ class LocationPage extends Component {
 									/>
 								</form>
 							) : (
-									<div className="panel-body">
-										<div id="profile_name">{location.name}</div>
-										<div id="profile_major">City: {location.city}</div>
-									</div>
-								)}
+								<div className="panel-body">
+									<div id="profile_name">{location.name}</div>
+									<div id="profile_major">City: {location.city}</div>
+								</div>
+							)}
 						</div>
 
 						<hr />
 
 						<h3>Members</h3>
 						<div className="panel panel-default">
-							<table className="table table-bordered table-hover table-clickable panel-body">
+							<Table bordered hover className="table-clickable panel-body">
 								<thead>
 									<tr>
 										<th>Name</th>
@@ -160,21 +167,24 @@ class LocationPage extends Component {
 								<tbody>
 									{members && members.length ? (
 										members.map(member => (
-											<tr key={member._id} onClick={this.onClick(member.member._id)}>
+											<tr
+												key={member._id}
+												onClick={this.onClick(member.member._id)}
+											>
 												<td>{member.member.name}</td>
 												<td>{formatDate(member.dateStart)}</td>
 												<td>{formatDate(member.dateEnd)}</td>
 											</tr>
 										))
 									) : (
-											<tr>
-												<td>No Members</td>
-												<td />
-												<td />
-											</tr>
-										)}
+										<tr>
+											<td>No Members</td>
+											<td />
+											<td />
+										</tr>
+									)}
 								</tbody>
-							</table>
+							</Table>
 						</div>
 					</div>
 				</div>
