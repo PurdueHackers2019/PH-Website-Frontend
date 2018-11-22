@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import validator from 'validator';
 import { signUp, sendFlashMessage } from '../../actions';
 import { logger } from '../../constants/logger';
+import { Panel } from 'react-bootstrap';
 
 class SignupPage extends Component {
 	static propTypes = {
@@ -69,84 +70,86 @@ class SignupPage extends Component {
 			<div className="section">
 				<div className="section-container">
 					<h3>Join Purdue Hackers</h3>
-					<div className="panel panel-default">
-						<form className="panel-body" onSubmit={this.onSubmit}>
-							<label htmlFor="name">
-								Full Name
-								<input
-									type="text"
-									id="name"
-									placeholder="Full Name"
-									value={this.state.name}
-									className="form-control"
-									onChange={this.onChange}
-									pattern="([a-zA-Z]+ )+[a-zA-Z]+"
-									title="Please enter first and last name"
-									required
-								/>
-							</label>
-							<br />
-							<label htmlFor="email">
-								Email
-								<input
-									type="email"
-									id="email"
-									placeholder="Email"
-									value={this.state.email}
-									className="form-control"
-									onChange={this.onChange}
-									required
-								/>
-							</label>
-							<br />
-							<label htmlFor="password">
-								Password
-								<input
-									type="password"
-									id="password"
-									placeholder="Password"
-									className="form-control"
-									value={this.state.password}
-									onChange={this.onChange}
-									pattern=".{5,}"
-									title="Password must be at least 5 characters"
-									required
-								/>
-							</label>
-							<br />
-							<label htmlFor="passwordConfirm">
-								Confirm Password
-								<input
-									type="password"
-									id="passwordConfirm"
-									placeholder="Confirm Password"
-									className="form-control"
-									value={this.state.passwordConfirm}
-									onChange={this.onChange}
-									pattern=".{5,30}"
-									title="Password must be at least 5 characters"
-									required
-								/>
-							</label>
-							<br />
-							<label htmlFor="graduationYear">
-								(Expected) Year of Graduation
-								<input
-									type="number"
-									id="graduationYear"
-									placeholder="Graduation Year"
-									className="form-control"
-									value={this.state.graduationYear}
-									onChange={this.onChange}
-									min="1869"
-									max={new Date().getFullYear() + 20}
-									required
-								/>
-							</label>
-							<br />
-							<input type="submit" value="Join" className="btn btn-primary" />
+					<Panel>
+						<form onSubmit={this.onSubmit}>
+							<Panel.Body>
+								<label htmlFor="name">
+									Full Name
+									<input
+										type="text"
+										id="name"
+										placeholder="Full Name"
+										value={this.state.name}
+										className="form-control"
+										onChange={this.onChange}
+										pattern="([a-zA-Z]+ )+[a-zA-Z]+"
+										title="Please enter first and last name"
+										required
+									/>
+								</label>
+								<br />
+								<label htmlFor="email">
+									Email
+									<input
+										type="email"
+										id="email"
+										placeholder="Email"
+										value={this.state.email}
+										className="form-control"
+										onChange={this.onChange}
+										required
+									/>
+								</label>
+								<br />
+								<label htmlFor="password">
+									Password
+									<input
+										type="password"
+										id="password"
+										placeholder="Password"
+										className="form-control"
+										value={this.state.password}
+										onChange={this.onChange}
+										pattern=".{5,}"
+										title="Password must be at least 5 characters"
+										required
+									/>
+								</label>
+								<br />
+								<label htmlFor="passwordConfirm">
+									Confirm Password
+									<input
+										type="password"
+										id="passwordConfirm"
+										placeholder="Confirm Password"
+										className="form-control"
+										value={this.state.passwordConfirm}
+										onChange={this.onChange}
+										pattern=".{5,30}"
+										title="Password must be at least 5 characters"
+										required
+									/>
+								</label>
+								<br />
+								<label htmlFor="graduationYear">
+									(Expected) Year of Graduation
+									<input
+										type="number"
+										id="graduationYear"
+										placeholder="Graduation Year"
+										className="form-control"
+										value={this.state.graduationYear}
+										onChange={this.onChange}
+										min="1869"
+										max={new Date().getFullYear() + 20}
+										required
+									/>
+								</label>
+								<br />
+								<input type="submit" value="Join" className="btn btn-primary" />
+							</Panel.Body>
 						</form>
-					</div>
+					</Panel>
 				</div>
 			</div>
 		);

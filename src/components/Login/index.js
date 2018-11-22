@@ -5,6 +5,7 @@ import { signIn, sendFlashMessage } from '../../actions';
 import routes, { err } from '../../constants';
 import { Header } from '../Common';
 import { logger } from '../../constants/logger';
+import { Panel } from 'react-bootstrap';
 
 class LoginPage extends Component {
 	static propTypes = {
@@ -58,35 +59,43 @@ class LoginPage extends Component {
 					<Header message="Login" />
 					<h3>Login</h3>
 
-					<div className="panel panel-default">
-						<form className="panel-body" onSubmit={this.onSubmit}>
-							<input
-								type="text"
-								name="email"
-								id="email"
-								placeholder="Email"
-								value={email}
-								onChange={this.onChange}
-							/>
-							<input
-								type="password"
-								name="password"
-								id="password"
-								placeholder="Password"
-								value={password}
-								onChange={this.onChange}
-							/>
-							<br />
-							<br />
-							<input type="submit" value="Sign In" />
-							<br />
-							<br />
-							<input type="checkbox" name="remember" onClick={this.onClick} /> Remember Me
-							<br />
-							<br />
-							Forgot your password? <a href={routes.FORGOT_PASSWORD}>Click Here</a>
+					<Panel>
+						<form onSubmit={this.onSubmit}>
+							<Panel.Body>
+								<input
+									type="text"
+									name="email"
+									id="email"
+									placeholder="Email"
+									value={email}
+									onChange={this.onChange}
+								/>
+								<input
+									type="password"
+									name="password"
+									id="password"
+									placeholder="Password"
+									value={password}
+									onChange={this.onChange}
+								/>
+								<br />
+								<br />
+								<input type="submit" value="Sign In" />
+								<br />
+								<br />
+								<input
+									type="checkbox"
+									name="remember"
+									onClick={this.onClick}
+								/>{' '}
+								Remember Me
+								<br />
+								<br />
+								Forgot your password?{' '}
+								<a href={routes.FORGOT_PASSWORD}>Click Here</a>
+							</Panel.Body>
 						</form>
-					</div>
+					</Panel>
 				</div>
 			</div>
 		);

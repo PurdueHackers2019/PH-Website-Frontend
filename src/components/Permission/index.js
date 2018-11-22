@@ -13,7 +13,7 @@ import {
 } from '../../actions';
 import { CustomRedirect, Header } from '../Common';
 import { logger } from '../../constants/logger';
-import { Table } from 'react-bootstrap';
+import { Table, Panel } from 'react-bootstrap';
 
 class PermissionPage extends Component {
 	static propTypes = {
@@ -133,8 +133,8 @@ class PermissionPage extends Component {
 							</button>
 						</Link>
 					</h3>
-					<div className="panel panel-default text-left">
-						<div className="panel-body">
+					<Panel className="text-left">
+						<Panel.Body>
 							<div id="profile_intro_text">
 								<div id="profile_name">{permission.name}</div>
 								<div id="profile_major">{permission.description}</div>
@@ -145,70 +145,72 @@ class PermissionPage extends Component {
 									</div>
 								</div>
 							</div>
-						</div>
-					</div>
+						</Panel.Body>
+					</Panel>
 					<hr />
 					<h3>Users</h3>
-					<div className="panel panel-default">
-						<Table bordered hover className="table-clickable panel-body sortableTable">
-							<thead>
-								<tr>
-									<th>Member</th>
-									<th>Date Added</th>
-									<th>Added By</th>
-								</tr>
-							</thead>
-							<tbody>
-								{members && members.length ? (
-									members.map((m, i) => (
-										<tr onClick={this.onClick(m.member._id)} key={i}>
-											<td>{m.member.name}</td>
-											<td>{formatDate(m.dateAdded)}</td>
-											<td>
-												{m.recordedBy ? m.recordedBy.name : 'Unknown'}
-												<button
-													className="btn btn-xs btn-danger pull-right"
-													id={m.member._id}
-													onClick={this.onDeleteUser}
-												>
-													Delete
-												</button>
-											</td>
-										</tr>
-									))
-								) : (
+					<Panel>
+						<Panel.Body>
+							<Table bordered hover className="table-clickable sortableTable">
+								<thead>
 									<tr>
-										<td>No Users</td>
-										<td />
-										<td />
+										<th>Member</th>
+										<th>Date Added</th>
+										<th>Added By</th>
 									</tr>
-								)}
-								<tr>
-									<td />
-									<td>
-										<input
-											type="text"
-											id="memberEmail"
-											name="member_name"
-											placeholder="Add User"
-											className="form-control membersautocomplete"
-											data-bvalidator="required"
-											value={memberEmail}
-											onChange={this.onChange}
-										/>
-									</td>
-									<td>
-										<input
-											type="submit"
-											value="Add User"
-											className="btn btn-sm btn-primary"
-											onClick={this.onAddUser}
-										/>
-									</td>
-								</tr>
-							</tbody>
-						</Table>
-					</div>
+								</thead>
+								<tbody>
+									{members && members.length ? (
+										members.map((m, i) => (
+											<tr onClick={this.onClick(m.member._id)} key={i}>
+												<td>{m.member.name}</td>
+												<td>{formatDate(m.dateAdded)}</td>
+												<td>
+													{m.recordedBy ? m.recordedBy.name : 'Unknown'}
+													<button
+														className="btn btn-xs btn-danger pull-right"
+														id={m.member._id}
+														onClick={this.onDeleteUser}
+													>
+														Delete
+													</button>
+												</td>
+											</tr>
+										))
+									) : (
+										<tr>
+											<td>No Users</td>
+											<td />
+											<td />
+										</tr>
+									)}
+									<tr>
+										<td />
+										<td>
+											<input
+												type="text"
+												id="memberEmail"
+												name="member_name"
+												placeholder="Add User"
+												className="form-control membersautocomplete"
+												data-bvalidator="required"
+												value={memberEmail}
+												onChange={this.onChange}
+											/>
+										</td>
+										<td>
+											<input
+												type="submit"
+												value="Add User"
+												className="btn btn-sm btn-primary"
+												onClick={this.onAddUser}
+											/>
+										</td>
+									</tr>
+								</tbody>
+							</Table>
+						</Panel.Body>
+					</Panel>
 					{hasPermission(user, 'adminpermissions') && (
 						<button
 							className="btn btn-sm btn-danger pull-right"

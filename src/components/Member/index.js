@@ -20,6 +20,7 @@ import {
 	Header
 } from '../Common';
 import { logger } from '../../constants/logger';
+import { Table, Panel } from 'react-bootstrap';
 
 // TODO: Add autocomplete to input tags
 
@@ -240,104 +241,109 @@ class MemberPage extends Component {
 						<hr />
 
 						<h3>Job History</h3>
-						<div className="panel panel-default">
-							<Table bordered hover className="table-clickable panel-body">
-								<thead>
-									<tr>
-										<th>Company</th>
-										<th>City</th>
-										<th>Start Date</th>
-										<th>End Date</th>
-									</tr>
-								</thead>
-								<tbody>
-									{jobs && jobs.length ? (
-										jobs.map((job, i) => (
-											<tr key={i} onClick={this.onJobClick(job.location._id)}>
-												<td>{job.location.name}</td>
-												<td>{job.location.city}</td>
-												<td>{formatDate(job.start)}</td>
+						<Panel>
+							<Panel.Body>
+								<Table bordered hover className="table-clickable">
+									<thead>
+										<tr>
+											<th>Company</th>
+											<th>City</th>
+											<th>Start Date</th>
+											<th>End Date</th>
+										</tr>
+									</thead>
+									<tbody>
+										{jobs && jobs.length ? (
+											jobs.map((job, i) => (
+												<tr
+													key={i}
+													onClick={this.onJobClick(job.location._id)}
+												>
+													<td>{job.location.name}</td>
+													<td>{job.location.city}</td>
+													<td>{formatDate(job.start)}</td>
+													<td>
+														{job.end ? formatDate(job.end) : 'Current'}
+														{memberMatched && (
+															<button
+																id={job._id}
+																className="btn btn-sm btn-danger pull-right"
+																onClick={this.onDeleteJob}
+															>
+																Remove
+															</button>
+														)}
+													</td>
+												</tr>
+											))
+										) : (
+											<tr>
+												<td>No Job History</td>
+												<td />
+												<td />
+												<td />
+											</tr>
+										)}
+
+										{memberMatched && (
+											<tr>
 												<td>
-													{job.end ? formatDate(job.end) : 'Current'}
-													{memberMatched && (
-														<button
-															id={job._id}
-															className="btn btn-sm btn-danger pull-right"
-															onClick={this.onDeleteJob}
-														>
-															Remove
-														</button>
-													)}
+													<input
+														type="text"
+														name="name"
+														id="name"
+														placeholder="Location Name"
+														className="form-control locationsautocomplete"
+														value={name}
+														onChange={this.onChange}
+													/>
+												</td>
+												<td>
+													<input
+														type="text"
+														name="city"
+														id="city"
+														placeholder="City"
+														className="form-control citiesautocomplete"
+														value={city}
+														onChange={this.onChange}
+													/>
+												</td>
+												<td>
+													<input
+														type="date"
+														name="start"
+														id="start"
+														placeholder="Start Date"
+														className="form-control datepicker"
+														value={start}
+														onChange={this.onChange}
+													/>
+												</td>
+												<td>
+													<input
+														type="date"
+														name="end"
+														id="end"
+														placeholder="End Date (Optional)"
+														className="form-control datepicker"
+														value={end}
+														onChange={this.onChange}
+													/>
+													<br />
+													<input
+														type="submit"
+														value="Add Location Record"
+														className="btn btn-primary pull-right"
+														onClick={this.onAddJob}
+													/>
 												</td>
 											</tr>
-										))
-									) : (
-										<tr>
-											<td>No Job History</td>
-											<td />
-											<td />
-											<td />
-										</tr>
-									)}
-
-									{memberMatched && (
-										<tr>
-											<td>
-												<input
-													type="text"
-													name="name"
-													id="name"
-													placeholder="Location Name"
-													className="form-control locationsautocomplete"
-													value={name}
-													onChange={this.onChange}
-												/>
-											</td>
-											<td>
-												<input
-													type="text"
-													name="city"
-													id="city"
-													placeholder="City"
-													className="form-control citiesautocomplete"
-													value={city}
-													onChange={this.onChange}
-												/>
-											</td>
-											<td>
-												<input
-													type="date"
-													name="start"
-													id="start"
-													placeholder="Start Date"
-													className="form-control datepicker"
-													value={start}
-													onChange={this.onChange}
-												/>
-											</td>
-											<td>
-												<input
-													type="date"
-													name="end"
-													id="end"
-													placeholder="End Date (Optional)"
-													className="form-control datepicker"
-													value={end}
-													onChange={this.onChange}
-												/>
-												<br />
-												<input
-													type="submit"
-													value="Add Location Record"
-													className="btn btn-primary pull-right"
-													onClick={this.onAddJob}
-												/>
-											</td>
-										</tr>
-									)}
-								</tbody>
-							</Table>
-						</div>
+										)}
+									</tbody>
+								</Table>
+							</Panel.Body>
+						</Panel>
 
 						<hr />
 

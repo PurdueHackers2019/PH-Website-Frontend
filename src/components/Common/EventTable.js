@@ -16,28 +16,36 @@ class EventTable extends Component {
 		const { events, allowed } = this.props;
 		return (
 			<Panel>
-				<Table bordered hover className="table-clickable panel-body sortableTable">
-					<thead>
-						<tr>
-							<th>Name</th>
-							<th>Location</th>
-							<th>Date</th>
-							{allowed && <th># Attended</th>}
-						</tr>
-					</thead>
-					<tbody>
-						{events &&
-							events.map(event => (
-								<tr key={event._id + 1} id={event._id} onClick={this.onClick(event._id)}>
-									<td>{event.name}</td>
-									{/* <td>{formatDate(event.createdAt)}</td> */}
-									<td>{event.location}</td>
-									<td>{formatDate(event.eventTime)}</td>
-									{allowed && <td>{event.members ? event.members.length : 0}</td>}
-								</tr>
-							))}
-					</tbody>
-				</Table>
+				<Panel.Body>
+					<Table bordered hover className="table-clickable sortableTable">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Location</th>
+								<th>Date</th>
+								{allowed && <th># Attended</th>}
+							</tr>
+						</thead>
+						<tbody>
+							{events &&
+								events.map(event => (
+									<tr
+										key={event._id + 1}
+										id={event._id}
+										onClick={this.onClick(event._id)}
+									>
+										<td>{event.name}</td>
+										{/* <td>{formatDate(event.createdAt)}</td> */}
+										<td>{event.location}</td>
+										<td>{formatDate(event.eventTime)}</td>
+										{allowed && (
+											<td>{event.members ? event.members.length : 0}</td>
+										)}
+									</tr>
+								))}
+						</tbody>
+					</Table>
+				</Panel.Body>
 			</Panel>
 		);
 	}

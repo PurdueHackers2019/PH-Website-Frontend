@@ -6,6 +6,7 @@ import { hasPermission, formatDate, shortName, err } from '../../constants';
 import { sendFlashMessage, clearFlashMessages, fetchEvent } from '../../actions';
 import { MembersAttendedTable, CustomRedirect, Header } from '../Common';
 import { logger } from '../../constants/logger';
+import { Panel } from 'react-bootstrap';
 
 // TODO: Add autocomplete to input tags
 
@@ -88,8 +89,14 @@ class EventPage extends Component {
 						<h3>
 							{shortName(event.name)}
 							<Link key={`${event._id}-1`} to="/events">
-								<button type="button" className="pull-left btn btn-primary btn-sm marginR">
-									<span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
+								<button
+									type="button"
+									className="pull-left btn btn-primary btn-sm marginR"
+								>
+									<span
+										className="glyphicon glyphicon-chevron-left"
+										aria-hidden="true"
+									/>
 									Events
 								</button>
 							</Link>
@@ -112,8 +119,8 @@ class EventPage extends Component {
 								</Link>
 							]}
 						</h3>
-						<div className="panel panel-default text-left">
-							<div className="panel-body">
+						<Panel className="text-left">
+							<Panel.Body>
 								<div id="profile_intro_text">
 									<div id="profile_name">{event.name}</div>
 									<div id="profile_email">Location: {event.location}</div>
@@ -125,14 +132,14 @@ class EventPage extends Component {
 										</a>
 									)}
 								</div>
-							</div>
-						</div>
+							</Panel.Body>
+						</Panel>
 						<hr />
 						{event.members && event.members.length ? (
 							<MembersAttendedTable members={event.members} />
 						) : (
-								<h3>No Members attended</h3>
-							)}
+							<h3>No Members attended</h3>
+						)}
 					</div>
 				</div>
 			</div>

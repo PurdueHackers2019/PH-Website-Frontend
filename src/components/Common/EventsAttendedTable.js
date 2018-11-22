@@ -15,29 +15,31 @@ class EventsAttendedTable extends Component {
 		const { events } = this.props;
 		return (
 			<Panel>
-				<Table bordered hover className="table-clickable panel-body">
-					<thead>
-						<tr>
-							<th>Event</th>
-							<th>Date</th>
-						</tr>
-					</thead>
-					<tbody>
-						{events && events.length ? (
-							events.map((event, i) => (
-								<tr key={i} onClick={this.onEventClick(event._id)}>
-									<td>{event.name}</td>
-									<td>{formatDate(event.eventTime)}</td>
-								</tr>
-							))
-						) : (
+				<Panel.Body>
+					<Table bordered hover className="table-clickable">
+						<thead>
+							<tr>
+								<th>Event</th>
+								<th>Date</th>
+							</tr>
+						</thead>
+						<tbody>
+							{events && events.length ? (
+								events.map((event, i) => (
+									<tr key={i} onClick={this.onEventClick(event._id)}>
+										<td>{event.name}</td>
+										<td>{formatDate(event.eventTime)}</td>
+									</tr>
+								))
+							) : (
 								<tr>
 									<td>No Events Attended</td>
 									<td />
 								</tr>
 							)}
-					</tbody>
-				</Table>
+						</tbody>
+					</Table>
+				</Panel.Body>
 			</Panel>
 		);
 	}

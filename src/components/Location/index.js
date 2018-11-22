@@ -6,7 +6,7 @@ import routes, { hasPermission, formatDate, err } from '../../constants';
 import { sendFlashMessage, clearFlashMessages, fetchLocation, updateLocation } from '../../actions';
 import { CustomRedirect, Header } from '../Common';
 import { logger } from '../../constants/logger';
-import { Table } from 'react-bootstrap';
+import { Table, Panel } from 'react-bootstrap';
 
 // TODO: Add autocomplete to input tags
 
@@ -113,49 +113,51 @@ class LocationPage extends Component {
 								</button>
 							</Link>
 						</h3>
-						<div className="panel panel-default">
+						<Panel>
 							{hasPermission(user, 'admin') ? (
-								<form className="panel-body" onSubmit={this.onSubmit}>
-									<label htmlFor="name">
-										Location Name
+								<form onSubmit={this.onSubmit}>
+									<Panel.Body>
+										<label htmlFor="name">
+											Location Name
+											<input
+												id="name"
+												placeholder="Location Name"
+												className="form-control"
+												value={name}
+												onChange={this.onChange}
+											/>
+										</label>
+										<br />
+										<label htmlFor="city">
+											Location City
+											<input
+												id="city"
+												placeholder="City"
+												className="form-control"
+												value={city}
+												onChange={this.onChange}
+											/>
+										</label>
+										<br />
 										<input
-											id="name"
-											placeholder="Location Name"
-											className="form-control"
-											value={name}
-											onChange={this.onChange}
+											type="submit"
+											value="Update Location"
+											className="btn btn-primary"
 										/>
-									</label>
-									<br />
-									<label htmlFor="city">
-										Location City
-										<input
-											id="city"
-											placeholder="City"
-											className="form-control"
-											value={city}
-											onChange={this.onChange}
-										/>
-									</label>
-									<br />
-									<input
-										type="submit"
-										value="Update Location"
-										className="btn btn-primary"
-									/>
+									</Panel.Body>
 								</form>
 							) : (
-								<div className="panel-body">
+								<Panel.Body>
 									<div id="profile_name">{location.name}</div>
 									<div id="profile_major">City: {location.city}</div>
-								</div>
+								</Panel.Body>
 							)}
-						</div>
+						</Panel>
 
 						<hr />
 
 						<h3>Members</h3>
-						<div className="panel panel-default">
+						<Panel>
 							<Table bordered hover className="table-clickable panel-body">
 								<thead>
 									<tr>
@@ -185,7 +187,7 @@ class LocationPage extends Component {
 									)}
 								</tbody>
 							</Table>
-						</div>
+						</Panel>
 					</div>
 				</div>
 			</div>

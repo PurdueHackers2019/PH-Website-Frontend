@@ -8,24 +8,26 @@ const MembersAttendedTable = ({ members }) => (
 
 		<h3>Members Attended</h3>
 		<Panel>
-			<Table bordered hover className="table-clickable panel-body sortableTable">
-				<thead>
-					<tr>
-						<th>Member</th>
-						<th>Year</th>
-						<th># Attended Events</th>
-					</tr>
-				</thead>
-				<tbody>
-					{members.map(member => (
-						<tr key={member._id}>
-							<td>{member.name}</td>
-							<td>{member.graduationYear}</td>
-							<td>{member.events ? member.events.length : 0}</td>
+			<Panel.Body>
+				<Table bordered hover className="table-clickable sortableTable">
+					<thead>
+						<tr>
+							<th>Member</th>
+							<th>Year</th>
+							<th># Attended Events</th>
 						</tr>
-					))}
-				</tbody>
-			</Table>
+					</thead>
+					<tbody>
+						{members.map(member => (
+							<tr key={member._id}>
+								<td>{member.name}</td>
+								<td>{member.graduationYear}</td>
+								<td>{member.events ? member.events.length : 0}</td>
+							</tr>
+						))}
+					</tbody>
+				</Table>
+			</Panel.Body>
 		</Panel>
 	</React.Fragment>
 );

@@ -6,7 +6,7 @@ import routes from '../../constants';
 import { sendFlashMessage, clearFlashMessages, fetchLocations } from '../../actions';
 import { Header } from '../Common';
 import { logger } from '../../constants/logger';
-import { Table } from 'react-bootstrap';
+import { Table, Panel } from 'react-bootstrap';
 
 class LocationsPage extends Component {
 	static propTypes = {
@@ -53,26 +53,28 @@ class LocationsPage extends Component {
 							</button>
 						</Link>
 					</h3>
-					<div className="panel panel-default">
-						<Table bordered hover className="table-clickable panel-body sortableTable">
-							<thead>
-								<tr>
-									<th>Location</th>
-									<th>City</th>
-									<th># Members</th>
-								</tr>
-							</thead>
-							<tbody>
-								{locations.map(location => (
-									<tr key={location._id} onClick={this.onClick(location._id)}>
-										<td>{location.name}</td>
-										<td>{location.city}</td>
-										<td>{location.members.length}</td>
+					<Panel>
+						<Panel.Body>
+							<Table bordered hover className="table-clickable sortableTable">
+								<thead>
+									<tr>
+										<th>Location</th>
+										<th>City</th>
+										<th># Members</th>
 									</tr>
-								))}
-							</tbody>
-						</Table>
-					</div>
+								</thead>
+								<tbody>
+									{locations.map(location => (
+										<tr key={location._id} onClick={this.onClick(location._id)}>
+											<td>{location.name}</td>
+											<td>{location.city}</td>
+											<td>{location.members.length}</td>
+										</tr>
+									))}
+								</tbody>
+							</Table>
+						</Panel.Body>
+					</Panel>
 				</div>
 			</div>
 		);

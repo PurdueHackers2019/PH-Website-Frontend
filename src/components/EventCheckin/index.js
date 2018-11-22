@@ -14,6 +14,7 @@ import {
 } from '../../actions';
 import { CustomRedirect, Header } from '../Common';
 import { logger } from '../../constants/logger';
+import { Panel } from 'react-bootstrap';
 
 // TODO: Add autocomplete to input tags
 
@@ -155,14 +156,20 @@ class EventCheckinPage extends Component {
 						<h3>
 							{shortName(event.name)}
 							<Link key={`${event._id}-1`} to={`/event/${event._id}`}>
-								<button type="button" className="pull-left btn btn-primary btn-sm marginR">
-									<span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
+								<button
+									type="button"
+									className="pull-left btn btn-primary btn-sm marginR"
+								>
+									<span
+										className="glyphicon glyphicon-chevron-left"
+										aria-hidden="true"
+									/>
 									Event
 								</button>
 							</Link>
 						</h3>
-						<div className="panel panel-default">
-							<div id="checkinForm" className="panel-body validate" autoComplete="off">
+						<Panel>
+							<Panel.Body id="checkinForm" className="validate" autoComplete="off">
 								<Downshift
 									inputValue={name}
 									selectedItem={selectedMember}
@@ -177,56 +184,64 @@ class EventCheckinPage extends Component {
 										highlightedIndex,
 										isOpen
 									}) => (
-											<div>
-												<div className="input-group">
-													<span className="input-group-addon" id="memberNameTitle">
-														Name:
+										<div>
+											<div className="input-group">
+												<span
+													className="input-group-addon"
+													id="memberNameTitle"
+												>
+													Name:
 												</span>
-													<input
-														{...getInputProps({
-															onChange: e => this.onInputChange(e, 'name'),
-															id: 'name',
-															name: 'name',
-															className: 'form-control membersautocomplete',
-															placeholder: 'Member Name',
-															pattern: '([a-zA-Z]+ )+[a-zA-Z]+',
-															title: 'Please enter first and last name'
-														})}
-													/>
-												</div>
-												{isOpen &&
-													members.length && (
-														<div>
-															{members
-																.filter(
-																	item =>
-																		!inputValue || item.name.includes(inputValue)
-																)
-																.map((item, index) => (
-																	<div
-																		{...getItemProps({
-																			key: item.name,
-																			index,
-																			item,
-																			style: {
-																				backgroundColor:
-																					highlightedIndex === index
-																						? 'lightgray'
-																						: 'white',
-																				fontWeight:
-																					selectedItem === item
-																						? 'bold'
-																						: 'normal'
-																			}
-																		})}
-																	>
-																		{item.name}
-																	</div>
-																))}
-														</div>
-													)}
+												<input
+													{...getInputProps({
+														onChange: e =>
+															this.onInputChange(e, 'name'),
+														id: 'name',
+														name: 'name',
+														className:
+															'form-control membersautocomplete',
+														placeholder: 'Member Name',
+														pattern: '([a-zA-Z]+ )+[a-zA-Z]+',
+														title: 'Please enter first and last name'
+													})}
+												/>
 											</div>
-										)}
+											{isOpen &&
+												members.length && (
+													<div>
+														{members
+															.filter(
+																item =>
+																	!inputValue ||
+																	item.name.includes(inputValue)
+															)
+															.map((item, index) => (
+																<div
+																	{...getItemProps({
+																		key: item.name,
+																		index,
+																		item,
+																		style: {
+																			backgroundColor:
+																				highlightedIndex ===
+																				index
+																					? 'lightgray'
+																					: 'white',
+																			fontWeight:
+																				selectedItem ===
+																				item
+																					? 'bold'
+																					: 'normal'
+																		}
+																	})}
+																>
+																	{item.name}
+																</div>
+															))}
+													</div>
+												)}
+										</div>
+									)}
 								</Downshift>
 								<br />
 								<Downshift
@@ -243,54 +258,61 @@ class EventCheckinPage extends Component {
 										highlightedIndex,
 										isOpen
 									}) => (
-											<div>
-												<div className="input-group">
-													<span className="input-group-addon" id="memberEmailTitle">
-														Email:
+										<div>
+											<div className="input-group">
+												<span
+													className="input-group-addon"
+													id="memberEmailTitle"
+												>
+													Email:
 												</span>
-													<input
-														{...getInputProps({
-															onChange: e => this.onInputChange(e, 'email'),
-															id: 'email',
-															name: 'email',
-															className: 'form-control',
-															placeholder: 'Member Email'
-														})}
-													/>
-												</div>
-												{isOpen &&
-													members.length && (
-														<div>
-															{members
-																.filter(
-																	item =>
-																		!inputValue || item.email.includes(inputValue)
-																)
-																.map((item, index) => (
-																	<div
-																		{...getItemProps({
-																			key: item.email,
-																			index,
-																			item,
-																			style: {
-																				backgroundColor:
-																					highlightedIndex === index
-																						? 'lightgray'
-																						: 'white',
-																				fontWeight:
-																					selectedItem === item
-																						? 'bold'
-																						: 'normal'
-																			}
-																		})}
-																	>
-																		{item.email}
-																	</div>
-																))}
-														</div>
-													)}
+												<input
+													{...getInputProps({
+														onChange: e =>
+															this.onInputChange(e, 'email'),
+														id: 'email',
+														name: 'email',
+														className: 'form-control',
+														placeholder: 'Member Email'
+													})}
+												/>
 											</div>
-										)}
+											{isOpen &&
+												members.length && (
+													<div>
+														{members
+															.filter(
+																item =>
+																	!inputValue ||
+																	item.email.includes(inputValue)
+															)
+															.map((item, index) => (
+																<div
+																	{...getItemProps({
+																		key: item.email,
+																		index,
+																		item,
+																		style: {
+																			backgroundColor:
+																				highlightedIndex ===
+																				index
+																					? 'lightgray'
+																					: 'white',
+																			fontWeight:
+																				selectedItem ===
+																				item
+																					? 'bold'
+																					: 'normal'
+																		}
+																	})}
+																>
+																	{item.email}
+																</div>
+															))}
+													</div>
+												)}
+										</div>
+									)}
 								</Downshift>
 								<br />
 								<div className="input-group">
@@ -322,8 +344,8 @@ class EventCheckinPage extends Component {
 								>
 									Checkout
 								</button>
-							</div>
-						</div>
+							</Panel.Body>
+						</Panel>
 						<div id="checkinAlerts" />
 					</div>
 				</div>
