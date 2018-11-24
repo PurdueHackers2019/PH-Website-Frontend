@@ -6,7 +6,7 @@ import { err } from '../../constants';
 import { sendFlashMessage, clearFlashMessages, signUp } from '../../actions';
 import { Header } from '../Common';
 import { logger } from '../../constants/logger';
-import { Panel } from 'react-bootstrap';
+import { Panel, Button, FormControl, InputGroup, ControlLabel, Checkbox } from 'react-bootstrap';
 
 class SignUpPage extends Component {
 	static propTypes = {
@@ -143,7 +143,7 @@ class SignUpPage extends Component {
 								<p className="text-muted text-center">
 									Fields marked with an * are required
 								</p>
-								<label htmlFor="name">
+								<ControlLabel htmlFor="name">
 									Full Name *
 									<div className="text-right pull-right">
 										<span style={{ fontSize: '8px' }}>
@@ -151,9 +151,9 @@ class SignUpPage extends Component {
 										</span>
 										Private Profile
 									</div>
-								</label>
-								<div className="input-group">
-									<input
+								</ControlLabel>
+								<InputGroup>
+									<FormControl
 										type="text"
 										name="name"
 										id="name"
@@ -163,20 +163,19 @@ class SignUpPage extends Component {
 										pattern="([a-zA-Z]+ )+[a-zA-Z]+"
 										title="Please enter first and last name"
 										required
-										className="form-control"
 									/>
-									<span className="input-group-addon" id="privateProfileGroup">
-										<input
+									<InputGroup.Addon inline id="privateProfileGroup">
+										<Checkbox
 											type="checkbox"
 											name="privateProfile"
 											id="privateProfile"
 											checked={privateProfile}
 											onChange={this.onCheckboxChange}
 										/>
-									</span>
-								</div>
+									</InputGroup.Addon>
+								</InputGroup>
 								<br />
-								<label htmlFor="email">
+								<ControlLabel htmlFor="email">
 									Account Email *
 									<div className="text-right pull-right">
 										<span style={{ fontSize: '8px' }}>
@@ -184,9 +183,9 @@ class SignUpPage extends Component {
 										</span>
 										Unsubscribe
 									</div>
-								</label>
-								<div className="input-group">
-									<input
+								</ControlLabel>
+								<InputGroup>
+									<FormControl
 										type="email"
 										name="email"
 										id="email"
@@ -194,22 +193,21 @@ class SignUpPage extends Component {
 										value={email}
 										onChange={this.onChange}
 										required
-										className="form-control"
 									/>
-									<span className="input-group-addon" id="unsubscribedGroup">
-										<input
+									<InputGroup.Addon inline id="unsubscribedGroup">
+										<Checkbox
 											type="checkbox"
 											name="unsubscribed"
 											id="unsubscribed"
 											checked={unsubscribed}
 											onChange={this.onCheckboxChange}
 										/>
-									</span>
-								</div>
+									</InputGroup.Addon>
+								</InputGroup>
 								<br />
-								<label htmlFor="graduationYear">
+								<ControlLabel htmlFor="graduationYear">
 									Year of Graduation *
-									<input
+									<FormControl
 										type="number"
 										id="graduationYear"
 										min="1869"
@@ -218,41 +216,38 @@ class SignUpPage extends Component {
 										value={graduationYear}
 										onChange={this.onChange}
 										required
-										className="form-control"
 									/>
-								</label>
+								</ControlLabel>
 								<br />
-								<label htmlFor="password">
+								<ControlLabel htmlFor="password">
 									Password *
-									<input
+									<FormControl
 										type="password"
 										name="password"
 										id="password"
 										placeholder="Password"
 										value={password}
 										onChange={this.onChange}
-										className="form-control"
 										data-bvalidator="required"
 										data-bvalidator-msg="A password is required"
 									/>
-								</label>
+								</ControlLabel>
 								<br />
-								<label htmlFor="passwordConfirm">
+								<ControlLabel htmlFor="passwordConfirm">
 									Confirm Password *
-									<input
+									<FormControl
 										type="password"
 										name="passwordConfirm"
 										id="passwordConfirm"
 										value={passwordConfirm}
 										onChange={this.onChange}
 										placeholder="Confirm Password"
-										className="form-control"
 										data-bvalidator="required,equalto[password]"
 										data-bvalidator-msg="Password does not match"
 									/>
-								</label>
+								</ControlLabel>
 								<br />
-								<label htmlFor="picture">
+								<ControlLabel htmlFor="picture">
 									Profile Picture (JPG or PNG)
 									<br />
 									{pictureFile ? (
@@ -268,18 +263,17 @@ class SignUpPage extends Component {
 											style={{ maxWidth: '100%' }}
 										/>
 									) : null}
-									<input
+									<FormControl
 										type="file"
 										id="pictureFile"
 										accept="image/*"
 										onChange={this.onChange}
-										className="form-control"
 									/>
-								</label>
+								</ControlLabel>
 								<br />
-								<label htmlFor="phone">
+								<ControlLabel htmlFor="phone">
 									Cell Phone Number (private, only for text notifications)
-									<input
+									<FormControl
 										type="tel"
 										name="phone"
 										id="phone"
@@ -287,30 +281,29 @@ class SignUpPage extends Component {
 										title="10 Digit Cell Phone Number"
 										value={phone}
 										onChange={this.onChange}
-										className="form-control"
 										data-bvalidator="minlength[10]"
 										data-bvalidator-msg="Please enter a valid cell phone # (with area code)"
 									/>
-								</label>
+								</ControlLabel>
 								<br />
-								<label htmlFor="description">
+								<ControlLabel htmlFor="description">
 									Public Message
-									<textarea
+									<FormControl
 										name="description"
 										id="description"
 										value={description}
 										onChange={this.onChange}
-										className="form-control"
+										componentClass="textarea"
 										placeholder="Public Message"
 									/>
-								</label>
+								</ControlLabel>
 								<br />
-								<label htmlFor="major">
+								<ControlLabel htmlFor="major">
 									Major
-									<select
+									<FormControl
 										name="major"
 										id="major"
-										className="form-control"
+										componentClass="select"
 										data-bvalidator="required"
 										value={major}
 										onChange={this.onChange}
@@ -336,105 +329,100 @@ class SignUpPage extends Component {
 											Mechanical Engineering
 										</option>
 										<option value="Other">Other</option>
-									</select>
-								</label>
+									</FormControl>
+								</ControlLabel>
 								<br />
-								<label htmlFor="gender">
+								<ControlLabel htmlFor="gender">
 									Gender
-									<select
+									<FormControl
 										name="gender"
 										id="gender"
 										value={gender}
 										onChange={this.onChange}
-										className="form-control"
+										componentClass="select"
 										data-bvalidator="required"
 									>
 										<option value="Male">Male</option>
 										<option value="Female">Female</option>
 										<option value="Other">Other</option>
 										<option value="No">Prefer Not To Answer</option>
-									</select>
-								</label>
+									</FormControl>
+								</ControlLabel>
 								<br />
-								<label htmlFor="facebook">
+								<ControlLabel htmlFor="facebook">
 									Facebook Profile
-									<input
+									<FormControl
 										type="url"
 										name="facebook"
 										id="facebook"
 										placeholder="Facebook Profile"
 										value={facebook}
 										onChange={this.onChange}
-										className="form-control"
 										data-bvalidator="url"
 										data-bvalidator-msg="Please enter a valid URL to your Facebook Profile."
 									/>
-								</label>
+								</ControlLabel>
 								<br />
-								<label htmlFor="github">
+								<ControlLabel htmlFor="github">
 									Github Profile
-									<input
+									<FormControl
 										type="url"
 										name="github"
 										id="github"
 										placeholder="Github Profile"
 										value={github}
 										onChange={this.onChange}
-										className="form-control"
 										data-bvalidator="url"
 										data-bvalidator-msg="Please enter a valid URL to your Github Profile."
 									/>
-								</label>
+								</ControlLabel>
 								<br />
-								<label htmlFor="linkedin">
+								<ControlLabel htmlFor="linkedin">
 									LinkedIn Profile
-									<input
+									<FormControl
 										type="url"
 										name="linkedin"
 										id="linkedin"
 										placeholder="LinkedIn Profile"
 										value={linkedin}
 										onChange={this.onChange}
-										className="form-control"
 										data-bvalidator="url"
 										data-bvalidator-msg="Please enter a valid URL to your LinkedIn Profile."
 									/>
-								</label>
+								</ControlLabel>
 								<br />
-								<label htmlFor="devpost">
+								<ControlLabel htmlFor="devpost">
 									Devpost Profile
-									<input
+									<FormControl
 										type="url"
 										name="devpost"
 										id="devpost"
 										placeholder="Devpost Profile"
 										value={devpost}
 										onChange={this.onChange}
-										className="form-control"
 										data-bvalidator="url"
 										data-bvalidator-msg="Please enter a valid URL to your Devpost Profile."
 									/>
-								</label>
+								</ControlLabel>
 								<br />
-								<label htmlFor="website">
+								<ControlLabel htmlFor="website">
 									Personal Website
-									<input
+									<FormControl
 										type="url"
 										name="website"
 										id="website"
 										placeholder="Personal Website"
 										value={website}
 										onChange={this.onChange}
-										className="form-control"
 										data-bvalidator="url"
 										data-bvalidator-msg="Please enter a valid URL to your Personal Website."
 									/>
-								</label>
+								</ControlLabel>
 								<br />
 								<u>
 									<p className="form-check-label">Resume (PDF)</p>
 								</u>
-								<label
+								<ControlLabel
 									className="form-check-label form-check-inline"
 									htmlFor="linkToResume"
 								>
@@ -447,8 +435,8 @@ class SignUpPage extends Component {
 										onChange={() => this.setState({ resumeType: 'Link' })}
 									/>
 									&nbsp; Link (Preferred)
-								</label>
-								<label
+								</ControlLabel>
+								<ControlLabel
 									className="form-check-label form-check-inline"
 									htmlFor="resumeFile"
 								>
@@ -462,15 +450,14 @@ class SignUpPage extends Component {
 										onChange={() => this.setState({ resumeType: 'File' })}
 									/>
 									&nbsp; Upload File
-								</label>
+								</ControlLabel>
 								{resumeType === 'Link' ? (
-									<input
+									<FormControl
 										type="url"
 										id="resumeLink"
 										placeholder="Link to Resume"
 										value={resumeLink}
 										onChange={this.onChange}
-										className="form-control"
 										data-bvalidator="url"
 										data-bvalidator-msg="Please enter a valid URL to your Resume."
 									/>
@@ -489,18 +476,18 @@ class SignUpPage extends Component {
 												{resume.name || `${name}'s Resume`}
 											</a>
 										)}
-										<input
+										<FormControl
 											type="file"
 											id="resume"
 											accept="application/pdf"
-											className="form-control pull-left"
+											className="pull-left"
 											onChange={this.onChange}
 										/>
 									</div>
 								)}
 								<br />
 								<br />
-								<input type="submit" value="Join" className="btn btn-primary" />
+								<Button type="submit" value="Join" bsStyle="primary" />
 							</Panel.Body>
 						</form>
 					</Panel>

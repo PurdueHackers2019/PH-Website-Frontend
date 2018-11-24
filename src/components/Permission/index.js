@@ -13,7 +13,7 @@ import {
 } from '../../actions';
 import { CustomRedirect, Header } from '../Common';
 import { logger } from '../../constants/logger';
-import { Table, Panel } from 'react-bootstrap';
+import { Table, Panel, Button, Glyphicon, FormControl } from 'react-bootstrap';
 
 class PermissionPage extends Component {
 	static propTypes = {
@@ -124,13 +124,10 @@ class PermissionPage extends Component {
 					<h3>
 						Permission: {permission.name}
 						<Link to={routes.PERMISSIONS} className="pull-left">
-							<button type="button" className="btn btn-primary btn-sm">
-								<span
-									className="glyphicon glyphicon-chevron-left"
-									aria-hidden="true"
-								/>
+							<Button type="button" bsStyle="primary" bsSize="small">
+								<Glyphicon inline glyph="chevron-left" aria-hidden="true" />
 								Permissions
-							</button>
+							</Button>
 						</Link>
 					</h3>
 					<Panel className="text-left">
@@ -187,22 +184,23 @@ class PermissionPage extends Component {
 									<tr>
 										<td />
 										<td>
-											<input
+											<FormControl
 												type="text"
 												id="memberEmail"
 												name="member_name"
 												placeholder="Add User"
-												className="form-control membersautocomplete"
+												className="membersautocomplete"
 												data-bvalidator="required"
 												value={memberEmail}
 												onChange={this.onChange}
 											/>
 										</td>
 										<td>
-											<input
+											<Button
 												type="submit"
 												value="Add User"
-												className="btn btn-sm btn-primary"
+												bsStyle="primary"
+												bsSize="small"
 												onClick={this.onAddUser}
 											/>
 										</td>

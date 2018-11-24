@@ -6,7 +6,7 @@ import routes, { hasPermission, formatDate, err } from '../../constants';
 import { sendFlashMessage, clearFlashMessages, fetchLocation, updateLocation } from '../../actions';
 import { CustomRedirect, Header } from '../Common';
 import { logger } from '../../constants/logger';
-import { Table, Panel } from 'react-bootstrap';
+import { Table, Panel, Button, FormControl, Glyphicon, ControlLabel } from 'react-bootstrap';
 
 // TODO: Add autocomplete to input tags
 
@@ -101,48 +101,45 @@ class LocationPage extends Component {
 						<h3>
 							{location.name}
 							<Link to={routes.LOCATIONS}>
-								<button
+								<Button
 									type="button"
-									className="pull-left btn btn-primary btn-sm marginR"
+									bsStyle="primary"
+									bsSize="small"
+									className="pull-left marginR"
 								>
-									<span
-										className="glyphicon glyphicon-chevron-left"
-										aria-hidden="true"
-									/>
+									<Glyphicon inline glyph="chevron-left" aria-hidden="true" />
 									List of Locations
-								</button>
+								</Button>
 							</Link>
 						</h3>
 						<Panel>
 							{hasPermission(user, 'admin') ? (
 								<form onSubmit={this.onSubmit}>
 									<Panel.Body>
-										<label htmlFor="name">
+										<ControlLabel htmlFor="name">
 											Location Name
-											<input
+											<FormControl
 												id="name"
 												placeholder="Location Name"
-												className="form-control"
 												value={name}
 												onChange={this.onChange}
 											/>
-										</label>
+										</ControlLabel>
 										<br />
-										<label htmlFor="city">
+										<ControlLabel htmlFor="city">
 											Location City
-											<input
+											<FormControl
 												id="city"
 												placeholder="City"
-												className="form-control"
 												value={city}
 												onChange={this.onChange}
 											/>
-										</label>
+										</ControlLabel>
 										<br />
-										<input
+										<Button
 											type="submit"
 											value="Update Location"
-											className="btn btn-primary"
+											bsStyle="primary"
 										/>
 									</Panel.Body>
 								</form>

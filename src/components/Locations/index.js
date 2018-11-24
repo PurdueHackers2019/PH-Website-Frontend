@@ -6,7 +6,7 @@ import routes from '../../constants';
 import { sendFlashMessage, clearFlashMessages, fetchLocations } from '../../actions';
 import { Header } from '../Common';
 import { logger } from '../../constants/logger';
-import { Table, Panel } from 'react-bootstrap';
+import { Table, Panel, Button } from 'react-bootstrap';
 
 class LocationsPage extends Component {
 	static propTypes = {
@@ -48,9 +48,9 @@ class LocationsPage extends Component {
 					<h3>
 						Purdue Hackers Around The Globe
 						<Link to={routes.LOCATIONS_MAP} className="pull-right">
-							<button type="button" className="btn btn-primary btn-sm">
+							<Button type="button" bsStyle="primary" bsSize="small">
 								Map
-							</button>
+							</Button>
 						</Link>
 					</h3>
 					<Panel>

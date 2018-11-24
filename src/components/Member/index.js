@@ -20,7 +20,8 @@ import {
 	Header
 } from '../Common';
 import { logger } from '../../constants/logger';
-import { Table, Panel } from 'react-bootstrap';
+import { Table, Panel, FormControl, Button } from 'react-bootstrap';
+import * as DatePicker from 'react-bootstrap-date-picker';
 
 // TODO: Add autocomplete to input tags
 
@@ -212,9 +213,9 @@ class MemberPage extends Component {
 							{memberMatched && (
 								<React.Fragment>
 									<Link to={`/member/${member._id}/edit`} className="pull-right">
-										<button type="button" className="btn btn-primary btn-sm">
+										<Button type="button" bsStyle="primary" bsSize="small">
 											Edit Profile
-										</button>
+										</Button>
 									</Link>
 									{/* <Link to={routes.PROJECTS} className="pull-left">
 										<button type="button" className="btn btn-primary btn-sm">
@@ -265,13 +266,15 @@ class MemberPage extends Component {
 													<td>
 														{job.end ? formatDate(job.end) : 'Current'}
 														{memberMatched && (
-															<button
+															<Button
 																id={job._id}
-																className="btn btn-sm btn-danger pull-right"
+																bsStyle="danger"
+																bsSize="small"
+																className="pull-right"
 																onClick={this.onDeleteJob}
 															>
 																Remove
-															</button>
+															</Button>
 														)}
 													</td>
 												</tr>
@@ -288,53 +291,54 @@ class MemberPage extends Component {
 										{memberMatched && (
 											<tr>
 												<td>
-													<input
+													<FormControl
 														type="text"
 														name="name"
 														id="name"
 														placeholder="Location Name"
-														className="form-control locationsautocomplete"
+														className="locationsautocomplete"
 														value={name}
 														onChange={this.onChange}
 													/>
 												</td>
 												<td>
-													<input
+													<FormControl
 														type="text"
 														name="city"
 														id="city"
 														placeholder="City"
-														className="form-control citiesautocomplete"
+														className="citiesautocomplete"
 														value={city}
 														onChange={this.onChange}
 													/>
 												</td>
 												<td>
-													<input
+													<FormControl
 														type="date"
 														name="start"
 														id="start"
 														placeholder="Start Date"
-														className="form-control datepicker"
+														componentClass="datepicker"
 														value={start}
 														onChange={this.onChange}
 													/>
 												</td>
 												<td>
-													<input
+													<FormControl
 														type="date"
 														name="end"
 														id="end"
 														placeholder="End Date (Optional)"
-														className="form-control datepicker"
+														componentClass="datepicker"
 														value={end}
 														onChange={this.onChange}
 													/>
 													<br />
-													<input
+													<Button
 														type="submit"
 														value="Add Location Record"
-														className="btn btn-primary pull-right"
+														bsStyle="primary"
+														className="pull-right"
 														onClick={this.onAddJob}
 													/>
 												</td>

@@ -11,7 +11,7 @@ import {
 } from '../../actions';
 import { Header } from '../Common';
 import { logger } from '../../constants/logger';
-import { Table, Panel } from 'react-bootstrap';
+import { Table, Panel, Button, FormControl } from 'react-bootstrap';
 
 class PermissionsPage extends Component {
 	static propTypes = {
@@ -128,34 +128,33 @@ class PermissionsPage extends Component {
 									{hasPermission(user, 'adminpermissions') && (
 										<tr>
 											<td>
-												<input
+												<FormControl
 													type="text"
 													id="permissionName"
 													name="permissionName"
 													placeholder="Permission Name"
-													className="form-control"
 													data-bvalidator="required"
 													value={permissionName}
 													onChange={this.onChange}
 												/>
 											</td>
 											<td>
-												<input
+												<FormControl
 													type="text"
 													id="permissionDescription"
 													name="permissionDescription"
 													placeholder="Permission Description"
-													className="form-control"
 													data-bvalidator="required"
 													value={permissionDescription}
 													onChange={this.onChange}
 												/>
 											</td>
 											<td>
-												<input
+												<Button
 													type="submit"
 													value="Add Permission"
-													className="btn btn-sm btn-primary"
+													bsStyle="primary"
+													bsSize="small"
 													onClick={this.onAddPermission}
 												/>
 											</td>
@@ -164,21 +163,22 @@ class PermissionsPage extends Component {
 									<tr>
 										<td />
 										<td>
-											<input
+											<FormControl
 												type="text"
 												id="organizerName"
 												placeholder="Add Organizer"
-												className="form-control membersautocomplete"
+												className="membersautocomplete"
 												data-bvalidator="required"
 												value={organizerName}
 												onChange={this.onChange}
 											/>
 										</td>
 										<td>
-											<input
+											<Button
 												type="button"
 												value="Add Organizer"
-												className="btn btn-sm btn-primary"
+												bsSize="small"
+												bsStyle="primary"
 												onClick={this.onAddOrganizer}
 											/>
 										</td>

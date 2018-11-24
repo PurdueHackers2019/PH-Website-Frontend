@@ -6,7 +6,7 @@ import { sendFlashMessage, clearFlashMessages, resetPassword } from '../../actio
 import routes, { err } from '../../constants';
 import { Header } from '../Common';
 import { logger } from '../../constants/logger';
-import { Panel } from 'react-bootstrap';
+import { Panel, Button, ControlLabel, FormControl, InputGroup } from 'react-bootstrap';
 
 class ResetPasswordPage extends Component {
 	static propTypes = {
@@ -63,9 +63,9 @@ class ResetPasswordPage extends Component {
 					<Panel>
 						<form onSubmit={this.onSubmit}>
 							<Panel.Body>
-								<label htmlFor="password">
+								<ControlLabel htmlFor="password">
 									Password *
-									<input
+									<FormControl
 										type="password"
 										name="password"
 										id="password"
@@ -73,15 +73,14 @@ class ResetPasswordPage extends Component {
 										value={password}
 										onChange={this.onChange}
 										required
-										className="form-control"
 										data-bvalidator="required"
 										data-bvalidator-msg="A password is required"
 									/>
-								</label>
+								</ControlLabel>
 								<br />
-								<label htmlFor="passwordConfirm">
+								<ControlLabel htmlFor="passwordConfirm">
 									Confirm Password *
-									<input
+									<FormControl
 										type="password"
 										name="passwordConfirm"
 										id="passwordConfirm"
@@ -89,14 +88,13 @@ class ResetPasswordPage extends Component {
 										onChange={this.onChange}
 										required
 										placeholder="Confirm Password"
-										className="form-control"
 										data-bvalidator="required,equalto[password]"
 										data-bvalidator-msg="Password does not match"
 									/>
-								</label>
+								</ControlLabel>
 								<span className="input-group-btn">
-									<input
-										className="btn btn-primary"
+									<Button
+										bsStyle="primary"
 										type="submit"
 										value="Reset Password"
 									/>

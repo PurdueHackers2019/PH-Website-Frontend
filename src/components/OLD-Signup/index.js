@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import validator from 'validator';
 import { signUp, sendFlashMessage } from '../../actions';
 import { logger } from '../../constants/logger';
-import { Panel } from 'react-bootstrap';
+import { Panel, FormControl, ControlLabel, Button } from 'react-bootstrap';
 
 class SignupPage extends Component {
 	static propTypes = {
@@ -73,80 +73,75 @@ class SignupPage extends Component {
 					<Panel>
 						<form onSubmit={this.onSubmit}>
 							<Panel.Body>
-								<label htmlFor="name">
+								<ControlLabel htmlFor="name">
 									Full Name
-									<input
+									<FormControl
 										type="text"
 										id="name"
 										placeholder="Full Name"
 										value={this.state.name}
-										className="form-control"
 										onChange={this.onChange}
 										pattern="([a-zA-Z]+ )+[a-zA-Z]+"
 										title="Please enter first and last name"
 										required
 									/>
-								</label>
+								</ControlLabel>
 								<br />
-								<label htmlFor="email">
+								<ControlLabel htmlFor="email">
 									Email
-									<input
+									<FormControl
 										type="email"
 										id="email"
 										placeholder="Email"
 										value={this.state.email}
-										className="form-control"
 										onChange={this.onChange}
 										required
 									/>
-								</label>
+								</ControlLabel>
 								<br />
-								<label htmlFor="password">
+								<ControlLabel htmlFor="password">
 									Password
-									<input
+									<FormControl
 										type="password"
 										id="password"
 										placeholder="Password"
-										className="form-control"
 										value={this.state.password}
 										onChange={this.onChange}
 										pattern=".{5,}"
 										title="Password must be at least 5 characters"
 										required
 									/>
-								</label>
+								</ControlLabel>
 								<br />
-								<label htmlFor="passwordConfirm">
+								<ControlLabel htmlFor="passwordConfirm">
 									Confirm Password
-									<input
+									<FormControl
 										type="password"
 										id="passwordConfirm"
 										placeholder="Confirm Password"
-										className="form-control"
 										value={this.state.passwordConfirm}
 										onChange={this.onChange}
 										pattern=".{5,30}"
 										title="Password must be at least 5 characters"
 										required
 									/>
-								</label>
+								</ControlLabel>
 								<br />
-								<label htmlFor="graduationYear">
+								<ControlLabel htmlFor="graduationYear">
 									(Expected) Year of Graduation
-									<input
+									<FormControl
 										type="number"
 										id="graduationYear"
 										placeholder="Graduation Year"
-										className="form-control"
 										value={this.state.graduationYear}
 										onChange={this.onChange}
 										min="1869"
 										max={new Date().getFullYear() + 20}
 										required
 									/>
-								</label>
+								</ControlLabel>
 								<br />
-								<input type="submit" value="Join" className="btn btn-primary" />
+								<Button type="submit" value="Join" bsStyle="primary" />
 							</Panel.Body>
 						</form>
 					</Panel>

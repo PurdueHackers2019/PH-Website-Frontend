@@ -14,7 +14,7 @@ import {
 } from '../../actions';
 import { CustomRedirect, Header } from '../Common';
 import { logger } from '../../constants/logger';
-import { Panel } from 'react-bootstrap';
+import { Panel, Button, FormControl, Glyphicon, InputGroup } from 'react-bootstrap';
 
 // TODO: Add autocomplete to input tags
 
@@ -156,16 +156,14 @@ class EventCheckinPage extends Component {
 						<h3>
 							{shortName(event.name)}
 							<Link key={`${event._id}-1`} to={`/event/${event._id}`}>
-								<button
-									type="button"
-									className="pull-left btn btn-primary btn-sm marginR"
+								<Button
+									bsStyle="primary"
+									bsSize="small"
+									className="pull-left  marginR"
 								>
-									<span
-										className="glyphicon glyphicon-chevron-left"
-										aria-hidden="true"
-									/>
+									<Glyphicon inline glyph="chevron-left" aria-hidden="true" />
 									Event
-								</button>
+								</Button>
 							</Link>
 						</h3>
 						<Panel>
@@ -185,27 +183,23 @@ class EventCheckinPage extends Component {
 										isOpen
 									}) => (
 										<div>
-											<div className="input-group">
-												<span
-													className="input-group-addon"
-													id="memberNameTitle"
-												>
+											<InputGroup>
+												<InputGroup.Addon inline id="memberNameTitle">
 													Name:
-												</span>
-												<input
+												</InputGroup.Addon>
+												<FormControl
 													{...getInputProps({
 														onChange: e =>
 															this.onInputChange(e, 'name'),
 														id: 'name',
 														name: 'name',
-														className:
-															'form-control membersautocomplete',
+														className: 'membersautocomplete',
 														placeholder: 'Member Name',
 														pattern: '([a-zA-Z]+ )+[a-zA-Z]+',
 														title: 'Please enter first and last name'
 													})}
 												/>
-											</div>
+											</InputGroup>
 											{isOpen &&
 												members.length && (
 													<div>
@@ -259,24 +253,20 @@ class EventCheckinPage extends Component {
 										isOpen
 									}) => (
 										<div>
-											<div className="input-group">
-												<span
-													className="input-group-addon"
-													id="memberEmailTitle"
-												>
+											<InputGroup>
+												<InputGroup.Addon inline id="memberEmailTitle">
 													Email:
-												</span>
-												<input
+												</InputGroup.Addon>
+												<FormControl
 													{...getInputProps({
 														onChange: e =>
 															this.onInputChange(e, 'email'),
 														id: 'email',
 														name: 'email',
-														className: 'form-control',
 														placeholder: 'Member Email'
 													})}
 												/>
-											</div>
+											</InputGroup>
 											{isOpen &&
 												members.length && (
 													<div>
@@ -315,35 +305,34 @@ class EventCheckinPage extends Component {
 									)}
 								</Downshift>
 								<br />
-								<div className="input-group">
-									<span className="input-group-addon" id="graduationYearTitle">
+								<InputGroup>
+									<InputGroup.Addon inline id="graduationYearTitle">
 										Graduation Year:
-									</span>
-									<input
+									</InputGroup.Addon>
+									<FormControl
 										type="text"
 										id="graduationYear"
-										className="form-control"
 										readOnly
 										value={selectedMember ? selectedMember.graduationYear : ''}
 									/>
-								</div>
+								</InputGroup>
 								<br />
-								<button
-									className="btn btn-primary"
+								<Button
+									bsStyle="primary"
 									type="button"
 									onClick={this.checkinMember}
 									style={{ float: 'center' }}
 								>
 									Checkin
-								</button>
-								<button
-									className="btn btn-danger"
+								</Button>
+								<Button
+									bsStyle="danger"
 									type="button"
 									onClick={this.checkoutMember}
 									style={{ float: 'center' }}
 								>
 									Checkout
-								</button>
+								</Button>
 							</Panel.Body>
 						</Panel>
 						<div id="checkinAlerts" />

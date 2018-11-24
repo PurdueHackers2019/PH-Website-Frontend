@@ -13,7 +13,7 @@ import {
 import { err } from '../../constants';
 import { Header } from '../Common';
 import { logger } from '../../constants/logger';
-import { Table, Panel } from 'react-bootstrap';
+import { Table, Panel, FormControl, Button, ControlLabel } from 'react-bootstrap';
 
 class CredentialsPage extends Component {
 	static propTypes = {
@@ -138,61 +138,60 @@ class CredentialsPage extends Component {
 						</Panel.Body>
 						<form className="validate">
 							<Panel.Body>
-								<label htmlFor="site">
+								<ControlLabel htmlFor="site">
 									Site
-									<input
+									<FormControl
 										id="site"
 										type="text"
 										name="site"
 										placeholder="Site"
-										className="form-control"
 										value={site}
 										onChange={this.onChange}
 									/>
-								</label>
-								<label htmlFor="username">
+								</ControlLabel>
+								<ControlLabel htmlFor="username">
 									Username
-									<input
+									<FormControl
 										id="username"
 										type="text"
 										name="username"
 										placeholder="Username"
-										className="form-control"
 										value={username}
 										onChange={this.onChange}
 									/>
-								</label>
-								<label htmlFor="password">
+								</ControlLabel>
+								<ControlLabel htmlFor="password">
 									Password
-									<input
+									<FormControl
 										id="password"
 										type="text"
 										name="password"
 										placeholder="Password"
-										className="form-control"
 										value={password}
 										onChange={this.onChange}
 									/>
-								</label>
-								<label htmlFor="description">
+								</ControlLabel>
+								<ControlLabel htmlFor="description">
 									Description
-									<textarea
+									<FormControl
 										id="description"
 										type="text"
 										name="description"
 										placeholder="Description"
-										className="form-control"
+										componentClass="textarea"
 										value={description}
 										onChange={this.onChange}
 									/>
-								</label>
+								</ControlLabel>
 								<br />
-								<input
+								<Button
 									type="submit"
-									value="Add Credential"
-									className="btn btn-sm btn-primary"
+									bsStyle="primary"
+									bsSize="small"
 									onClick={this.onAddCredential}
-								/>
+								>
+									Add Credential
+								</Button>
 							</Panel.Body>
 						</form>
 					</Panel>

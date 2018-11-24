@@ -6,6 +6,7 @@ import { EventTable, Header } from '../Common';
 import routes, { hasPermission } from '../../constants';
 import { fetchEvents } from '../../actions';
 import { logger } from '../../constants/logger';
+import { Button } from 'react-bootstrap';
 
 // TODO: Implement pagination
 // TODO: Implement permissions
@@ -51,21 +52,31 @@ class EventsPage extends Component {
 							</button>
 						</Link> */}
 						<a href="https://goo.gl/forms/hAhYgXes2zQeftbR2" className="pull-right">
-							<button type="button" className="btn btn-primary btn-sm marginR ">
+							<Button
+								type="button"
+								bsStyle="primary"
+								bsSize="small"
+								className="marginR "
+							>
 								Submit Event Suggestion
-							</button>
+							</Button>
 						</a>
 						{allowed && (
 							<React.Fragment>
 								<Link to={routes.ANVIL_WIFI} className="pull-left">
-									<button type="button" className="btn btn-info btn-sm">
+									<Button bsStyle="info" bsSize="small" type="button">
 										Anvil Wifi
-									</button>
+									</Button>
 								</Link>
 								<Link to={routes.CREATE_EVENT} className="pull-right">
-									<button type="button" className="btn btn-primary btn-sm marginR">
+									<Button
+										type="button"
+										bsSize="small"
+										bsStyle="primary"
+										className="marginR"
+									>
 										+ Add Event
-									</button>
+									</Button>
 								</Link>
 							</React.Fragment>
 						)}
@@ -73,8 +84,12 @@ class EventsPage extends Component {
 					{loading ? (
 						<span>Loading...</span>
 					) : (
-							<EventTable events={events} push={this.props.history.push} allowed={allowed} />
-						)}
+						<EventTable
+							events={events}
+							push={this.props.history.push}
+							allowed={allowed}
+						/>
+					)}
 				</div>
 			</div>
 		);

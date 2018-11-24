@@ -6,7 +6,7 @@ import { sendFlashMessage, clearFlashMessages, forgotPassword } from '../../acti
 import { err } from '../../constants';
 import { Header } from '../Common';
 import { logger } from '../../constants/logger';
-import { Panel } from 'react-bootstrap';
+import { Panel, InputGroup, FormControl, Button } from 'react-bootstrap';
 
 class ForgotPasswordPage extends Component {
 	static propTypes = {
@@ -49,26 +49,25 @@ class ForgotPasswordPage extends Component {
 					<Panel>
 						<form className="validate" onSubmit={this.onSubmit}>
 							<Panel.Body>
-								<div className="input-group">
-									<span className="input-group-addon" id="email">
+								<InputGroup>
+									<InputGroup.Addon inline id="email">
 										Email:
-									</span>
-									<input
+									</InputGroup.Addon>
+									<FormControl
 										type="email"
 										id="email"
-										className="form-control"
 										placeholder="Email"
 										value={email}
 										onChange={this.onChange}
 									/>
-									<span className="input-group-btn">
-										<input
-											className="btn btn-primary"
+									<InputGroup inline className="input-group-btn">
+										<Button
+											bsStyle="primary"
 											type="submit"
 											value="Reset Password"
 										/>
-									</span>
-								</div>
+									</InputGroup>
+								</InputGroup>
 							</Panel.Body>
 						</form>
 					</Panel>

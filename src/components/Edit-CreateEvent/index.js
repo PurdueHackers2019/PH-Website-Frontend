@@ -13,7 +13,16 @@ import {
 } from '../../actions';
 import { CustomRedirect, Header } from '../Common';
 import { logger } from '../../constants/logger';
-import { Panel } from 'react-bootstrap';
+import {
+	Panel,
+	FormGroup,
+	FormControl,
+	ControlLabel,
+	InputGroup,
+	Checkbox,
+	Button
+} from 'react-bootstrap';
+import * as DatePicker from 'react-bootstrap-date-picker';
 
 // TODO: Add autocomplete to input tags
 
@@ -187,27 +196,22 @@ class EditEventPage extends Component {
 						<Panel>
 							<form className="validate">
 								<Panel.Body>
-									<label htmlFor="privateEvent" className="text-right">
+									<ControlLabel htmlFor="privateEvent" className="text-right">
 										Private Event ?
-										<div className="input-group">
-											<span className="input-group-addon" id="eventNameAria">
+										<InputGroup>
+											<InputGroup.Addon inline id="eventNameAria">
 												Event Name
-											</span>
-											<input
+											</InputGroup.Addon>
+											<FormControl
 												type="text"
 												id="name"
 												placeholder="Event Name"
 												value={name}
-												className="form-control"
 												onChange={this.onChange}
 											/>
 
-											<span
-												className="input-group-addon"
-												id="privateEventAria"
-											>
-												<input
-													type="checkbox"
+											<InputGroup.Addon inline id="privateEventAria">
+												<Checkbox
 													name="privateEvent"
 													id="privateEvent"
 													value="true"
@@ -218,36 +222,36 @@ class EditEventPage extends Component {
 														})
 													}
 												/>
-											</span>
-										</div>
-									</label>
+											</InputGroup.Addon>
+										</InputGroup>
+									</ControlLabel>
 									<br />
 
 									<div className="form-inline">
-										<div className="form-group pull-left">
-											<label htmlFor="date">
+										<FormGroup className="pull-left">
+											<ControlLabel htmlFor="date">
 												Date
-												<input
+												<FormControl
 													type="date"
 													name="date"
 													id="date"
 													placeholder="Date"
 													value={date}
-													className="form-control datepicker"
+													componentClass="datepicker"
 													data-bvalidator="required,date[yyyy-mm-dd]"
 													data-bvalidator-msg="Event requires date/time."
 													onChange={this.onChange}
 												/>
-											</label>
-										</div>
-										<div className="form-group pull-right">
-											<label htmlFor="Time">
+											</ControlLabel>
+										</FormGroup>
+										<FormGroup className="pull-right">
+											<ControlLabel htmlFor="Time">
 												Time
-												<select
+												<FormControl
+													componentClass="select"
 													name="hour"
 													id="hour"
 													value={hour}
-													className="form-control"
 													data-bvalidator="required"
 													data-bvalidator-msg="Event requires date/time."
 													onChange={this.onChange}
@@ -258,12 +262,12 @@ class EditEventPage extends Component {
 															{i}
 														</option>
 													))}
-												</select>
-												<select
+												</FormControl>
+												<FormControl
+													componentClass="select"
 													name="minute"
 													id="minute"
 													value={minute}
-													className="form-control"
 													data-bvalidator="required"
 													data-bvalidator-msg="Event requires date/time."
 													onChange={this.onChange}
@@ -277,59 +281,55 @@ class EditEventPage extends Component {
 															{`${i}`.padStart(2, '0')}
 														</option>
 													))}
-												</select>
-											</label>
-										</div>
+												</FormControl>
+											</ControlLabel>
+										</FormGroup>
 									</div>
 									<br />
-									<label htmlFor="location">
+									<ControlLabel htmlFor="location">
 										Location
-										<input
+										<FormControl
 											type="text"
 											name="location"
 											id="location"
 											placeholder="Location"
 											value={location}
-											className="form-control"
 											data-bvalidator="required"
 											data-bvalidator-msg="Event requires location."
 											onChange={this.onChange}
 										/>
-									</label>
+									</ControlLabel>
 									<br />
-									<label htmlFor="facebook">
+									<ControlLabel htmlFor="facebook">
 										Facebook Event URL
-										<input
+										<FormControl
 											type="url"
 											name="facebook"
 											id="facebook"
 											placeholder="Facebook Event URL"
 											value={facebook}
-											className="form-control"
 											data-bvalidator="url"
 											onChange={this.onChange}
 										/>
-									</label>
+									</ControlLabel>
 									<br />
-									<input
-										type="submit"
-										value={`${type === 'edit' ? 'Update' : 'Create'} Event`}
-										className="btn btn-primary"
-										onClick={this.onSubmit}
-									/>
+									<Button type="submit" bsStyle="primary" onClick={this.onSubmit}>
+										{`${type === 'edit' ? 'Update' : 'Create'} Event`}
+									</Button>
 								</Panel.Body>
 							</form>
 						</Panel>
 						<hr />
 					</div>
 					{canEdit && (
-						<button
+						<Button
 							type="button"
-							className="btn btn-danger btn-sm"
+							bsStyle="danger"
+							bsSize="small"
 							onClick={this.onDeleteEvent}
 						>
 							Delete Event
-						</button>
+						</Button>
 					)}
 				</div>
 			</div>
