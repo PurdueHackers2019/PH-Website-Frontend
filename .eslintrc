@@ -34,6 +34,7 @@
 		"import/first": 0,
 		"no-mixed-spaces-and-tabs": "error",
 		"newline-per-chained-call": "error",
+		"no-plusplus": "off",
 		"prettier/prettier": [
 			"error",
 			{
