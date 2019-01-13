@@ -6,7 +6,7 @@ import { err } from '../../constants';
 import { sendFlashMessage, clearFlashMessages, signUp } from '../../actions';
 import { Header } from '../Common';
 import { logger } from '../../constants/logger';
-import { Panel, Button, FormControl, InputGroup, ControlLabel, Checkbox } from 'react-bootstrap';
+import { Panel, Button, FormControl, InputGroup, ControlLabel } from 'react-bootstrap';
 
 class SignUpPage extends Component {
 	static propTypes = {
@@ -165,7 +165,8 @@ class SignUpPage extends Component {
 										required
 									/>
 									<InputGroup.Addon inline id="privateProfileGroup">
-										<Checkbox
+										<input
+											inline
 											type="checkbox"
 											name="privateProfile"
 											id="privateProfile"
@@ -195,7 +196,8 @@ class SignUpPage extends Component {
 										required
 									/>
 									<InputGroup.Addon inline id="unsubscribedGroup">
-										<Checkbox
+										<input
+											inline
 											type="checkbox"
 											name="unsubscribed"
 											id="unsubscribed"
@@ -487,7 +489,9 @@ class SignUpPage extends Component {
 								)}
 								<br />
 								<br />
-								<Button type="submit" value="Join" bsStyle="primary" />
+								<Button type="submit" bsStyle="primary">
+									Join
+								</Button>
 							</Panel.Body>
 						</form>
 					</Panel>

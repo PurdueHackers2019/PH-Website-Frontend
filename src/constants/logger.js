@@ -8,13 +8,16 @@
 
 import { createLogger, format, transports } from 'winston';
 import { Mail } from './logger-config';
-import { CONFIG } from './';
+import { CONFIG } from '../config';
 
 const { combine, timestamp, printf, colorize } = format;
 
 const customFormat = printf(
 	// eslint-disable-next-line prettier/prettier
-	info => `${info.level}: ${info.message}\n\n${JSON.stringify(info.meta, null, '\t')}\n\n${info.timestamp}`
+	info =>
+		`${info.level}: ${info.message}\n\n${JSON.stringify(info.meta, null, '\t')}\n\n${
+			info.timestamp
+		}`
 );
 
 const transport =

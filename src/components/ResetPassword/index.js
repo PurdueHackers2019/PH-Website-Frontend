@@ -6,7 +6,7 @@ import { sendFlashMessage, clearFlashMessages, resetPassword } from '../../actio
 import routes, { err } from '../../constants';
 import { Header } from '../Common';
 import { logger } from '../../constants/logger';
-import { Panel, Button, ControlLabel, FormControl, InputGroup } from 'react-bootstrap';
+import { Panel, Button, ControlLabel, FormControl } from 'react-bootstrap';
 
 class ResetPasswordPage extends Component {
 	static propTypes = {

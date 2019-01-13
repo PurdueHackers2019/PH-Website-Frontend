@@ -22,7 +22,6 @@ import {
 	Checkbox,
 	Button
 } from 'react-bootstrap';
-import * as DatePicker from 'react-bootstrap-date-picker';
 
 // TODO: Add autocomplete to input tags
 
