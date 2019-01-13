@@ -30,6 +30,8 @@ import Logout from '../Logout';
 import SignUp from '../Signup';
 import ForgotPassword from '../ForgotPassword';
 import ResetPassword from '../ResetPassword';
+import MembersReport from '../MembersReport';
+import EventReport from '../EventReport';
 import { storageChanged, clearFlashMessages, fetchProfile } from '../../actions';
 import { logger } from '../../constants/logger';
 
@@ -152,6 +154,20 @@ class App extends Component {
 							exact
 							path={routes.ANVIL_WIFI}
 							component={AnvilWifi}
+						/>
+						<ProtectedRoute
+							token={token}
+							user={user}
+							exact
+							path={routes.MEMBERS_REPORT}
+							component={MembersReport}
+						/>
+						<ProtectedRoute
+							token={token}
+							user={user}
+							exact
+							path={routes.EVENT_REPORT}
+							component={EventReport}
 						/>
 						<Route component={NotFound} />
 					</Switch>

@@ -116,6 +116,14 @@ class EventPage extends Component {
 									>
 										Checkin
 									</button>
+								</Link>,
+								<Link key={`${event._id}-4`} to={`/event/${event._id}/report`}>
+									<button
+										type="button"
+										className="pull-right marginR btn btn-primary btn-sm"
+									>
+										Graphs
+									</button>
 								</Link>
 							]}
 						</h3>

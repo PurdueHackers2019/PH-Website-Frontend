@@ -65,12 +65,23 @@ class MemberPage extends Component {
 			match: {
 				params: { id }
 			},
-			flash
+			flash,
+			user
 		} = this.props;
 		fetchMember(id)
 			.then(member => {
+<<<<<<< HEAD
 				logger.info('MemberPage fetched member:', member);
 				member ? this.setState({ member }) : this.setState({ notFound: true });
+=======
+				console.log('MemberPage fetched member:', member);
+				member
+					? this.setState({
+							member,
+							memberMatched: memberMatches(user, member._id)
+					  })
+					: this.setState({ notFound: true });
+>>>>>>> 07c00f360b93f57929c2ef38a587f9203af292ae
 			})
 			.catch(() => this.setState({ notFound: true }));
 
@@ -97,8 +108,18 @@ class MemberPage extends Component {
 		} = nextProps;
 		fetchMember(id)
 			.then(member => {
+<<<<<<< HEAD
 				logger.info('MemberPage fetched member:', member);
 				member ? this.setState({ member }) : this.setState({ notFound: true });
+=======
+				console.log('MemberPage fetched member:', member);
+				member
+					? this.setState({
+							member,
+							memberMatched: memberMatches(this.props.user, member._id)
+					  })
+					: this.setState({ notFound: true });
+>>>>>>> 07c00f360b93f57929c2ef38a587f9203af292ae
 			})
 			.catch(() => this.setState({ notFound: true }));
 
