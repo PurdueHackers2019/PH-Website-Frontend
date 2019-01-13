@@ -32,7 +32,6 @@ class PermissionsPage extends Component {
 			organizerName: ''
 			// loading: true
 		};
-		logger.info();
 	}
 
 	componentDidMount = async () => {
@@ -152,11 +151,12 @@ class PermissionsPage extends Component {
 											<td>
 												<Button
 													type="submit"
-													value="Add Permission"
 													bsStyle="primary"
 													bsSize="small"
 													onClick={this.onAddPermission}
-												/>
+												>
+													Add Permission
+												</Button>
 											</td>
 										</tr>
 									)}
@@ -176,11 +176,12 @@ class PermissionsPage extends Component {
 										<td>
 											<Button
 												type="button"
-												value="Add Organizer"
 												bsSize="small"
 												bsStyle="primary"
 												onClick={this.onAddOrganizer}
-											/>
+											>
+												Add Organizer
+											</Button>
 										</td>
 									</tr>
 								</tbody>
