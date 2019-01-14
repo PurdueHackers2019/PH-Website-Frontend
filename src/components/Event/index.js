@@ -6,7 +6,7 @@ import { hasPermission, formatDate, shortName, err } from '../../constants';
 import { sendFlashMessage, clearFlashMessages, fetchEvent } from '../../actions';
 import { MembersAttendedTable, CustomRedirect, Header } from '../Common';
 import { logger } from '../../constants/logger';
-import { Panel } from 'react-bootstrap';
+import { Button, Glyphicon, Panel } from 'react-bootstrap';
 
 // TODO: Add autocomplete to input tags
 
@@ -89,41 +89,46 @@ class EventPage extends Component {
 						<h3>
 							{shortName(event.name)}
 							<Link key={`${event._id}-1`} to="/events">
-								<button
-									type="button"
-									className="pull-left btn btn-primary btn-sm marginR"
+								<Button
+									bsStyle="primary"
+									bsSize="small"
+									className="pull-left marginR"
 								>
-									<span
-										className="glyphicon glyphicon-chevron-left"
+									<Glyphicon
+										inline
+										glyph="glyphicon-chevron-left"
 										aria-hidden="true"
 									/>
 									Events
-								</button>
+								</Button>
 							</Link>
 							{hasPermission(user, 'events') && [
 								<Link key={`${event._id}-2`} to={`/event/${event._id}/edit`}>
-									<button
-										type="button"
-										className="pull-right marginR btn btn-primary btn-sm"
+									<Button
+										bsStyle="primary"
+										bsSize="small"
+										className="pull-right marginR"
 									>
 										Edit Event
-									</button>
+									</Button>
 								</Link>,
 								<Link key={`${event._id}-3`} to={`/event/${event._id}/checkin`}>
-									<button
-										type="button"
-										className="pull-right marginR btn btn-primary btn-sm"
+									<Button
+										bsStyle="primary"
+										bsSize="small"
+										className="pull-right marginR"
 									>
 										Checkin
-									</button>
+									</Button>
 								</Link>,
 								<Link key={`${event._id}-4`} to={`/event/${event._id}/report`}>
-									<button
-										type="button"
-										className="pull-right marginR btn btn-primary btn-sm"
+									<Button
+										bsStyle="primary"
+										bsSize="small"
+										className="pull-right marginR"
 									>
 										Graphs
-									</button>
+									</Button>
 								</Link>
 							]}
 						</h3>
