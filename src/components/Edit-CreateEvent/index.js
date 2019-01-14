@@ -19,8 +19,8 @@ import {
 	FormControl,
 	ControlLabel,
 	InputGroup,
-	Checkbox,
-	Button
+	Button,
+	Glyphicon
 } from 'react-bootstrap';
 
 // TODO: Add autocomplete to input tags
@@ -179,16 +179,18 @@ class EditEventPage extends Component {
 							{shortName(name)}
 							{canEdit && (
 								<Link to={`/event/${event._id}`}>
-									<button
-										type="button"
-										className="pull-left btn btn-primary btn-sm marginR"
+									<Button
+										bsStyle="primary"
+										bsSize="small"
+										className="pull-left marginR"
 									>
-										<span
-											className="glyphicon glyphicon-chevron-left"
+										<Glyphicon
+											inline
+											glyph="glyphicon-chevron-left"
 											aria-hidden="true"
 										/>
 										Event
-									</button>
+									</Button>
 								</Link>
 							)}
 						</h3>
@@ -210,7 +212,8 @@ class EditEventPage extends Component {
 											/>
 
 											<InputGroup.Addon inline id="privateEventAria">
-												<Checkbox
+												<input
+													type="checkbox"
 													name="privateEvent"
 													id="privateEvent"
 													value="true"
@@ -230,13 +233,14 @@ class EditEventPage extends Component {
 										<FormGroup className="pull-left">
 											<ControlLabel htmlFor="date">
 												Date
-												<FormControl
+												<input
 													type="date"
 													name="date"
 													id="date"
 													placeholder="Date"
 													value={date}
 													componentClass="datepicker"
+													className="form-control"
 													data-bvalidator="required,date[yyyy-mm-dd]"
 													data-bvalidator-msg="Event requires date/time."
 													onChange={this.onChange}
