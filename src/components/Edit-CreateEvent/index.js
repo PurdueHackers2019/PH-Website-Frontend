@@ -184,11 +184,7 @@ class EditEventPage extends Component {
 										bsSize="small"
 										className="pull-left marginR"
 									>
-										<Glyphicon
-											inline
-											glyph="glyphicon-chevron-left"
-											aria-hidden="true"
-										/>
+										<Glyphicon inline glyph="chevron-left" aria-hidden="true" />
 										Event
 									</Button>
 								</Link>
