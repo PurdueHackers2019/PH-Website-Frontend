@@ -7,16 +7,7 @@ import { sendFlashMessage, clearFlashMessages, updateProfile, fetchMember } from
 import routes, { memberMatches, err } from '../../constants';
 import { CustomRedirect, Header } from '../Common';
 import { logger } from '../../constants/logger';
-import {
-	Panel,
-	InputGroup,
-	FormControl,
-	ControlLabel,
-	Button,
-	Glyphicon,
-	Checkbox,
-	Radio
-} from 'react-bootstrap';
+import { Panel, InputGroup, FormControl, ControlLabel, Button, Glyphicon } from 'react-bootstrap';
 
 class EditProfilePage extends Component {
 	static propTypes = {
