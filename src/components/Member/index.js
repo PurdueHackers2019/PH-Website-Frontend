@@ -323,34 +323,37 @@ class MemberPage extends Component {
 													/>
 												</td>
 												<td>
-													<FormControl
+													<input
 														type="date"
 														name="start"
 														id="start"
 														placeholder="Start Date"
 														componentClass="datepicker"
+														className="form-control"
 														value={start}
 														onChange={this.onChange}
 													/>
 												</td>
 												<td>
-													<FormControl
+													<input
 														type="date"
 														name="end"
 														id="end"
 														placeholder="End Date (Optional)"
 														componentClass="datepicker"
+														className="form-control"
 														value={end}
 														onChange={this.onChange}
 													/>
 													<br />
 													<Button
 														type="submit"
-														value="Add Location Record"
 														bsStyle="primary"
 														className="pull-right"
 														onClick={this.onAddJob}
-													/>
+													>
+														Add Location Record
+													</Button>
 												</td>
 											</tr>
 										)}

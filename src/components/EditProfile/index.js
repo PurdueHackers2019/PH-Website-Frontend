@@ -230,7 +230,8 @@ class EditProfilePage extends Component {
 										required
 									/>
 									<InputGroup.Addon inline id="privateProfileGroup">
-										<Checkbox
+										<input
+											type="checkbox"
 											name="privateProfile"
 											id="privateProfile"
 											checked={privateProfile}
@@ -259,7 +260,8 @@ class EditProfilePage extends Component {
 										required
 									/>
 									<InputGroup.Addon inline id="unsubscribedGroup">
-										<Checkbox
+										<input
+											type="checkbox"
 											name="unsubscribed"
 											id="unsubscribed"
 											checked={unsubscribed}
@@ -489,7 +491,7 @@ class EditProfilePage extends Component {
 									className="form-check-label form-check-inline"
 									htmlFor="linkToResume"
 								>
-									<Radio
+									<input
 										type="radio"
 										name="linkToResume"
 										id="linkToResume"
@@ -558,12 +560,9 @@ class EditProfilePage extends Component {
 								>
 									Reset Password
 								</Button>
-								<Button
-									type="submit"
-									value="Update Profile"
-									bsStyle="primary"
-									className="pull-right"
-								/>
+								<Button type="submit" bsStyle="primary" className="pull-right">
+									Update Profile
+								</Button>
 							</Panel.Body>
 						</form>
 					</Panel>

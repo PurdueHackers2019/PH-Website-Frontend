@@ -32,7 +32,6 @@
 		"qs": "^6.5.2",
 		"react": "^16.2.0",
 		"react-bootstrap": "^0.32.1",
-		"react-bootstrap-date-picker": "^5.1.0",
 		"react-chartjs-2": "^2.7.4",
 		"react-dom": "^16.2.0",
 		"react-google-maps": "^9.4.5",

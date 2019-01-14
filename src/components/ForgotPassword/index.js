@@ -61,11 +61,9 @@ class ForgotPasswordPage extends Component {
 										onChange={this.onChange}
 									/>
 									<InputGroup inline className="input-group-btn">
-										<Button
-											bsStyle="primary"
-											type="submit"
-											value="Reset Password"
-										/>
+										<Button bsStyle="primary" type="submit">
+											Reset Password
+										</Button>
 									</InputGroup>
 								</InputGroup>
 							</Panel.Body>

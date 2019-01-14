@@ -96,8 +96,9 @@ class ResetPasswordPage extends Component {
 									<Button
 										bsStyle="primary"
 										type="submit"
-										value="Reset Password"
-									/>
+									>
+									Reset Password
+									</Button>
 								</span>
 							</Panel.Body>
 						</form>
