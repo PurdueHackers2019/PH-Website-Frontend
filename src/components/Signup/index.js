@@ -462,6 +462,7 @@ class SignUpPage extends Component {
 													: resume
 											}
 											target="_blank"
+											rel="noopener noreferrer"
 											className="form-control"
 										>
 											{resume.name || `${name}'s Resume`}

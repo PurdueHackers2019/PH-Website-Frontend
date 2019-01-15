@@ -16,7 +16,8 @@ class EditProfilePage extends Component {
 		}).isRequired,
 		flash: PropTypes.func.isRequired,
 		clear: PropTypes.func.isRequired,
-		user: PropTypes.object.isRequired
+		user: PropTypes.object.isRequired,
+		updateMember: PropTypes.object.isRequired
 	};
 
 	constructor(props) {
@@ -26,8 +27,6 @@ class EditProfilePage extends Component {
 			loading: true,
 			name: '',
 			email: '',
-			password: '',
-			passwordConfirm: '',
 			graduationYear: new Date().getFullYear() + 4,
 			privateProfile: false,
 			unsubscribed: false,
@@ -90,8 +89,6 @@ class EditProfilePage extends Component {
 		const {
 			name,
 			email,
-			password,
-			passwordConfirm,
 			graduationYear,
 			phone,
 			facebook,
@@ -107,7 +104,7 @@ class EditProfilePage extends Component {
 			},
 			flash,
 			clear,
-			updateProfile
+			updateMember
 		} = this.props;
 		try {
 			clear();
@@ -119,9 +116,6 @@ class EditProfilePage extends Component {
 			if (!name) return flash('Please enter your full name');
 			if (!email) return flash('An email is required for your account');
 			if (!graduationYear) return flash('A graduation year is required');
-			if (!password) return flash('A password is required');
-			if (!passwordConfirm) return flash('Please confirm your password');
-			if (password !== passwordConfirm) return flash('Passwords does not match');
 			if (phone && !isMobilePhone(`${phone}`, ['en-US']))
 				return flash('Please provide a valid U.S. phone number');
 			if (facebook && !/(facebook|fb)/.test(facebook)) return flash('Invalid Facebook URL');
@@ -135,7 +129,7 @@ class EditProfilePage extends Component {
 			if (pictureFile) formData.append('picture', pictureFile, pictureFile.name);
 			if (resume) formData.append('resume', resume, resume.name);
 			flash('Saving profile...', 'green');
-			const response = await updateProfile(id, formData);
+			const response = await updateMember(id, formData);
 			console.log('EditProfile response:', response);
 			return flash('Profile Saved!', 'green');
 		} catch (error) {
@@ -156,8 +150,6 @@ class EditProfilePage extends Component {
 		const {
 			name,
 			email,
-			password,
-			passwordConfirm,
 			graduationYear,
 			privateProfile,
 			picture,
@@ -269,36 +261,6 @@ class EditProfilePage extends Component {
 									onChange={this.onChange}
 									required
 									className="form-control"
-								/>
-							</label>
-							<br />
-							<label htmlFor="password">
-								Password *
-								<input
-									type="password"
-									name="password"
-									id="password"
-									placeholder="Password"
-									value={password}
-									onChange={this.onChange}
-									className="form-control"
-									data-bvalidator="required"
-									data-bvalidator-msg="A password is required"
-								/>
-							</label>
-							<br />
-							<label htmlFor="passwordConfirm">
-								Confirm Password *
-								<input
-									type="password"
-									name="passwordConfirm"
-									id="passwordConfirm"
-									value={passwordConfirm}
-									onChange={this.onChange}
-									placeholder="Confirm Password"
-									className="form-control"
-									data-bvalidator="required,equalto[password]"
-									data-bvalidator-msg="Password does not match"
 								/>
 							</label>
 							<br />
@@ -560,6 +522,6 @@ export default connect(
 	{
 		flash: sendFlashMessage,
 		clear: clearFlashMessages,
-		updateProfile
+		updateMember: updateProfile
 	}
 )(EditProfilePage);
