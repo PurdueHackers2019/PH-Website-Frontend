@@ -11,7 +11,7 @@ import {
 	updateEvent,
 	deleteEvent
 } from '../../actions';
-import { CustomRedirect, Header } from '../Common';
+import { CustomRedirect } from '../Common';
 
 // TODO: Add autocomplete to input tags
 
@@ -161,7 +161,7 @@ class EditEventPage extends Component {
 		const canEdit = type === 'edit' && hasPermission(user, 'events');
 		return (
 			<div>
-				<Header message={shortName(name)} />
+				{/* <Header message={shortName(name)} /> */}
 				<div className="section">
 					<div className="section-container">
 						<h3>
@@ -206,7 +206,9 @@ class EditEventPage extends Component {
 												value="true"
 												checked={!!privateEvent}
 												onChange={() =>
-													this.setState({ privateEvent: !this.state.privateEvent })
+													this.setState({
+														privateEvent: !this.state.privateEvent
+													})
 												}
 											/>
 										</span>

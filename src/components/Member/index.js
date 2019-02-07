@@ -12,13 +12,7 @@ import {
 	sendFlashMessage,
 	clearFlashMessages
 } from '../../actions';
-import {
-	SocialMediaPanel,
-	EventsAttendedTable,
-	ProfilePanel,
-	CustomRedirect,
-	Header
-} from '../Common';
+import { SocialMediaPanel, EventsAttendedTable, ProfilePanel, CustomRedirect } from '../Common';
 
 // TODO: Add autocomplete to input tags
 
@@ -203,7 +197,7 @@ class MemberPage extends Component {
 		if (!member) return <span>Loading...</span>;
 		return (
 			<div>
-				<Header message={member.name} />
+				{/* <Header message={member.name} /> */}
 				<div className="section">
 					<div className="section-container">
 						<h3>

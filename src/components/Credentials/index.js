@@ -11,7 +11,7 @@ import {
 	clearFlashMessages
 } from '../../actions';
 import { err } from '../../constants';
-import { Header } from '../Common';
+// import { Header } from '../Common';
 
 class CredentialsPage extends Component {
 	static propTypes = {
@@ -100,7 +100,7 @@ class CredentialsPage extends Component {
 		return (
 			<div className="section">
 				<div className="section-container">
-					<Header message="Credentials" />
+					{/* <Header message="Credentials" /> */}
 					<h3>Credentials</h3>
 					<div className="panel panel-default">
 						<table className="table table-bordered panel-body sortableTable">

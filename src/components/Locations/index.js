@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import routes from '../../constants';
 import { sendFlashMessage, clearFlashMessages, fetchLocations } from '../../actions';
-import { Header } from '../Common';
+// import { Header } from '../Common';
 
 class LocationsPage extends Component {
 	static propTypes = {
@@ -42,7 +42,7 @@ class LocationsPage extends Component {
 		return (
 			<div className="section">
 				<div className="section-container">
-					<Header message="Locations" />
+					{/* <Header message="Locations" /> */}
 					<h3>
 						Purdue Hackers Around The Globe
 						<Link to={routes.LOCATIONS_MAP} className="pull-right">
