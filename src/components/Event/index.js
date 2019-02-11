@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import { hasPermission, formatDate, shortName, err } from '../../constants';
 import { sendFlashMessage, clearFlashMessages, fetchEvent } from '../../actions';
 import { MembersAttendedTable, CustomRedirect, Header } from '../Common';
-import { logger } from '../../constants/logger';
 import { Button, Glyphicon, Panel } from 'react-bootstrap';
 
 // TODO: Add autocomplete to input tags
@@ -32,7 +31,7 @@ class EventPage extends Component {
 			event: null,
 			loading: true
 		};
-		logger.info('EventPage props:', this.props);
+		console.log('EventPage props:', this.props);
 	}
 
 	componentDidMount = async () => {
@@ -48,7 +47,7 @@ class EventPage extends Component {
 			const event = await fetchEvent(id);
 			this.setState({ event, loading: false });
 		} catch (e) {
-			logger.error('Event Page error:', e);
+			console.error('Event Page error:', e);
 			this.setState({ loading: false });
 			flash(err(e));
 		}

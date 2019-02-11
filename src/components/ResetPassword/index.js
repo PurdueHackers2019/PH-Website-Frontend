@@ -5,7 +5,6 @@ import qs from 'qs';
 import { sendFlashMessage, clearFlashMessages, resetPassword } from '../../actions';
 import routes, { err } from '../../constants';
 import { Header } from '../Common';
-import { logger } from '../../constants/logger';
 import { Panel, Button, ControlLabel, FormControl } from 'react-bootstrap';
 
 class ResetPasswordPage extends Component {
@@ -23,7 +22,7 @@ class ResetPasswordPage extends Component {
 	constructor(props) {
 		super(props);
 		this.state = { password: '', passwordConfirm: '' };
-		logger.info('ResetPasswordPage props:', this.props);
+		console.log('ResetPasswordPage props:', this.props);
 	}
 
 	onChange = e => this.setState({ [e.target.id]: e.target.value });
@@ -48,7 +47,7 @@ class ResetPasswordPage extends Component {
 			push(routes.LOGIN);
 			return flash(response, 'green');
 		} catch (error) {
-			logger.error('EditProfile Page error:', error);
+			console.error('EditProfile Page error:', error);
 			return flash(err(error));
 		}
 	};
@@ -93,11 +92,8 @@ class ResetPasswordPage extends Component {
 									/>
 								</ControlLabel>
 								<span className="input-group-btn">
-									<Button
-										bsStyle="primary"
-										type="submit"
-									>
-									Reset Password
+									<Button bsStyle="primary" type="submit">
+										Reset Password
 									</Button>
 								</span>
 							</Panel.Body>

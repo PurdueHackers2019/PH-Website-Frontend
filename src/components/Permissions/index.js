@@ -10,7 +10,6 @@ import {
 	addOrganizer
 } from '../../actions';
 import { Header } from '../Common';
-import { logger } from '../../constants/logger';
 import { Table, Panel, Button, FormControl } from 'react-bootstrap';
 
 class PermissionsPage extends Component {
@@ -39,10 +38,10 @@ class PermissionsPage extends Component {
 		try {
 			clear();
 			const permissions = await fetchPermissions();
-			logger.info('Fetched permissions:', permissions);
+			console.log('Fetched permissions:', permissions);
 			this.setState({ permissions });
 		} catch (error) {
-			logger.error('Permissions Page error:', error);
+			console.error('Permissions Page error:', error);
 			flash(err(error));
 		}
 	};
@@ -70,7 +69,7 @@ class PermissionsPage extends Component {
 			});
 			return flash(`Successfully added permission: ${permission.name}`, 'green');
 		} catch (error) {
-			logger.error('Permissions Page error:', error);
+			console.error('Permissions Page error:', error);
 			return flash(err(error));
 		}
 	};
@@ -83,12 +82,12 @@ class PermissionsPage extends Component {
 			clear();
 			if (!organizerName) return flash('Permission must have name');
 			const { member, permissions } = await addOrganizer(organizerName);
-			logger.info('Member:', member);
-			logger.info('Permissions:', permissions);
+			console.log('Member:', member);
+			console.log('Permissions:', permissions);
 			this.setState({ organizerName: '', permissions });
 			return flash(`Successfully added organizer: ${member.name}`, 'green');
 		} catch (error) {
-			logger.error('Permissions Page error:', error);
+			console.error('Permissions Page error:', error);
 			return flash(err(error));
 		}
 	};

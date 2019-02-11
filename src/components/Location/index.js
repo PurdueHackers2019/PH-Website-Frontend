@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import routes, { hasPermission, formatDate, err } from '../../constants';
 import { sendFlashMessage, clearFlashMessages, fetchLocation, updateLocation } from '../../actions';
 import { CustomRedirect, Header } from '../Common';
-import { logger } from '../../constants/logger';
 import { Table, Panel, Button, FormControl, Glyphicon, ControlLabel } from 'react-bootstrap';
 
 // TODO: Add autocomplete to input tags
@@ -37,7 +36,7 @@ class LocationPage extends Component {
 			city: '',
 			loading: true
 		};
-		logger.info('LocationPage props:', this.props);
+		console.log('LocationPage props:', this.props);
 	}
 
 	componentDidMount = async () => {
@@ -51,7 +50,7 @@ class LocationPage extends Component {
 		try {
 			clear();
 			const location = await fetchLocation(id);
-			logger.info('Fetched Location:', location);
+			console.log('Fetched Location:', location);
 			this.setState({ location, ...location, loading: false });
 		} catch (error) {
 			this.setState({ loading: false });
@@ -81,7 +80,7 @@ class LocationPage extends Component {
 			this.setState({ name: location.name, city: location.city });
 			return flash('Successfully updated location', 'green');
 		} catch (error) {
-			logger.info('Edit Event Page error:', error);
+			console.log('Edit Event Page error:', error);
 			return flash(err(error));
 		}
 	};

@@ -5,7 +5,6 @@ import { isEmail } from 'validator';
 import { sendFlashMessage, clearFlashMessages, forgotPassword } from '../../actions';
 import { err } from '../../constants';
 import { Header } from '../Common';
-import { logger } from '../../constants/logger';
 import { Panel, InputGroup, FormControl, Button } from 'react-bootstrap';
 
 class ForgotPasswordPage extends Component {
@@ -30,11 +29,11 @@ class ForgotPasswordPage extends Component {
 			if (!email || !isEmail(email)) return flash('Please provide a valid email');
 			flash('Please wait...', 'green');
 			const response = await forgotPassword(email);
-			logger.info('Response:', response);
+			console.log('Response:', response);
 			return flash(response, 'green');
 		} catch (error) {
 			clear();
-			logger.error('EditProfile Page error:', error);
+			console.error('EditProfile Page error:', error);
 			return flash(err(error));
 		}
 	};

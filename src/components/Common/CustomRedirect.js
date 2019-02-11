@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { sendFlashMessage } from '../../actions';
-import { logger } from '../../constants/logger';
 
 class CustomRedirect extends Component {
 	static propTypes = {
@@ -21,7 +20,7 @@ class CustomRedirect extends Component {
 
 	constructor(props) {
 		super(props);
-		logger.info('CustomRedirect props:', props);
+		console.log('CustomRedirect props:', props);
 	}
 
 	componentDidMount = () => {

@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { signIn, sendFlashMessage } from '../../actions';
 import routes, { err } from '../../constants';
 import { Header } from '../Common';
-import { logger } from '../../constants/logger';
 import { Panel } from 'react-bootstrap';
 
 class LoginPage extends Component {
@@ -23,7 +22,7 @@ class LoginPage extends Component {
 
 	constructor(props) {
 		super(props);
-		logger.info('Login props:', this.props);
+		console.log('Login props:', this.props);
 		this.state = {
 			email: (this.props.user && this.props.user.email) || '',
 			password: '',
@@ -43,7 +42,7 @@ class LoginPage extends Component {
 			if (!email) return flash('Please enter your email');
 			if (!password) return flash('Please enter your password');
 			const { user } = await this.props.signIn(email, password, rememberMe);
-			logger.info('Signed in user:', user);
+			console.log('Signed in user:', user);
 			this.props.history.push('/');
 			return flash(`Welcome ${user.name}!`, 'green');
 		} catch (error) {

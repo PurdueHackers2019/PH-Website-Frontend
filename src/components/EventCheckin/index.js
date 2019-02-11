@@ -13,7 +13,6 @@ import {
 	autocompleteMembers
 } from '../../actions';
 import { CustomRedirect, Header } from '../Common';
-import { logger } from '../../constants/logger';
 import { Panel, Button, FormControl, Glyphicon, InputGroup } from 'react-bootstrap';
 
 // TODO: Add autocomplete to input tags
@@ -44,7 +43,7 @@ class EventCheckinPage extends Component {
 			email: '',
 			selectedMember: null
 		};
-		logger.info('EventCheckinPage props:', this.props);
+		console.log('EventCheckinPage props:', this.props);
 	}
 
 	componentDidMount = async () => {
@@ -74,33 +73,33 @@ class EventCheckinPage extends Component {
 			// 	term: e.target.value,
 			// 	field
 			// });
-			// logger.info('Autocomplete for:', field, response);
+			// console.log('Autocomplete for:', field, response);
 			// return this.setState({ members: response });
 
 			const { value, id } = e.target;
-			logger.info('ID:', id, '\tValue:', value);
+			console.log('ID:', id, '\tValue:', value);
 			this.setState({ [id]: value });
 			if (value) {
 				const response = await autocompleteMembers({
 					term: value,
 					field
 				});
-				logger.info('Autocomplete for:', field, response);
+				console.log('Autocomplete for:', field, response);
 				return this.setState({ members: response });
 			}
 			return null;
 		} catch (error) {
-			logger.error('EventCheckinPage error:', error);
+			console.error('EventCheckinPage error:', error);
 			return flash(err(error));
 		}
 	};
 
 	onSelectionChange = async selection => {
-		logger.info('Selection:', selection);
+		console.log('Selection:', selection);
 		const nextState = { selectedMember: selection };
 		if (selection.name) nextState.name = selection.name;
 		if (selection.email) nextState.email = selection.email;
-		logger.info('Next State:', selection);
+		console.log('Next State:', selection);
 		this.setState(nextState);
 	};
 
@@ -113,12 +112,12 @@ class EventCheckinPage extends Component {
 			if (!event) return flash('Event does not exist');
 			if (!name) return flash('Please provide your name');
 			if (!email) return flash('Please provide your email');
-			logger.info('Checking in member:', name, '\t', email);
+			console.log('Checking in member:', name, '\t', email);
 			await checkinEvent(event._id, name, email);
 			this.setState({ selectedMember: null, name: '', email: '' });
 			return flash(`Checked in member: ${name}`, 'green');
 		} catch (error) {
-			logger.error('EventCheckinPage error:', error);
+			console.error('EventCheckinPage error:', error);
 			return flash(err(error));
 		}
 	};
@@ -131,12 +130,12 @@ class EventCheckinPage extends Component {
 			clear();
 			if (!event) return flash('Event does not exist');
 			if (!selectedMember) return flash('Please provide your name and email');
-			logger.info('Selected Member:', selectedMember);
+			console.log('Selected Member:', selectedMember);
 			await checkoutEvent(event._id, selectedMember._id);
 			this.setState({ selectedMember: null, name: '', email: '' });
 			return flash(`Checked out member: ${selectedMember.name}`, 'green');
 		} catch (error) {
-			logger.error('EventCheckinPage error:', error);
+			console.error('EventCheckinPage error:', error);
 			return flash(err(error));
 		}
 	};

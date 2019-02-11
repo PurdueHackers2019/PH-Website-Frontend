@@ -6,7 +6,6 @@ import { isMobilePhone } from 'validator';
 import { sendFlashMessage, clearFlashMessages, updateProfile, fetchMember } from '../../actions';
 import routes, { memberMatches, err } from '../../constants';
 import { CustomRedirect, Header } from '../Common';
-import { logger } from '../../constants/logger';
 import { Panel, InputGroup, FormControl, ControlLabel, Button, Glyphicon } from 'react-bootstrap';
 
 class EditProfilePage extends Component {
@@ -48,7 +47,7 @@ class EditProfilePage extends Component {
 			resumeLink: '',
 			resumeType: 'Link'
 		};
-		logger.info('Signup page props', this.props);
+		console.log('Signup page props', this.props);
 	}
 
 	componentDidMount = async () => {
@@ -62,7 +61,7 @@ class EditProfilePage extends Component {
 		try {
 			clear();
 			const member = await fetchMember(id);
-			logger.info('Fetched member:', member);
+			console.log('Fetched member:', member);
 			const newMember = {};
 			Object.keys(member).forEach(prop => {
 				if (member[prop]) newMember[prop] = member[prop];
@@ -113,11 +112,11 @@ class EditProfilePage extends Component {
 		} = this.props;
 		try {
 			clear();
-			logger.info('Submitting:', this.state);
-			logger.info('Facebook matches:', /(facebook|fb)/.test(facebook));
-			logger.info('Github matches:', /github/.test(github));
-			logger.info('Linkedin matches:', /linkedin/.test(linkedin));
-			logger.info('Devpost matches:', /devpost/.test(devpost));
+			console.log('Submitting:', this.state);
+			console.log('Facebook matches:', /(facebook|fb)/.test(facebook));
+			console.log('Github matches:', /github/.test(github));
+			console.log('Linkedin matches:', /linkedin/.test(linkedin));
+			console.log('Devpost matches:', /devpost/.test(devpost));
 			if (!name) return flash('Please enter your full name');
 			if (!email) return flash('An email is required for your account');
 			if (!graduationYear) return flash('A graduation year is required');
@@ -139,11 +138,11 @@ class EditProfilePage extends Component {
 			if (resume) formData.append('resume', resume, resume.name);
 			flash('Saving profile...', 'green');
 			const response = await updateProfile(id, formData);
-			logger.info('EditProfile response:', response);
+			console.log('EditProfile response:', response);
 			return flash('Profile Saved!', 'green');
 		} catch (error) {
 			clear();
-			logger.error('EditProfile Page error:', error);
+			console.error('EditProfile Page error:', error);
 			return flash(err(error));
 		}
 	};

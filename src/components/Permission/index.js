@@ -12,7 +12,6 @@ import {
 	removeUserFromPermission
 } from '../../actions';
 import { CustomRedirect, Header } from '../Common';
-import { logger } from '../../constants/logger';
 import { Table, Panel, Button, Glyphicon, FormControl } from 'react-bootstrap';
 
 class PermissionPage extends Component {
@@ -45,14 +44,14 @@ class PermissionPage extends Component {
 		try {
 			clear();
 			const permission = await fetchPermission(this.props.match.params.id);
-			logger.info('Fetched permission:', permission);
+			console.log('Fetched permission:', permission);
 			this.setState({
 				permission,
 				loading: false,
 				members: permission ? permission.members : []
 			});
 		} catch (error) {
-			logger.error('Permission Page error:', error);
+			console.error('Permission Page error:', error);
 			this.setState({ loading: false });
 			flash(err(error));
 		}
@@ -69,12 +68,12 @@ class PermissionPage extends Component {
 		try {
 			clear();
 			const response = await addUserToPermission(this.props.match.params.id, memberEmail);
-			logger.info('Added user to permission:', response);
+			console.log('Added user to permission:', response);
 			const { permission } = response;
 			this.setState({ members: permission.members, memberEmail: '' });
 			return flash('Successfully added user to this permission', 'green');
 		} catch (error) {
-			logger.error('Permissions Page error:', error);
+			console.error('Permissions Page error:', error);
 			return flash(err(error));
 		}
 	};
@@ -93,7 +92,7 @@ class PermissionPage extends Component {
 			this.setState({ members: permission.members });
 			return flash('Successfully removed user from this permission', 'green');
 		} catch (error) {
-			logger.error('Permissions Page error:', error);
+			console.error('Permissions Page error:', error);
 			return flash(err(error));
 		}
 	};
@@ -107,7 +106,7 @@ class PermissionPage extends Component {
 			history.push('/permissions');
 			return flash('Permission successfully deleted', 'green');
 		} catch (error) {
-			logger.error('Permissions Page error:', error);
+			console.error('Permissions Page error:', error);
 			return flash(err(error));
 		}
 	};

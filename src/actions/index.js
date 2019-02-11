@@ -1,5 +1,4 @@
 import { getStorage, axios } from '../constants';
-import { logger } from '../constants/logger';
 
 // Helper functions
 export const getToken = () => getStorage().getItem('token');
@@ -585,7 +584,7 @@ export const autocompleteLocations = async params => {
 };
 
 export const storageChanged = e => dispatch => {
-	logger.info('Local storage changed event:', e);
+	console.log('Local storage changed event:', e);
 	dispatch(setToken(getToken()));
 	dispatch(setUser(getCurrentUser()));
 };

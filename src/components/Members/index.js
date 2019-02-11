@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import { MemberTable, Header } from '../Common';
 import routes, { hasPermission, err } from '../../constants';
 import { fetchMembers, sendFlashMessage, clearFlashMessages } from '../../actions';
-import { logger } from '../../constants/logger';
 
 // TODO: Implement pagination
 // TODO: Implement permissions
@@ -35,10 +34,10 @@ class MembersPage extends Component {
 		try {
 			clear();
 			const { members } = await fetchMembers({});
-			logger.info('MembersPage fetched members:', members);
+			console.log('MembersPage fetched members:', members);
 			this.setState({ members, loading: false });
 		} catch (e) {
-			logger.error('Error:', e);
+			console.error('Error:', e);
 			this.setState({ loading: false });
 			flash(err(e));
 		}
@@ -85,8 +84,8 @@ class MembersPage extends Component {
 					{loading ? (
 						<span>Loading...</span>
 					) : (
-							<MemberTable members={members} push={this.props.history.push} user={user} />
-						)}
+						<MemberTable members={members} push={this.props.history.push} user={user} />
+					)}
 				</div>
 			</div>
 		);

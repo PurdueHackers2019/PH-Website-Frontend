@@ -33,7 +33,6 @@ import ResetPassword from '../ResetPassword';
 import MembersReport from '../MembersReport';
 import EventReport from '../EventReport';
 import { storageChanged, clearFlashMessages, fetchProfile } from '../../actions';
-import { logger } from '../../constants/logger';
 
 fontawesome.library.add(faFacebook, faGithub, faTwitter, faEnvelope, faCalendar, faCoffee, faHeart);
 
@@ -58,15 +57,15 @@ class App extends Component {
 		super(props);
 		window.addEventListener('storage', this.props.storageChanged);
 		this.props.history.listen(() => this.props.clearFlashMessages());
-		logger.info('App props:', this.props);
+		console.log('App props:', this.props);
 	}
 
 	componentWillMount = async () => {
 		try {
 			const response = await this.props.fetchProfile();
-			logger.info('Sign in response:', response);
+			console.log('Sign in response:', response);
 		} catch (error) {
-			logger.error('Sign in error:', error);
+			console.error('Sign in error:', error);
 		}
 	};
 

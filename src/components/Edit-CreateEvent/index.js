@@ -12,7 +12,6 @@ import {
 	deleteEvent
 } from '../../actions';
 import { CustomRedirect, Header } from '../Common';
-import { logger } from '../../constants/logger';
 import {
 	Panel,
 	FormGroup,
@@ -61,7 +60,7 @@ class EditEventPage extends Component {
 			location: '',
 			facebook: ''
 		};
-		logger.info('EditEventPage props:', this.props);
+		console.log('EditEventPage props:', this.props);
 	}
 
 	componentDidMount = async () => {
@@ -88,9 +87,9 @@ class EditEventPage extends Component {
 				loading: false
 			});
 
-			return logger.info('Fetched event:', event);
+			return console.log('Fetched event:', event);
 		} catch (error) {
-			logger.info('Edit Event Page error:', error);
+			console.log('Edit Event Page error:', error);
 			this.setState({ loading: false });
 			return flash(err(error));
 		}
@@ -121,17 +120,17 @@ class EditEventPage extends Component {
 			};
 			if (type === 'edit') {
 				const newEvent = await updateEvent(match.params.id, event);
-				logger.info('Updated event:', newEvent);
+				console.log('Updated event:', newEvent);
 				this.setState({ event: newEvent });
 				return flash('Event successfully updated', 'green');
 			}
 
 			const newEvent = await createEvent(event);
-			logger.info('Created new event:', newEvent);
+			console.log('Created new event:', newEvent);
 			history.push('/events');
 			return flash('Event created', 'green');
 		} catch (error) {
-			logger.info('Edit Event Page error:', error);
+			console.log('Edit Event Page error:', error);
 			return flash(err(error));
 		}
 	};
@@ -142,11 +141,11 @@ class EditEventPage extends Component {
 		try {
 			clear();
 			const event = await deleteEvent(match.params.id);
-			logger.info('Deleted event:', event);
+			console.log('Deleted event:', event);
 			history.push('/events');
 			return flash('Successfully deleted event', 'green');
 		} catch (error) {
-			logger.info('Edit Event Page error:', error);
+			console.log('Edit Event Page error:', error);
 			return flash(err(error));
 		}
 	};

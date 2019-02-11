@@ -5,7 +5,6 @@ import { isMobilePhone } from 'validator';
 import { err } from '../../constants';
 import { sendFlashMessage, clearFlashMessages, signUp } from '../../actions';
 import { Header } from '../Common';
-import { logger } from '../../constants/logger';
 import { Panel, Button, FormControl, InputGroup, ControlLabel } from 'react-bootstrap';
 
 class SignUpPage extends Component {
@@ -43,7 +42,7 @@ class SignUpPage extends Component {
 			resumeLink: '',
 			resumeType: 'Link'
 		};
-		logger.info('Signup page props', this.props);
+		console.log('Signup page props', this.props);
 	}
 
 	onChange = e => {
@@ -74,11 +73,11 @@ class SignUpPage extends Component {
 		const { flash, clear, signUp, history } = this.props;
 		try {
 			clear();
-			logger.info('Submitting:', this.state);
-			logger.info('Facebook matches:', /(facebook|fb)/.test(facebook));
-			logger.info('Github matches:', /github/.test(github));
-			logger.info('Linkedin matches:', /linkedin/.test(linkedin));
-			logger.info('Devpost matches:', /devpost/.test(devpost));
+			console.log('Submitting:', this.state);
+			console.log('Facebook matches:', /(facebook|fb)/.test(facebook));
+			console.log('Github matches:', /github/.test(github));
+			console.log('Linkedin matches:', /linkedin/.test(linkedin));
+			console.log('Devpost matches:', /devpost/.test(devpost));
 			if (!name) return flash('Please enter your full name');
 			if (!email) return flash('An email is required for your account');
 			if (!graduationYear) return flash('A graduation year is required');
@@ -103,7 +102,7 @@ class SignUpPage extends Component {
 			history.push('/');
 			return flash(`Welcome ${resp.user.name}!`, 'green');
 		} catch (error) {
-			logger.error('EditProfile Page error:', error);
+			console.error('EditProfile Page error:', error);
 			return flash(err(error));
 		}
 	};

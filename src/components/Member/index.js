@@ -19,7 +19,6 @@ import {
 	CustomRedirect,
 	Header
 } from '../Common';
-import { logger } from '../../constants/logger';
 import { Table, Panel, FormControl, Button } from 'react-bootstrap';
 
 // TODO: Add autocomplete to input tags
@@ -56,7 +55,7 @@ class MemberPage extends Component {
 			start: '',
 			end: ''
 		};
-		logger.info('MemberPage props:', this.props);
+		console.log('MemberPage props:', this.props);
 	}
 
 	componentDidMount = () => {
@@ -69,7 +68,7 @@ class MemberPage extends Component {
 		} = this.props;
 		fetchMember(id)
 			.then(member => {
-				logger.info('MemberPage fetched member:', member);
+				console.log('MemberPage fetched member:', member);
 				member
 					? this.setState({
 							member,
@@ -81,13 +80,13 @@ class MemberPage extends Component {
 
 		fetchMemberEvents(id)
 			.then(events => {
-				logger.info('MemberPage fetched events:', events);
+				console.log('MemberPage fetched events:', events);
 				this.setState({ events });
 			})
 			.catch(error => flash(err(error)));
 		fetchMemberJobs(id)
 			.then(jobs => {
-				logger.info('MemberPage fetched jobs:', jobs);
+				console.log('MemberPage fetched jobs:', jobs);
 				this.setState({ jobs });
 			})
 			.catch(error => flash(err(error)));
@@ -102,7 +101,7 @@ class MemberPage extends Component {
 		} = nextProps;
 		fetchMember(id)
 			.then(member => {
-				logger.info('MemberPage fetched member:', member);
+				console.log('MemberPage fetched member:', member);
 				member
 					? this.setState({
 							member,
@@ -114,13 +113,13 @@ class MemberPage extends Component {
 
 		fetchMemberEvents(id)
 			.then(events => {
-				logger.info('MemberPage fetched events:', events);
+				console.log('MemberPage fetched events:', events);
 				this.setState({ events });
 			})
 			.catch(error => flash(err(error)));
 		fetchMemberJobs(id)
 			.then(jobs => {
-				logger.info('MemberPage fetched jobs:', jobs);
+				console.log('MemberPage fetched jobs:', jobs);
 				this.setState({ jobs });
 			})
 			.catch(error => flash(err(error)));
@@ -144,15 +143,15 @@ class MemberPage extends Component {
 		} = this.props;
 		try {
 			clear();
-			logger.info('About to add new location:', name, city, start.toString(), end);
+			console.log('About to add new location:', name, city, start.toString(), end);
 			if (!name) return flash('Location Name Required.');
 			if (!city) return flash('City Required.');
 			if (!start) return flash('Start Date Required.');
 			const startDate = Date.parse(start);
 			const endDate = Date.parse(end);
 			if (Number.isNaN(startDate)) return flash('Invalid start date');
-			logger.info('StartDate:', startDate);
-			logger.info('EndDate:', endDate);
+			console.log('StartDate:', startDate);
+			console.log('EndDate:', endDate);
 			if (end) {
 				if (Number.isNaN(endDate)) return flash('Invalid end date');
 				if (startDate > endDate) return flash('Start date must be before end date');
@@ -165,7 +164,7 @@ class MemberPage extends Component {
 				end,
 				memberID: id
 			});
-			logger.info('Created job:', job);
+			console.log('Created job:', job);
 			this.setState({
 				jobs: [...this.state.jobs, job],
 				name: '',
@@ -176,7 +175,7 @@ class MemberPage extends Component {
 			return flash('Job Record Added!', 'green');
 		} catch (error) {
 			clear();
-			logger.error(error);
+			console.error(error);
 			return flash(err(error));
 		}
 	};
@@ -187,14 +186,14 @@ class MemberPage extends Component {
 		const { flash, clear, history, match } = this.props;
 		clear();
 		try {
-			logger.info('About to delete job:');
+			console.log('About to delete job:');
 			const job = await deleteJob(e.target.id);
-			logger.info('Deleted job:', job);
+			console.log('Deleted job:', job);
 			this.setState({ jobs: this.state.jobs.filter(j => j._id !== job._id) });
 			history.push(`/member/${match.params.id}`);
 			return flash('Job Record Removed!', 'green');
 		} catch (error) {
-			logger.error(error);
+			console.error(error);
 			return flash(err(error));
 		}
 	};

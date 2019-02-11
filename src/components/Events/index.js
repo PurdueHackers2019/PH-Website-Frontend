@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import { EventTable, Header } from '../Common';
 import routes, { hasPermission } from '../../constants';
 import { fetchEvents } from '../../actions';
-import { logger } from '../../constants/logger';
 import { Button } from 'react-bootstrap';
 
 // TODO: Implement pagination
@@ -34,7 +33,7 @@ class EventsPage extends Component {
 
 	componentDidMount = async () => {
 		const { events } = await fetchEvents({});
-		logger.info('EventsPage fetched events:', events);
+		console.log('EventsPage fetched events:', events);
 		this.setState({ events, loading: false });
 	};
 

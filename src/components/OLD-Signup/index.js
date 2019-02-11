@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import validator from 'validator';
 import { signUp, sendFlashMessage } from '../../actions';
-import { logger } from '../../constants/logger';
 import { Panel, FormControl, ControlLabel, Button } from 'react-bootstrap';
 
 class SignupPage extends Component {
@@ -31,7 +30,7 @@ class SignupPage extends Component {
 			passwordConfirm: '',
 			graduationYear: user ? user.graduationYear : new Date().getFullYear() + 4
 		};
-		logger.info('Signup page props', this.props);
+		console.log('Signup page props', this.props);
 	}
 
 	onChange = e => this.setState({ [e.target.id]: e.target.value });
@@ -60,7 +59,7 @@ class SignupPage extends Component {
 			this.props.history.push('/');
 			return flash(`Welcome ${resp.user.name}!`, 'green');
 		} catch (err) {
-			logger.error('SignUp Page error:', err);
+			console.error('SignUp Page error:', err);
 			return flash(err.error);
 		}
 	};
