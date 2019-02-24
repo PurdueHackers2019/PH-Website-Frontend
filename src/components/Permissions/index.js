@@ -98,7 +98,7 @@ class PermissionsPage extends Component {
 		return (
 			<div className="section">
 				<div className="section-container">
-					<Header message="Permissions" />
+					{/* <Header message="Permissions" /> */}
 					<h3>Permissions</h3>
 					<Panel>
 						<Panel.Body>

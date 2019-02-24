@@ -101,7 +101,7 @@ class CredentialsPage extends Component {
 		return (
 			<div className="section">
 				<div className="section-container">
-					<Header message="Credentials" />
+					{/* <Header message="Credentials" /> */}
 					<h3>Credentials</h3>
 					<Panel>
 						<Panel.Body>

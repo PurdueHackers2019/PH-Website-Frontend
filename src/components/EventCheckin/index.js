@@ -149,7 +149,7 @@ class EventCheckinPage extends Component {
 			return <CustomRedirect msgRed="You are not authorized to view this page" />;
 		return (
 			<div>
-				<Header message={shortName(event.name)} />
+				{/* <Header message={shortName(event.name)} /> */}
 				<div className="section">
 					<div className="section-container">
 						<h3>

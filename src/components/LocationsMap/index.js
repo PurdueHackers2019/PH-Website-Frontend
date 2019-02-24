@@ -37,7 +37,7 @@ class LocationsMapPage extends Component {
 	render = () => (
 		<div className="section">
 			<div className="section-container">
-				<Header message="Map" />
+				{/* <Header message="Map" /> */}
 				<h3>
 					Purdue Hackers Around The Globe
 					<Link to={routes.LOCATIONS} className="pull-right">

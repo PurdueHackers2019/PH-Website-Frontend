@@ -43,7 +43,7 @@ class ForgotPasswordPage extends Component {
 		return (
 			<div className="section">
 				<div className="section-container">
-					<Header message="Forgot Password" />
+					{/* <Header message="Forgot Password" /> */}
 					<h3>Forgot Your Password</h3>
 					<Panel>
 						<form className="validate" onSubmit={this.onSubmit}>

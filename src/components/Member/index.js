@@ -214,7 +214,7 @@ class MemberPage extends Component {
 		if (!member) return <span>Loading...</span>;
 		return (
 			<div>
-				<Header message={member.name} />
+				{/* <Header message={member.name} /> */}
 				<div className="section">
 					<div className="section-container">
 						<h3>

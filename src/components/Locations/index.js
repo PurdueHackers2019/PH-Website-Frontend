@@ -43,7 +43,7 @@ class LocationsPage extends Component {
 		return (
 			<div className="section">
 				<div className="section-container">
-					<Header message="Locations" />
+					{/* <Header message="Locations" /> */}
 					<h3>
 						Purdue Hackers Around The Globe
 						<Link to={routes.LOCATIONS_MAP} className="pull-right">

@@ -119,7 +119,7 @@ class PermissionPage extends Component {
 		return (
 			<div className="section">
 				<div className="section-container">
-					<Header message={`Permission: ${permission.name}`} />
+					{/* <Header message={`Permission: ${permission.name}`} /> */}
 					<h3>
 						Permission: {permission.name}
 						<Link to={routes.PERMISSIONS} className="pull-left">

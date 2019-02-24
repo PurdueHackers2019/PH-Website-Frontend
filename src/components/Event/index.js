@@ -82,7 +82,7 @@ class EventPage extends Component {
 			return <CustomRedirect msgRed="You are not authorized to view this event" />;
 		return (
 			<div>
-				<Header message={shortName(event.name)} />
+				{/* <Header message={shortName(event.name)} /> */}
 				<div className="section">
 					<div className="section-container">
 						<h3>

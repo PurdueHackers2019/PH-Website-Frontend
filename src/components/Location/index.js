@@ -93,10 +93,10 @@ class LocationPage extends Component {
 		const { members } = location;
 		return (
 			<div>
-				<Header message={location.name} />
+				{/* <Header message={location.name} /> */}
 				<div className="section">
 					<div className="section-container">
-						<Header message={location.name} />
+						{/* <Header message={location.name} /> */}
 						<h3>
 							{location.name}
 							<Link to={routes.LOCATIONS}>

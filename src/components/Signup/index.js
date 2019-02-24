@@ -134,7 +134,7 @@ class SignUpPage extends Component {
 		return (
 			<div className="section">
 				<div className="section-container">
-					<Header message="Signup" />
+					{/* <Header message="Signup" /> */}
 					<h3>Join Purdue Hackers</h3>
 					<Panel>
 						<form className="validate" onSubmit={this.onSubmit}>

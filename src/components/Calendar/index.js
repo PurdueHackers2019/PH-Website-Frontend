@@ -1,9 +1,9 @@
 import React from 'react';
-import { Header } from '../Common';
+// import { Header } from '../Common';
 
 export default () => (
 	<React.Fragment>
-		<Header message="Calendar" />
+		{/* <Header message="Calendar" /> */}
 		<div className="section">
 			<div className="section-container">
 				<h1>Calendar</h1>

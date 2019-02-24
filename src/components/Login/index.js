@@ -55,9 +55,8 @@ class LoginPage extends Component {
 		return (
 			<div className="section">
 				<div className="section-container">
-					<Header message="Login" />
+					{/* <Header message="Login" /> */}
 					<h3>Login</h3>
-
 					<Panel>
 						<form onSubmit={this.onSubmit}>
 							<Panel.Body>

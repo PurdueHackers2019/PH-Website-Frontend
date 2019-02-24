@@ -171,7 +171,7 @@ class EditEventPage extends Component {
 		const canEdit = type === 'edit' && hasPermission(user, 'events');
 		return (
 			<div>
-				<Header message={shortName(name)} />
+				{/* <Header message={shortName(name)} /> */}
 				<div className="section">
 					<div className="section-container">
 						<h3>

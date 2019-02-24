@@ -57,7 +57,7 @@ class ResetPasswordPage extends Component {
 		return (
 			<div className="section">
 				<div className="section-container">
-					<Header message="Reset Password" />
+					{/* <Header message="Reset Password" /> */}
 					<h3>Reset Your Password</h3>
 					<Panel>
 						<form onSubmit={this.onSubmit}>

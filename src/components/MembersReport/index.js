@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Header } from '../Common';
+// import { Header } from '../Common';
 import { sendFlashMessage, clearFlashMessages, fetchMembersReport } from '../../actions';
 import {
 	getGradeGraphData,
@@ -105,7 +105,7 @@ class ReportsPage extends Component {
 			<div>
 				<div className="section">
 					<div className="section-container">
-						<Header message="Members Report" />
+						{/* <Header message="Members Report" /> */}
 						<h3>Members Report</h3>
 					</div>
 				</div>
