@@ -11,7 +11,8 @@ import {
 	clearFlashMessages
 } from '../../actions';
 import { err } from '../../constants';
-// import { Header } from '../Common';
+import { Header } from '../Common';
+import { Table, Panel, FormControl, Button, ControlLabel } from 'react-bootstrap';
 
 class CredentialsPage extends Component {
 	static propTypes = {
@@ -102,94 +103,97 @@ class CredentialsPage extends Component {
 				<div className="section-container">
 					{/* <Header message="Credentials" /> */}
 					<h3>Credentials</h3>
-					<div className="panel panel-default">
-						<table className="table table-bordered panel-body sortableTable">
-							<thead>
-								<tr>
-									<th>Site</th>
-									<th>Username</th>
-									<th>Password</th>
-									<th>Description</th>
-								</tr>
-							</thead>
-							<tbody>
-								{credentials.map(credential => (
-									<tr key={credential._id}>
-										<td>{credential.site}</td>
-										<td>{credential.username}</td>
-										<td className="obscure">{credential.password}</td>
-										<td>
-											{credential.description}
-											<button
-												className="btn btn-xs btn-danger pull-right"
-												id={credential._id}
-												onClick={this.onDeleteCredential}
-											>
-												Delete
-											</button>
-										</td>
+					<Panel>
+						<Panel.Body>
+							<Table bordered className="sortableTable">
+								<thead>
+									<tr>
+										<th>Site</th>
+										<th>Username</th>
+										<th>Password</th>
+										<th>Description</th>
 									</tr>
-								))}
-							</tbody>
-						</table>
-						<form className="panel-body validate">
-							<label htmlFor="site">
-								Site
-								<input
-									id="site"
-									type="text"
-									name="site"
-									placeholder="Site"
-									className="form-control"
-									value={site}
-									onChange={this.onChange}
-								/>
-							</label>
-							<label htmlFor="username">
-								Username
-								<input
-									id="username"
-									type="text"
-									name="username"
-									placeholder="Username"
-									className="form-control"
-									value={username}
-									onChange={this.onChange}
-								/>
-							</label>
-							<label htmlFor="password">
-								Password
-								<input
-									id="password"
-									type="text"
-									name="password"
-									placeholder="Password"
-									className="form-control"
-									value={password}
-									onChange={this.onChange}
-								/>
-							</label>
-							<label htmlFor="description">
-								Description
-								<textarea
-									id="description"
-									type="text"
-									name="description"
-									placeholder="Description"
-									className="form-control"
-									value={description}
-									onChange={this.onChange}
-								/>
-							</label>
-							<br />
-							<input
-								type="submit"
-								value="Add Credential"
-								className="btn btn-sm btn-primary"
-								onClick={this.onAddCredential}
-							/>
+								</thead>
+								<tbody>
+									{credentials.map(credential => (
+										<tr key={credential._id}>
+											<td>{credential.site}</td>
+											<td>{credential.username}</td>
+											<td className="obscure">{credential.password}</td>
+											<td>
+												{credential.description}
+												<button
+													className="btn btn-xs btn-danger pull-right"
+													id={credential._id}
+													onClick={this.onDeleteCredential}
+												>
+													Delete
+												</button>
+											</td>
+										</tr>
+									))}
+								</tbody>
+							</Table>
+						</Panel.Body>
+						<form className="validate">
+							<Panel.Body>
+								<ControlLabel htmlFor="site">
+									Site
+									<FormControl
+										id="site"
+										type="text"
+										name="site"
+										placeholder="Site"
+										value={site}
+										onChange={this.onChange}
+									/>
+								</ControlLabel>
+								<ControlLabel htmlFor="username">
+									Username
+									<FormControl
+										id="username"
+										type="text"
+										name="username"
+										placeholder="Username"
+										value={username}
+										onChange={this.onChange}
+									/>
+								</ControlLabel>
+								<ControlLabel htmlFor="password">
+									Password
+									<FormControl
+										id="password"
+										type="text"
+										name="password"
+										placeholder="Password"
+										value={password}
+										onChange={this.onChange}
+									/>
+								</ControlLabel>
+								<ControlLabel htmlFor="description">
+									Description
+									<FormControl
+										id="description"
+										type="text"
+										name="description"
+										placeholder="Description"
+										componentClass="textarea"
+										value={description}
+										onChange={this.onChange}
+									/>
+								</ControlLabel>
+								<br />
+								<Button
+									type="submit"
+									bsStyle="primary"
+									bsSize="small"
+									onClick={this.onAddCredential}
+								>
+									Add Credential
+								</Button>
+							</Panel.Body>
 						</form>
-					</div>
+					</Panel>
 				</div>
 			</div>
 		);

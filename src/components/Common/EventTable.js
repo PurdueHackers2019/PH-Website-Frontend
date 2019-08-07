@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Table, Panel } from 'react-bootstrap';
 import { formatDate } from '../../constants';
 
 class EventTable extends Component {
@@ -14,35 +15,38 @@ class EventTable extends Component {
 	render() {
 		const { events, allowed } = this.props;
 		return (
-			<div className="panel panel-default">
-				<table className="table table-bordered table-hover table-clickable panel-body sortableTable">
-					<thead>
-						<tr>
-							<th>Name</th>
-							<th>Location</th>
-							<th>Date</th>
-							{allowed && <th># Attended</th>}
-						</tr>
-					</thead>
-					<tbody>
-						{events &&
-							events.map(event => (
-								<tr key={event._id + 1} id={event._id} onClick={this.onClick(event._id)}>
-									<td>{event.name}</td>
-									<td>{event.location}</td>
-									<td>{formatDate(event.eventTime)}</td>
-									{allowed && (
-										<td>
-											{event.members && event.members.length
-												? event.members.length
-												: 'N/A'}
-										</td>
-									)}
-								</tr>
-							))}
-					</tbody>
-				</table>
-			</div>
+			<Panel>
+				<Panel.Body>
+					<Table bordered hover className="table-clickable sortableTable">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Location</th>
+								<th>Date</th>
+								{allowed && <th># Attended</th>}
+							</tr>
+						</thead>
+						<tbody>
+							{events &&
+								events.map(event => (
+									<tr
+										key={event._id + 1}
+										id={event._id}
+										onClick={this.onClick(event._id)}
+									>
+										<td>{event.name}</td>
+										{/* <td>{formatDate(event.createdAt)}</td> */}
+										<td>{event.location}</td>
+										<td>{formatDate(event.eventTime)}</td>
+										{allowed && (
+											<td>{event.members ? event.members.length : 0}</td>
+										)}
+									</tr>
+								))}
+						</tbody>
+					</Table>
+				</Panel.Body>
+			</Panel>
 		);
 	}
 }

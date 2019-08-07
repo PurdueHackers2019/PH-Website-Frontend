@@ -1,10 +1,11 @@
 import React from 'react';
+import { Panel } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 const ProfilePanel = ({ member, events, jobs }) => (
 	<React.Fragment>
-		<div className="panel panel-default text-left">
-			<div className="panel-body">
+		<Panel className="text-left">
+			<Panel.Body>
 				{member.picture && <img src={member.picture} id="profile_image" alt="Profile Pic" />}
 				<div id="profile_intro_text">
 					<div id="profile_name">{member.name}</div>
@@ -33,19 +34,19 @@ const ProfilePanel = ({ member, events, jobs }) => (
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
+			</Panel.Body>
+		</Panel>
 		{member.description && (
-			<div className="panel panel-default text-left">
-				<div className="panel-body">
+			<Panel className="text-left">
+				<Panel.Body>
 					{member.description.split('\\\n').map((item, key) => (
 						<span key={key}>
 							{item}
 							<br />
 						</span>
 					))}
-				</div>
-			</div>
+				</Panel.Body>
+			</Panel>
 		)}
 	</React.Fragment>
 );

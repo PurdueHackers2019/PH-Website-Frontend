@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import routes from '../../constants';
 import { sendFlashMessage, clearFlashMessages, fetchLocations } from '../../actions';
-// import { Header } from '../Common';
+import { Header } from '../Common';
+import { Table, Panel, Button } from 'react-bootstrap';
 
 class LocationsPage extends Component {
 	static propTypes = {
@@ -46,31 +47,33 @@ class LocationsPage extends Component {
 					<h3>
 						Purdue Hackers Around The Globe
 						<Link to={routes.LOCATIONS_MAP} className="pull-right">
-							<button type="button" className="btn btn-primary btn-sm">
+							<Button type="button" bsStyle="primary" bsSize="small">
 								Map
-							</button>
+							</Button>
 						</Link>
 					</h3>
-					<div className="panel panel-default">
-						<table className="table table-bordered table-hover table-clickable panel-body sortableTable">
-							<thead>
-								<tr>
-									<th>Location</th>
-									<th>City</th>
-									<th># Members</th>
-								</tr>
-							</thead>
-							<tbody>
-								{locations.map(location => (
-									<tr key={location._id} onClick={this.onClick(location._id)}>
-										<td>{location.name}</td>
-										<td>{location.city}</td>
-										<td>{location.members.length}</td>
+					<Panel>
+						<Panel.Body>
+							<Table bordered hover className="table-clickable sortableTable">
+								<thead>
+									<tr>
+										<th>Location</th>
+										<th>City</th>
+										<th># Members</th>
 									</tr>
-								))}
-							</tbody>
-						</table>
-					</div>
+								</thead>
+								<tbody>
+									{locations.map(location => (
+										<tr key={location._id} onClick={this.onClick(location._id)}>
+											<td>{location.name}</td>
+											<td>{location.city}</td>
+											<td>{location.members.length}</td>
+										</tr>
+									))}
+								</tbody>
+							</Table>
+						</Panel.Body>
+					</Panel>
 				</div>
 			</div>
 		);

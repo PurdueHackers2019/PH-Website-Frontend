@@ -1,9 +1,10 @@
 import React from 'react';
+import { Panel } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 const SocialMediaPanel = ({ member }) => (
-	<div className="panel panel-default text-left">
-		<div className="panel-body">
+	<Panel className="text-left">
+		<Panel.Body>
 			{member.facebook && (
 				<React.Fragment>
 					<b>Facebook Profile:</b>
@@ -63,8 +64,8 @@ const SocialMediaPanel = ({ member }) => (
 					</a>
 				</React.Fragment>
 			)}
-		</div>
-	</div>
+		</Panel.Body>
+	</Panel>
 );
 
 SocialMediaPanel.propTypes = {

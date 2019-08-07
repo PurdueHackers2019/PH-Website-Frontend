@@ -9,7 +9,8 @@ import {
 	addPermission,
 	addOrganizer
 } from '../../actions';
-// import { Header } from '../Common';
+import { Header } from '../Common';
+import { Table, Panel, Button, FormControl } from 'react-bootstrap';
 
 class PermissionsPage extends Component {
 	static propTypes = {
@@ -30,7 +31,6 @@ class PermissionsPage extends Component {
 			organizerName: ''
 			// loading: true
 		};
-		console.log();
 	}
 
 	componentDidMount = async () => {
@@ -100,87 +100,93 @@ class PermissionsPage extends Component {
 				<div className="section-container">
 					{/* <Header message="Permissions" /> */}
 					<h3>Permissions</h3>
-					<div className="panel panel-default">
-						<table className="table table-bordered panel-body table-hover table-clickable sortableTable">
-							<thead>
-								<tr>
-									<th>Name</th>
-									<th>Description</th>
-									<th># Users</th>
-								</tr>
-							</thead>
-							<tbody>
-								{permissions.map(permission => (
-									<tr
-										key={permission._id}
-										onClick={this.onPermissionClick(permission._id)}
-									>
-										<td>{permission.name}</td>
-										<td>{permission.description}</td>
-										<td>{permission.members ? permission.members.length : 0}</td>
-									</tr>
-								))}
-								{hasPermission(user, 'adminpermissions') && (
+					<Panel>
+						<Panel.Body>
+							<Table bordered hover className="table-clickable sortableTable">
+								<thead>
 									<tr>
+										<th>Name</th>
+										<th>Description</th>
+										<th># Users</th>
+									</tr>
+								</thead>
+								<tbody>
+									{permissions.map(permission => (
+										<tr
+											key={permission._id}
+											onClick={this.onPermissionClick(permission._id)}
+										>
+											<td>{permission.name}</td>
+											<td>{permission.description}</td>
+											<td>
+												{permission.members ? permission.members.length : 0}
+											</td>
+										</tr>
+									))}
+									{hasPermission(user, 'adminpermissions') && (
+										<tr>
+											<td>
+												<FormControl
+													type="text"
+													id="permissionName"
+													name="permissionName"
+													placeholder="Permission Name"
+													data-bvalidator="required"
+													value={permissionName}
+													onChange={this.onChange}
+												/>
+											</td>
+											<td>
+												<FormControl
+													type="text"
+													id="permissionDescription"
+													name="permissionDescription"
+													placeholder="Permission Description"
+													data-bvalidator="required"
+													value={permissionDescription}
+													onChange={this.onChange}
+												/>
+											</td>
+											<td>
+												<Button
+													type="submit"
+													bsStyle="primary"
+													bsSize="small"
+													onClick={this.onAddPermission}
+												>
+													Add Permission
+												</Button>
+											</td>
+										</tr>
+									)}
+									<tr>
+										<td />
 										<td>
-											<input
+											<FormControl
 												type="text"
-												id="permissionName"
-												name="permissionName"
-												placeholder="Permission Name"
-												className="form-control"
+												id="organizerName"
+												placeholder="Add Organizer"
+												className="membersautocomplete"
 												data-bvalidator="required"
-												value={permissionName}
+												value={organizerName}
 												onChange={this.onChange}
 											/>
 										</td>
 										<td>
-											<input
-												type="text"
-												id="permissionDescription"
-												name="permissionDescription"
-												placeholder="Permission Description"
-												className="form-control"
-												data-bvalidator="required"
-												value={permissionDescription}
-												onChange={this.onChange}
-											/>
-										</td>
-										<td>
-											<input
-												type="submit"
-												value="Add Permission"
-												className="btn btn-sm btn-primary"
-												onClick={this.onAddPermission}
-											/>
+											<Button
+												type="button"
+												bsSize="small"
+												bsStyle="primary"
+												onClick={this.onAddOrganizer}
+											>
+												Add Organizer
+											</Button>
 										</td>
 									</tr>
-								)}
-								<tr>
-									<td />
-									<td>
-										<input
-											type="text"
-											id="organizerName"
-											placeholder="Add Organizer"
-											className="form-control membersautocomplete"
-											data-bvalidator="required"
-											value={organizerName}
-											onChange={this.onChange}
-										/>
-									</td>
-									<td>
-										<input
-											type="button"
-											value="Add Organizer"
-											className="btn btn-sm btn-primary"
-											onClick={this.onAddOrganizer}
-										/>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
+								</tbody>
+							</Table>
+						</Panel.Body>
+					</Panel>
 				</div>
 			</div>
 		);

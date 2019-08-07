@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import { isEmail } from 'validator';
 import { sendFlashMessage, clearFlashMessages, forgotPassword } from '../../actions';
 import { err } from '../../constants';
-// import { Header } from '../Common';
+import { Header } from '../Common';
+import { Panel, InputGroup, FormControl, Button } from 'react-bootstrap';
 
 class ForgotPasswordPage extends Component {
 	static propTypes = {
@@ -44,30 +45,29 @@ class ForgotPasswordPage extends Component {
 				<div className="section-container">
 					{/* <Header message="Forgot Password" /> */}
 					<h3>Forgot Your Password</h3>
-					<div className="panel panel-default">
-						<form className="panel-body validate" onSubmit={this.onSubmit}>
-							<div className="input-group">
-								<span className="input-group-addon" id="email">
-									Email:
-								</span>
-								<input
-									type="email"
-									id="email"
-									className="form-control"
-									placeholder="Email"
-									value={email}
-									onChange={this.onChange}
-								/>
-								<span className="input-group-btn">
-									<input
-										className="btn btn-primary"
-										type="submit"
-										value="Reset Password"
+					<Panel>
+						<form className="validate" onSubmit={this.onSubmit}>
+							<Panel.Body>
+								<InputGroup>
+									<InputGroup.Addon inline id="email">
+										Email:
+									</InputGroup.Addon>
+									<FormControl
+										type="email"
+										id="email"
+										placeholder="Email"
+										value={email}
+										onChange={this.onChange}
 									/>
-								</span>
-							</div>
+									<InputGroup inline className="input-group-btn">
+										<Button bsStyle="primary" type="submit">
+											Reset Password
+										</Button>
+									</InputGroup>
+								</InputGroup>
+							</Panel.Body>
 						</form>
-					</div>
+					</Panel>
 				</div>
 			</div>
 		);

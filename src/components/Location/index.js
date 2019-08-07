@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import routes, { hasPermission, formatDate, err } from '../../constants';
 import { sendFlashMessage, clearFlashMessages, fetchLocation, updateLocation } from '../../actions';
-import { CustomRedirect } from '../Common';
+import { CustomRedirect, Header } from '../Common';
+import { Table, Panel, Button, FormControl, Glyphicon, ControlLabel } from 'react-bootstrap';
 
 // TODO: Add autocomplete to input tags
 
@@ -99,56 +100,61 @@ class LocationPage extends Component {
 						<h3>
 							{location.name}
 							<Link to={routes.LOCATIONS}>
-								<button type="button" className="pull-left btn btn-primary btn-sm marginR">
-									<span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
+								<Button
+									type="button"
+									bsStyle="primary"
+									bsSize="small"
+									className="pull-left marginR"
+								>
+									<Glyphicon inline glyph="chevron-left" aria-hidden="true" />
 									List of Locations
-								</button>
+								</Button>
 							</Link>
 						</h3>
-						<div className="panel panel-default">
+						<Panel>
 							{hasPermission(user, 'admin') ? (
-								<form className="panel-body" onSubmit={this.onSubmit}>
-									<label htmlFor="name">
-										Location Name
-										<input
-											id="name"
-											placeholder="Location Name"
-											className="form-control"
-											value={name}
-											onChange={this.onChange}
+								<form onSubmit={this.onSubmit}>
+									<Panel.Body>
+										<ControlLabel htmlFor="name">
+											Location Name
+											<FormControl
+												id="name"
+												placeholder="Location Name"
+												value={name}
+												onChange={this.onChange}
+											/>
+										</ControlLabel>
+										<br />
+										<ControlLabel htmlFor="city">
+											Location City
+											<FormControl
+												id="city"
+												placeholder="City"
+												value={city}
+												onChange={this.onChange}
+											/>
+										</ControlLabel>
+										<br />
+										<Button
+											type="submit"
+											value="Update Location"
+											bsStyle="primary"
 										/>
-									</label>
-									<br />
-									<label htmlFor="city">
-										Location City
-										<input
-											id="city"
-											placeholder="City"
-											className="form-control"
-											value={city}
-											onChange={this.onChange}
-										/>
-									</label>
-									<br />
-									<input
-										type="submit"
-										value="Update Location"
-										className="btn btn-primary"
-									/>
+									</Panel.Body>
 								</form>
 							) : (
-								<div className="panel-body">
+								<Panel.Body>
 									<div id="profile_name">{location.name}</div>
 									<div id="profile_major">City: {location.city}</div>
-								</div>
+								</Panel.Body>
 							)}
-						</div>
+						</Panel>
 
 						<hr />
 
 						<h3>Members</h3>
-						<div className="panel panel-default">
-							<table className="table table-bordered table-hover table-clickable panel-body">
+						<Panel>
+							<Table bordered hover className="table-clickable panel-body">
 								<thead>
 									<tr>
 										<th>Name</th>
@@ -159,7 +165,10 @@ class LocationPage extends Component {
 								<tbody>
 									{members && members.length ? (
 										members.map(member => (
-											<tr key={member._id} onClick={this.onClick(member.member._id)}>
+											<tr
+												key={member._id}
+												onClick={this.onClick(member.member._id)}
+											>
 												<td>{member.member.name}</td>
 												<td>{formatDate(member.dateStart)}</td>
 												<td>{formatDate(member.dateEnd)}</td>
@@ -173,8 +182,8 @@ class LocationPage extends Component {
 										</tr>
 									)}
 								</tbody>
-							</table>
-						</div>
+							</Table>
+						</Panel>
 					</div>
 				</div>
 			</div>

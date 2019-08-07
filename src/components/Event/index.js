@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { hasPermission, formatDate, shortName, err } from '../../constants';
 import { sendFlashMessage, clearFlashMessages, fetchEvent } from '../../actions';
-import { MembersAttendedTable, CustomRedirect } from '../Common';
+import { MembersAttendedTable, CustomRedirect, Header } from '../Common';
+import { Button, Glyphicon, Panel } from 'react-bootstrap';
 
 // TODO: Add autocomplete to input tags
 
@@ -87,40 +88,47 @@ class EventPage extends Component {
 						<h3>
 							{shortName(event.name)}
 							<Link key={`${event._id}-1`} to="/events">
-								<button type="button" className="pull-left btn btn-primary btn-sm marginR">
-									<span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
+								<Button
+									bsStyle="primary"
+									bsSize="small"
+									className="pull-left marginR"
+								>
+									<Glyphicon inline glyph="chevron-left" aria-hidden="true" />
 									Events
-								</button>
+								</Button>
 							</Link>
 							{hasPermission(user, 'events') && [
 								<Link key={`${event._id}-2`} to={`/event/${event._id}/edit`}>
-									<button
-										type="button"
-										className="pull-right marginR btn btn-primary btn-sm"
+									<Button
+										bsStyle="primary"
+										bsSize="small"
+										className="pull-right marginR"
 									>
 										Edit Event
-									</button>
+									</Button>
 								</Link>,
 								<Link key={`${event._id}-3`} to={`/event/${event._id}/checkin`}>
-									<button
-										type="button"
-										className="pull-right marginR btn btn-primary btn-sm"
+									<Button
+										bsStyle="primary"
+										bsSize="small"
+										className="pull-right marginR"
 									>
 										Checkin
-									</button>
+									</Button>
 								</Link>,
 								<Link key={`${event._id}-4`} to={`/event/${event._id}/report`}>
-									<button
-										type="button"
-										className="pull-right marginR btn btn-primary btn-sm"
+									<Button
+										bsStyle="primary"
+										bsSize="small"
+										className="pull-right marginR"
 									>
 										Graphs
-									</button>
+									</Button>
 								</Link>
 							]}
 						</h3>
-						<div className="panel panel-default text-left">
-							<div className="panel-body">
+						<Panel className="text-left">
+							<Panel.Body>
 								<div id="profile_intro_text">
 									<div id="profile_name">{event.name}</div>
 									<div id="profile_email">Location: {event.location}</div>
@@ -132,8 +140,8 @@ class EventPage extends Component {
 										</a>
 									)}
 								</div>
-							</div>
-						</div>
+							</Panel.Body>
+						</Panel>
 						<hr />
 						{event.members && event.members.length ? (
 							<MembersAttendedTable members={event.members} />

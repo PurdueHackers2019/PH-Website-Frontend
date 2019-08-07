@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import routes from '../../constants';
 import { sendFlashMessage, clearFlashMessages, fetchJobs } from '../../actions';
-import { MembersMap } from '../Common';
+import { Header, MembersMap } from '../Common';
+import { Button } from 'react-bootstrap';
 
 class LocationsMapPage extends Component {
 	static propTypes = {
@@ -40,9 +41,9 @@ class LocationsMapPage extends Component {
 				<h3>
 					Purdue Hackers Around The Globe
 					<Link to={routes.LOCATIONS} className="pull-right">
-						<button type="button" className="btn btn-primary btn-sm">
+						<Button bsStyle="primary" bsSize="small" type="button">
 							List
-						</button>
+						</Button>
 					</Link>
 				</h3>
 				<MembersMap markers={this.state.locations} />

@@ -12,7 +12,8 @@ import {
 	checkoutEvent,
 	autocompleteMembers
 } from '../../actions';
-import { CustomRedirect } from '../Common';
+import { CustomRedirect, Header } from '../Common';
+import { Panel, Button, FormControl, Glyphicon, InputGroup } from 'react-bootstrap';
 
 // TODO: Add autocomplete to input tags
 
@@ -154,14 +155,18 @@ class EventCheckinPage extends Component {
 						<h3>
 							{shortName(event.name)}
 							<Link key={`${event._id}-1`} to={`/event/${event._id}`}>
-								<button type="button" className="pull-left btn btn-primary btn-sm marginR">
-									<span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
+								<Button
+									bsStyle="primary"
+									bsSize="small"
+									className="pull-left  marginR"
+								>
+									<Glyphicon inline glyph="chevron-left" aria-hidden="true" />
 									Event
-								</button>
+								</Button>
 							</Link>
 						</h3>
-						<div className="panel panel-default">
-							<div id="checkinForm" className="panel-body validate" autoComplete="off">
+						<Panel>
+							<Panel.Body id="checkinForm" className="validate" autoComplete="off">
 								<Downshift
 									inputValue={name}
 									selectedItem={selectedMember}
@@ -177,29 +182,31 @@ class EventCheckinPage extends Component {
 										isOpen
 									}) => (
 										<div>
-											<div className="input-group">
-												<span className="input-group-addon" id="memberNameTitle">
+											<InputGroup>
+												<InputGroup.Addon inline id="memberNameTitle">
 													Name:
-												</span>
-												<input
+												</InputGroup.Addon>
+												<FormControl
 													{...getInputProps({
-														onChange: e => this.onInputChange(e, 'name'),
+														onChange: e =>
+															this.onInputChange(e, 'name'),
 														id: 'name',
 														name: 'name',
-														className: 'form-control membersautocomplete',
+														className: 'membersautocomplete',
 														placeholder: 'Member Name',
 														pattern: '([a-zA-Z]+ )+[a-zA-Z]+',
 														title: 'Please enter first and last name'
 													})}
 												/>
-											</div>
+											</InputGroup>
 											{isOpen &&
 												members.length && (
 													<div>
 														{members
 															.filter(
 																item =>
-																	!inputValue || item.name.includes(inputValue)
+																	!inputValue ||
+																	item.name.includes(inputValue)
 															)
 															.map((item, index) => (
 																<div
@@ -209,11 +216,13 @@ class EventCheckinPage extends Component {
 																		item,
 																		style: {
 																			backgroundColor:
-																				highlightedIndex === index
+																				highlightedIndex ===
+																				index
 																					? 'lightgray'
 																					: 'white',
 																			fontWeight:
-																				selectedItem === item
+																				selectedItem ===
+																				item
 																					? 'bold'
 																					: 'normal'
 																		}
@@ -243,27 +252,28 @@ class EventCheckinPage extends Component {
 										isOpen
 									}) => (
 										<div>
-											<div className="input-group">
-												<span className="input-group-addon" id="memberEmailTitle">
+											<InputGroup>
+												<InputGroup.Addon inline id="memberEmailTitle">
 													Email:
-												</span>
-												<input
+												</InputGroup.Addon>
+												<FormControl
 													{...getInputProps({
-														onChange: e => this.onInputChange(e, 'email'),
+														onChange: e =>
+															this.onInputChange(e, 'email'),
 														id: 'email',
 														name: 'email',
-														className: 'form-control',
 														placeholder: 'Member Email'
 													})}
 												/>
-											</div>
+											</InputGroup>
 											{isOpen &&
 												members.length && (
 													<div>
 														{members
 															.filter(
 																item =>
-																	!inputValue || item.email.includes(inputValue)
+																	!inputValue ||
+																	item.email.includes(inputValue)
 															)
 															.map((item, index) => (
 																<div
@@ -273,11 +283,13 @@ class EventCheckinPage extends Component {
 																		item,
 																		style: {
 																			backgroundColor:
-																				highlightedIndex === index
+																				highlightedIndex ===
+																				index
 																					? 'lightgray'
 																					: 'white',
 																			fontWeight:
-																				selectedItem === item
+																				selectedItem ===
+																				item
 																					? 'bold'
 																					: 'normal'
 																		}
@@ -292,37 +304,36 @@ class EventCheckinPage extends Component {
 									)}
 								</Downshift>
 								<br />
-								<div className="input-group">
-									<span className="input-group-addon" id="graduationYearTitle">
+								<InputGroup>
+									<InputGroup.Addon inline id="graduationYearTitle">
 										Graduation Year:
-									</span>
-									<input
+									</InputGroup.Addon>
+									<FormControl
 										type="text"
 										id="graduationYear"
-										className="form-control"
 										readOnly
 										value={selectedMember ? selectedMember.graduationYear : ''}
 									/>
-								</div>
+								</InputGroup>
 								<br />
-								<button
-									className="btn btn-primary"
+								<Button
+									bsStyle="primary"
 									type="button"
 									onClick={this.checkinMember}
 									style={{ float: 'center' }}
 								>
 									Checkin
-								</button>
-								<button
-									className="btn btn-danger"
+								</Button>
+								<Button
+									bsStyle="danger"
 									type="button"
 									onClick={this.checkoutMember}
 									style={{ float: 'center' }}
 								>
 									Checkout
-								</button>
-							</div>
-						</div>
+								</Button>
+							</Panel.Body>
+						</Panel>
 						<div id="checkinAlerts" />
 					</div>
 				</div>

@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import qs from 'qs';
 import { sendFlashMessage, clearFlashMessages, resetPassword } from '../../actions';
 import routes, { err } from '../../constants';
-// import { Header } from '../Common';
+import { Header } from '../Common';
+import { Panel, Button, ControlLabel, FormControl } from 'react-bootstrap';
 
 class ResetPasswordPage extends Component {
 	static propTypes = {
@@ -58,44 +59,46 @@ class ResetPasswordPage extends Component {
 				<div className="section-container">
 					{/* <Header message="Reset Password" /> */}
 					<h3>Reset Your Password</h3>
-					<div className="panel panel-default">
-						<form className="panel-body" onSubmit={this.onSubmit}>
-							<label htmlFor="password">
-								Password *
-								<input
-									type="password"
-									name="password"
-									id="password"
-									placeholder="Password"
-									value={password}
-									onChange={this.onChange}
-									required
-									className="form-control"
-									data-bvalidator="required"
-									data-bvalidator-msg="A password is required"
-								/>
-							</label>
-							<br />
-							<label htmlFor="passwordConfirm">
-								Confirm Password *
-								<input
-									type="password"
-									name="passwordConfirm"
-									id="passwordConfirm"
-									value={passwordConfirm}
-									onChange={this.onChange}
-									required
-									placeholder="Confirm Password"
-									className="form-control"
-									data-bvalidator="required,equalto[password]"
-									data-bvalidator-msg="Password does not match"
-								/>
-							</label>
-							<span className="input-group-btn">
-								<input className="btn btn-primary" type="submit" value="Reset Password" />
-							</span>
+					<Panel>
+						<form onSubmit={this.onSubmit}>
+							<Panel.Body>
+								<ControlLabel htmlFor="password">
+									Password *
+									<FormControl
+										type="password"
+										name="password"
+										id="password"
+										placeholder="Password"
+										value={password}
+										onChange={this.onChange}
+										required
+										data-bvalidator="required"
+										data-bvalidator-msg="A password is required"
+									/>
+								</ControlLabel>
+								<br />
+								<ControlLabel htmlFor="passwordConfirm">
+									Confirm Password *
+									<FormControl
+										type="password"
+										name="passwordConfirm"
+										id="passwordConfirm"
+										value={passwordConfirm}
+										onChange={this.onChange}
+										required
+										placeholder="Confirm Password"
+										data-bvalidator="required,equalto[password]"
+										data-bvalidator-msg="Password does not match"
+									/>
+								</ControlLabel>
+								<span className="input-group-btn">
+									<Button bsStyle="primary" type="submit">
+										Reset Password
+									</Button>
+								</span>
+							</Panel.Body>
 						</form>
-					</div>
+					</Panel>
 				</div>
 			</div>
 		);

@@ -12,7 +12,14 @@ import {
 	sendFlashMessage,
 	clearFlashMessages
 } from '../../actions';
-import { SocialMediaPanel, EventsAttendedTable, ProfilePanel, CustomRedirect } from '../Common';
+import {
+	SocialMediaPanel,
+	EventsAttendedTable,
+	ProfilePanel,
+	CustomRedirect,
+	Header
+} from '../Common';
+import { Table, Panel, FormControl, Button } from 'react-bootstrap';
 
 // TODO: Add autocomplete to input tags
 
@@ -192,7 +199,17 @@ class MemberPage extends Component {
 	};
 
 	render() {
-		const { member, events, jobs, memberMatched, notFound, name, city, start, end } = this.state;
+		const {
+			member,
+			events,
+			jobs,
+			memberMatched,
+			notFound,
+			name,
+			city,
+			start,
+			end
+		} = this.state;
 		if (notFound) return <CustomRedirect msgRed="Member not found" />;
 		if (!member) return <span>Loading...</span>;
 		return (
@@ -205,9 +222,9 @@ class MemberPage extends Component {
 							{memberMatched && (
 								<React.Fragment>
 									<Link to={`/member/${member._id}/edit`} className="pull-right">
-										<button type="button" className="btn btn-primary btn-sm">
+										<Button type="button" bsStyle="primary" bsSize="small">
 											Edit Profile
-										</button>
+										</Button>
 									</Link>
 									{/* <Link to={routes.PROJECTS} className="pull-left">
 										<button type="button" className="btn btn-primary btn-sm">
@@ -234,104 +251,115 @@ class MemberPage extends Component {
 						<hr />
 
 						<h3>Job History</h3>
-						<div className="panel panel-default">
-							<table className="table table-bordered table-hover table-clickable panel-body">
-								<thead>
-									<tr>
-										<th>Company</th>
-										<th>City</th>
-										<th>Start Date</th>
-										<th>End Date</th>
-									</tr>
-								</thead>
-								<tbody>
-									{jobs && jobs.length ? (
-										jobs.map((job, i) => (
-											<tr key={i} onClick={this.onJobClick(job.location._id)}>
-												<td>{job.location.name}</td>
-												<td>{job.location.city}</td>
-												<td>{formatDate(job.start)}</td>
+						<Panel>
+							<Panel.Body>
+								<Table bordered hover className="table-clickable">
+									<thead>
+										<tr>
+											<th>Company</th>
+											<th>City</th>
+											<th>Start Date</th>
+											<th>End Date</th>
+										</tr>
+									</thead>
+									<tbody>
+										{jobs && jobs.length ? (
+											jobs.map((job, i) => (
+												<tr
+													key={i}
+													onClick={this.onJobClick(job.location._id)}
+												>
+													<td>{job.location.name}</td>
+													<td>{job.location.city}</td>
+													<td>{formatDate(job.start)}</td>
+													<td>
+														{job.end ? formatDate(job.end) : 'Current'}
+														{memberMatched && (
+															<Button
+																id={job._id}
+																bsStyle="danger"
+																bsSize="small"
+																className="pull-right"
+																onClick={this.onDeleteJob}
+															>
+																Remove
+															</Button>
+														)}
+													</td>
+												</tr>
+											))
+										) : (
+											<tr>
+												<td>No Job History</td>
+												<td />
+												<td />
+												<td />
+											</tr>
+										)}
+
+										{memberMatched && (
+											<tr>
 												<td>
-													{job.end ? formatDate(job.end) : 'Current'}
-													{memberMatched && (
-														<button
-															id={job._id}
-															className="btn btn-sm btn-danger pull-right"
-															onClick={this.onDeleteJob}
-														>
-															Remove
-														</button>
-													)}
+													<FormControl
+														type="text"
+														name="name"
+														id="name"
+														placeholder="Location Name"
+														className="locationsautocomplete"
+														value={name}
+														onChange={this.onChange}
+													/>
+												</td>
+												<td>
+													<FormControl
+														type="text"
+														name="city"
+														id="city"
+														placeholder="City"
+														className="citiesautocomplete"
+														value={city}
+														onChange={this.onChange}
+													/>
+												</td>
+												<td>
+													<input
+														type="date"
+														name="start"
+														id="start"
+														placeholder="Start Date"
+														componentClass="datepicker"
+														className="form-control"
+														value={start}
+														onChange={this.onChange}
+													/>
+												</td>
+												<td>
+													<input
+														type="date"
+														name="end"
+														id="end"
+														placeholder="End Date (Optional)"
+														componentClass="datepicker"
+														className="form-control"
+														value={end}
+														onChange={this.onChange}
+													/>
+													<br />
+													<Button
+														type="submit"
+														bsStyle="primary"
+														className="pull-right"
+														onClick={this.onAddJob}
+													>
+														Add Location Record
+													</Button>
 												</td>
 											</tr>
-										))
-									) : (
-										<tr>
-											<td>No Job History</td>
-											<td />
-											<td />
-											<td />
-										</tr>
-									)}
-
-									{memberMatched && (
-										<tr>
-											<td>
-												<input
-													type="text"
-													name="name"
-													id="name"
-													placeholder="Location Name"
-													className="form-control locationsautocomplete"
-													value={name}
-													onChange={this.onChange}
-												/>
-											</td>
-											<td>
-												<input
-													type="text"
-													name="city"
-													id="city"
-													placeholder="City"
-													className="form-control citiesautocomplete"
-													value={city}
-													onChange={this.onChange}
-												/>
-											</td>
-											<td>
-												<input
-													type="date"
-													name="start"
-													id="start"
-													placeholder="Start Date"
-													className="form-control datepicker"
-													value={start}
-													onChange={this.onChange}
-												/>
-											</td>
-											<td>
-												<input
-													type="date"
-													name="end"
-													id="end"
-													placeholder="End Date (Optional)"
-													className="form-control datepicker"
-													value={end}
-													onChange={this.onChange}
-												/>
-												<br />
-												<input
-													type="submit"
-													value="Add Location Record"
-													className="btn btn-primary pull-right"
-													onClick={this.onAddJob}
-												/>
-											</td>
-										</tr>
-									)}
-								</tbody>
-							</table>
-						</div>
+										)}
+									</tbody>
+								</Table>
+							</Panel.Body>
+						</Panel>
 
 						<hr />
 

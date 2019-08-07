@@ -11,7 +11,16 @@ import {
 	updateEvent,
 	deleteEvent
 } from '../../actions';
-import { CustomRedirect } from '../Common';
+import { CustomRedirect, Header } from '../Common';
+import {
+	Panel,
+	FormGroup,
+	FormControl,
+	ControlLabel,
+	InputGroup,
+	Button,
+	Glyphicon
+} from 'react-bootstrap';
 
 // TODO: Add autocomplete to input tags
 
@@ -155,7 +164,8 @@ class EditEventPage extends Component {
 		} = this.state;
 		const { user, type } = this.props;
 		if (loading) return <span>Loading...</span>;
-		if (!loading && !event && type === 'edit') return <CustomRedirect msgRed="Event not found" />;
+		if (!loading && !event && type === 'edit')
+			return <CustomRedirect msgRed="Event not found" />;
 		if (!hasPermission(user, 'events'))
 			return <CustomRedirect msgRed="You are not authorized to edit this event" />;
 		const canEdit = type === 'edit' && hasPermission(user, 'events');
@@ -168,157 +178,156 @@ class EditEventPage extends Component {
 							{shortName(name)}
 							{canEdit && (
 								<Link to={`/event/${event._id}`}>
-									<button
-										type="button"
-										className="pull-left btn btn-primary btn-sm marginR"
+									<Button
+										bsStyle="primary"
+										bsSize="small"
+										className="pull-left marginR"
 									>
-										<span
-											className="glyphicon glyphicon-chevron-left"
-											aria-hidden="true"
-										/>
+										<Glyphicon inline glyph="chevron-left" aria-hidden="true" />
 										Event
-									</button>
+									</Button>
 								</Link>
 							)}
 						</h3>
-						<div className="panel panel-default">
-							<form className="panel-body validate">
-								<label htmlFor="privateEvent" className="text-right">
-									Private Event ?
-									<div className="input-group">
-										<span className="input-group-addon" id="eventNameAria">
-											Event Name
-										</span>
-										<input
+						<Panel>
+							<form className="validate">
+								<Panel.Body>
+									<ControlLabel htmlFor="privateEvent" className="text-right">
+										Private Event ?
+										<InputGroup>
+											<InputGroup.Addon inline id="eventNameAria">
+												Event Name
+											</InputGroup.Addon>
+											<FormControl
+												type="text"
+												id="name"
+												placeholder="Event Name"
+												value={name}
+												onChange={this.onChange}
+											/>
+
+											<InputGroup.Addon inline id="privateEventAria">
+												<input
+													type="checkbox"
+													name="privateEvent"
+													id="privateEvent"
+													value="true"
+													checked={!!privateEvent}
+													onChange={() =>
+														this.setState({
+															privateEvent: !this.state.privateEvent
+														})
+													}
+												/>
+											</InputGroup.Addon>
+										</InputGroup>
+									</ControlLabel>
+									<br />
+
+									<div className="form-inline">
+										<FormGroup className="pull-left">
+											<ControlLabel htmlFor="date">
+												Date
+												<input
+													type="date"
+													name="date"
+													id="date"
+													placeholder="Date"
+													value={date}
+													componentClass="datepicker"
+													className="form-control"
+													data-bvalidator="required,date[yyyy-mm-dd]"
+													data-bvalidator-msg="Event requires date/time."
+													onChange={this.onChange}
+												/>
+											</ControlLabel>
+										</FormGroup>
+										<FormGroup className="pull-right">
+											<ControlLabel htmlFor="Time">
+												Time
+												<FormControl
+													componentClass="select"
+													name="hour"
+													id="hour"
+													value={hour}
+													data-bvalidator="required"
+													data-bvalidator-msg="Event requires date/time."
+													onChange={this.onChange}
+												>
+													<option value="">Hour</option>
+													{[...Array(24).keys()].map((i, key) => (
+														<option value={i} key={key}>
+															{i}
+														</option>
+													))}
+												</FormControl>
+												<FormControl
+													componentClass="select"
+													name="minute"
+													id="minute"
+													value={minute}
+													data-bvalidator="required"
+													data-bvalidator-msg="Event requires date/time."
+													onChange={this.onChange}
+												>
+													<option value="">Minute</option>
+													{[0, 15, 30, 45].map((i, key) => (
+														<option
+															value={`${i}`.padStart(2, '0')}
+															key={key}
+														>
+															{`${i}`.padStart(2, '0')}
+														</option>
+													))}
+												</FormControl>
+											</ControlLabel>
+										</FormGroup>
+									</div>
+									<br />
+									<ControlLabel htmlFor="location">
+										Location
+										<FormControl
 											type="text"
-											id="name"
-											placeholder="Event Name"
-											value={name}
-											className="form-control"
+											name="location"
+											id="location"
+											placeholder="Location"
+											value={location}
+											data-bvalidator="required"
+											data-bvalidator-msg="Event requires location."
 											onChange={this.onChange}
 										/>
-
-										<span className="input-group-addon" id="privateEventAria">
-											<input
-												type="checkbox"
-												name="privateEvent"
-												id="privateEvent"
-												value="true"
-												checked={!!privateEvent}
-												onChange={() =>
-													this.setState({
-														privateEvent: !this.state.privateEvent
-													})
-												}
-											/>
-										</span>
-									</div>
-								</label>
-								<br />
-
-								<div className="form-inline">
-									<div className="form-group pull-left">
-										<label htmlFor="date">
-											Date
-											<input
-												type="date"
-												name="date"
-												id="date"
-												placeholder="Date"
-												value={date}
-												className="form-control datepicker"
-												data-bvalidator="required,date[yyyy-mm-dd]"
-												data-bvalidator-msg="Event requires date/time."
-												onChange={this.onChange}
-											/>
-										</label>
-									</div>
-									<div className="form-group pull-right">
-										<label htmlFor="Time">
-											Time
-											<select
-												name="hour"
-												id="hour"
-												value={hour}
-												className="form-control"
-												data-bvalidator="required"
-												data-bvalidator-msg="Event requires date/time."
-												onChange={this.onChange}
-											>
-												<option value="">Hour</option>
-												{[...Array(24).keys()].map((i, key) => (
-													<option value={i} key={key}>
-														{i}
-													</option>
-												))}
-											</select>
-											<select
-												name="minute"
-												id="minute"
-												value={minute}
-												className="form-control"
-												data-bvalidator="required"
-												data-bvalidator-msg="Event requires date/time."
-												onChange={this.onChange}
-											>
-												<option value="">Minute</option>
-												{[0, 15, 30, 45].map((i, key) => (
-													<option value={`${i}`.padStart(2, '0')} key={key}>
-														{`${i}`.padStart(2, '0')}
-													</option>
-												))}
-											</select>
-										</label>
-									</div>
-								</div>
-								<br />
-								<label htmlFor="location">
-									Location
-									<input
-										type="text"
-										name="location"
-										id="location"
-										placeholder="Location"
-										value={location}
-										className="form-control"
-										data-bvalidator="required"
-										data-bvalidator-msg="Event requires location."
-										onChange={this.onChange}
-									/>
-								</label>
-								<br />
-								<label htmlFor="facebook">
-									Facebook Event URL
-									<input
-										type="url"
-										name="facebook"
-										id="facebook"
-										placeholder="Facebook Event URL"
-										value={facebook}
-										className="form-control"
-										data-bvalidator="url"
-										onChange={this.onChange}
-									/>
-								</label>
-								<br />
-								<input
-									type="submit"
-									value={`${type === 'edit' ? 'Update' : 'Create'} Event`}
-									className="btn btn-primary"
-									onClick={this.onSubmit}
-								/>
+									</ControlLabel>
+									<br />
+									<ControlLabel htmlFor="facebook">
+										Facebook Event URL
+										<FormControl
+											type="url"
+											name="facebook"
+											id="facebook"
+											placeholder="Facebook Event URL"
+											value={facebook}
+											data-bvalidator="url"
+											onChange={this.onChange}
+										/>
+									</ControlLabel>
+									<br />
+									<Button type="submit" bsStyle="primary" onClick={this.onSubmit}>
+										{`${type === 'edit' ? 'Update' : 'Create'} Event`}
+									</Button>
+								</Panel.Body>
 							</form>
-						</div>
+						</Panel>
 						<hr />
 					</div>
 					{canEdit && (
-						<button
+						<Button
 							type="button"
-							className="btn btn-danger btn-sm"
+							bsStyle="danger"
+							bsSize="small"
 							onClick={this.onDeleteEvent}
 						>
 							Delete Event
-						</button>
+						</Button>
 					)}
 				</div>
 			</div>
