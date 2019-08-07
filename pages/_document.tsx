@@ -1,10 +1,5 @@
 import React from 'react';
 import Document, { Head, Main, NextScript } from 'next/document';
-// import { library } from '@fortawesome/fontawesome';
-// import { faFacebook, faGithub, faTwitter } from '@fortawesome/fontawesome-free-brands';
-// import { faEnvelope, faCalendar, faCoffee, faHeart } from '@fortawesome/fontawesome-free-solid';
-
-// library.add(faFacebook, faGithub, faTwitter, faEnvelope, faCalendar, faCoffee, faHeart);
 
 export default class MyDocument extends Document {
 	render() {

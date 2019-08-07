@@ -18,12 +18,7 @@ module.exports = withPlugins(
 			withOffline,
 			{
 				scope: '/',
-				dontAutoRegisterSw: true,
-				generateSw: false,
-				workboxOpts: {
-					swSrc: './service-worker.js',
-					swDest: './service-worker.js'
-				}
+				generateSw: true
 			}
 		],
 		[

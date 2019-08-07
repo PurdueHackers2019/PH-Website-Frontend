@@ -5,7 +5,7 @@ import Router from 'next/router';
 import Head from 'next/head';
 import withRedux from 'next-redux-wrapper';
 import { Store } from 'redux';
-import { library } from '@fortawesome/fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
 import { faFacebook, faGithub, faTwitter } from '@fortawesome/fontawesome-free-brands';
 import { faEnvelope, faCalendar, faCoffee, faHeart } from '@fortawesome/fontawesome-free-solid';
 import makeStore from '../src/redux/store';
@@ -21,10 +21,9 @@ import * as flash from '../src/utils/flash';
 import { StoreState } from '../src/@types';
 import '../src/index.css';
 import '@fortawesome/fontawesome-svg-core/styles.css';
-import '@fortawesome/fontawesome/styles.css';
 import 'sanitize.css/sanitize.css';
 
-library.add(faFacebook, faGithub, faTwitter, faEnvelope, faCalendar, faCoffee, faHeart);
+(library as any).add(faFacebook, faGithub, faTwitter, faEnvelope, faCalendar, faCoffee, faHeart);
 
 interface Props {
 	store: Store<StoreState>;

@@ -10,7 +10,7 @@ const Footer = () => (
 					rel="noopener noreferrer"
 					href="//www.facebook.com/groups/purduehackers/"
 				>
-					<FontAwesomeIcon key={`fab-facebook`} icon={['fab', 'facebook']} />
+					<FontAwesomeIcon icon={['fab', 'facebook']} />
 				</a>
 			</li>
 			<li className="twitter">

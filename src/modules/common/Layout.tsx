@@ -14,16 +14,14 @@ interface StateToProps {
 }
 
 const Layout = ({ token, user, green, red, children }: StateToProps) => (
-	// <div>
 	<React.Fragment>
 		<Navigation auth={!!token} id={user ? user._id : null} user={user} />
 		<div className="pageWrap">
 			<FlashMessage green={green} red={red} />
 			{children}
 		</div>
-		{/* <Footer /> */}
+		<Footer />
 	</React.Fragment>
-	// </div>
 );
 
 const mapStateToProps = (state: StoreState) => ({
