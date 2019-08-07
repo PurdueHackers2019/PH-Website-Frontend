@@ -5,7 +5,7 @@ import { LoginRequest } from '../../@types';
 interface Props extends LoginRequest {
 	onSubmit: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
 	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-	onChecked: (e: React.ChangeEvent<HTMLInputElement>) => void;
+	onChecked: (e: React.MouseEvent<HTMLLabelElement, MouseEvent>) => void;
 }
 
 export const LoginForm = ({
@@ -50,13 +50,8 @@ export const LoginForm = ({
 			<div className="form-group row">
 				<div className="col-sm-offset-5 col-sm-10">
 					<div className="checkbox">
-						<label htmlFor="remember">
-							<input
-								type="checkbox"
-								name="rememberMe"
-								checked={rememberMe}
-								onChange={onChecked}
-							/>
+						<label htmlFor="remember" onClick={onChecked}>
+							<input type="checkbox" name="rememberMe" defaultChecked={rememberMe} />
 							Remember me
 						</label>
 					</div>
