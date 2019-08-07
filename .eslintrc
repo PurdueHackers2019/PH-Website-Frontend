@@ -1,8 +1,23 @@
 {
-	"root": true,
-	"parser": "babel-eslint",
-	"extends": ["airbnb", "prettier", "prettier/react"],
-	"plugins": ["import", "prettier", "react", "unicorn"],
+	"parser": "@typescript-eslint/parser",
+	"plugins": ["@typescript-eslint", "import", "prettier", "react"],
+	"extends": [
+		// "plugin:@typescript-eslint/recommended",
+		// "prettier/@typescript-eslint",
+		// "plugin:prettier/recommended",
+		// "prettier/react",
+		// "plugin:import/typescript"
+		"eslint:recommended",
+		"plugin:react/recommended",
+		"plugin:@typescript-eslint/recommended",
+		"prettier/@typescript-eslint",
+		"plugin:prettier/recommended"
+	],
+	"parserOptions": {
+		"ecmaVersion": 2018,
+		"sourceType": "module",
+		"ecmaFeatures": { "jsx": true }
+	},
 	"rules": {
 		"indent": "off",
 		"no-tabs": "off",
@@ -10,7 +25,7 @@
 		"react/jsx-filename-extension": [
 			1,
 			{
-				"extensions": [".js", ".jsx"]
+				"extensions": [".js", ".jsx", ".tsx"]
 			}
 		],
 		"react/jsx-indent-props": 0,
@@ -31,7 +46,9 @@
 		"no-param-reassign": "off",
 		"no-unused-expressions": "off",
 		"no-nested-ternary": "off",
-		"import/first": 0,
+		"import/first": "off",
+		"import/no-cycle": "off",
+		"implicit-arrow-linebreak": "off",
 		"no-mixed-spaces-and-tabs": "off",
 		"newline-per-chained-call": "error",
 		"no-plusplus": "off",
@@ -44,9 +61,16 @@
 				"useTabs": true
 			}
 		],
-		"comma-dangle": "off"
+		"comma-dangle": "off",
+		"@typescript-eslint/explicit-function-return-type": "off",
+		"@typescript-eslint/explicit-member-accessibility": "off",
+		"@typescript-eslint/no-var-requires": "off"
 	},
 	"env": {
-		"browser": true
+		"browser": true,
+		"node": true
+	},
+	"settings": {
+		"import/parsers": { "@typescript-eslint/parser": [".ts", ".tsx"] }
 	}
 }

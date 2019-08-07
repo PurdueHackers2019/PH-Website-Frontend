@@ -1,70 +1,60 @@
-import ax from 'axios';
-import { CONFIG } from '../config';
+// import ax from 'axios';
+// import { CONFIG } from '../config';
 
-// const { REACT_APP_NODE_ENV } = process.env;
+// export const axios = ax.create({
+// 	baseURL: CONFIG.SERVER_URL
+// });
 
-// export const CONFIG = {
-// 	NODE_ENV: REACT_APP_NODE_ENV || 'development',
-// 	SERVER_URL:
-// 		REACT_APP_NODE_ENV === 'production'
-// 			? 'https://purduehackers.herokuapp.com'
-// 			: 'http://localhost:5000'
+// const dateToString = date =>
+// 	new Date(date).toLocaleDateString('en-US', {
+// 		year: 'numeric',
+// 		month: 'short',
+// 		day: 'numeric',
+// 		weekday: 'short'
+// 	});
+
+// export const formatDate = date => {
+// 	if (!date) return 'Current';
+// 	const str = dateToString(date);
+// 	return str !== 'Invalid Date' ? str : 'Current';
 // };
 
-export const axios = ax.create({
-	baseURL: CONFIG.SERVER_URL
-});
+// export const err = e =>
+// 	!e
+// 		? 'Whoops, something went wrong!'
+// 		: e.message && typeof e.message === 'string'
+// 			? e.message
+// 			: e.error && typeof e.error === 'string'
+// 				? e.error
+// 				: 'Whoops, something went wrong!';
 
-const dateToString = date =>
-	new Date(date).toLocaleDateString('en-US', {
-		year: 'numeric',
-		month: 'short',
-		day: 'numeric',
-		weekday: 'short'
-	});
+// export const hasPermission = (user, name) =>
+// 	user &&
+// 	(Object.keys(user).length !== 0 && user.constructor === Object) &&
+// 	user.permissions.some(per => per.name === name || per.name === 'admin');
 
-export const formatDate = date => {
-	if (!date) return 'Current';
-	const str = dateToString(date);
-	return str !== 'Invalid Date' ? str : 'Current';
-};
+// export const isAdmin = user => hasPermission(user, 'admin');
 
-export const err = e =>
-	!e
-		? 'Whoops, something went wrong!'
-		: e.message && typeof e.message === 'string'
-			? e.message
-			: e.error && typeof e.error === 'string'
-				? e.error
-				: 'Whoops, something went wrong!';
+// export const memberMatches = (user, id) =>
+// 	user && (hasPermission(user, 'admin') || user._id === id);
 
-export const hasPermission = (user, name) =>
-	user &&
-	(Object.keys(user).length !== 0 && user.constructor === Object) &&
-	user.permissions.some(per => per.name === name || per.name === 'admin');
+// export const shortName = name => {
+// 	if (name.charAt(31) !== ' ' && name.charAt(32) !== ' ') {
+// 		for (let i = 31; i > 0; i--) {
+// 			if (name.charAt(i) === ' ') {
+// 				return `${name.substring(0, i)}...`;
+// 			}
+// 		}
+// 	}
+// 	return name.substring(0, 32);
+// };
 
-export const isAdmin = user => hasPermission(user, 'admin');
-
-export const memberMatches = (user, id) =>
-	user && (hasPermission(user, 'admin') || user._id === id);
-
-export const shortName = name => {
-	if (name.charAt(31) !== ' ' && name.charAt(32) !== ' ') {
-		for (let i = 31; i > 0; i--) {
-			if (name.charAt(i) === ' ') {
-				return `${name.substring(0, i)}...`;
-			}
-		}
-	}
-	return name.substring(0, 32);
-};
-
-const storage = () => (localStorage.getItem('token') ? localStorage : sessionStorage);
-let _storage = storage();
-export const getStorage = () => _storage;
-export const setStorage = store => {
-	_storage = store;
-};
+// const storage = () => (localStorage.getItem('token') ? localStorage : sessionStorage);
+// let _storage = storage();
+// export const getStorage = () => _storage;
+// export const setStorage = store => {
+// 	_storage = store;
+// };
 
 export default {
 	HOME: '/',

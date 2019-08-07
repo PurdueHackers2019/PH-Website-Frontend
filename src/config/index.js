@@ -4,6 +4,6 @@ export const CONFIG = {
 		process.env.NODE_ENV === 'production'
 			? 'https://purduehackers.herokuapp.com'
 			: process.env.REACT_APP_SERVER_URL
-				? process.env.REACT_APP_SERVER_URL
-				: 'http://localhost:5000'
+			? process.env.REACT_APP_SERVER_URL
+			: 'http://localhost:5000'
 };
