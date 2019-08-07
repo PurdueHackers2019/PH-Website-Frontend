@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { signIn, sendFlashMessage } from '../../actions';
 import routes, { err } from '../../constants';
-import { Header } from '../Common';
+// import { Header } from '../Common';
 
 class LoginPage extends Component {
 	static propTypes = {
@@ -54,33 +54,48 @@ class LoginPage extends Component {
 		return (
 			<div className="section">
 				<div className="section-container">
-					<Header message="Login" />
+					{/* <Header message="Login" /> */}
 					<h3>Login</h3>
 
 					<div className="panel panel-default">
 						<form className="panel-body" onSubmit={this.onSubmit}>
-							<input
-								type="text"
-								name="email"
-								id="email"
-								placeholder="Email"
-								value={email}
-								onChange={this.onChange}
-							/>
-							<input
-								type="password"
-								name="password"
-								id="password"
-								placeholder="Password"
-								value={password}
-								onChange={this.onChange}
-							/>
 							<br />
-							<br />
-							<input type="submit" value="Sign In" />
-							<br />
-							<br />
-							<input type="checkbox" name="remember" onClick={this.onClick} /> Remember Me
+							<div className="form-group row">
+								<div className="col-sm-3 col-sm-offset-2 text-right">Email:</div>
+								<div className="col-sm-4">
+									<input
+										type="text"
+										id="email"
+										className="form-control"
+										placeholder="Email"
+										value={email}
+										onChange={this.onChange}
+									/>
+								</div>
+							</div>
+							<div className="form-group row">
+								<div className="col-sm-3 col-sm-offset-2 text-right">Password:</div>
+								<div className="col-sm-4">
+									<input
+										type="password"
+										id="password"
+										className="form-control"
+										placeholder="Password"
+										value={password}
+										onChange={this.onChange}
+									/>
+								</div>
+							</div>
+							<div className="form-group row">
+								<div className="col-sm-offset-5 col-sm-10">
+									<div className="checkbox">
+										<label htmlFor="remember">
+											<input type="checkbox" onClick={this.onClick} /> Remember me
+										</label>
+									</div>
+								</div>
+							</div>
+							<input type="submit" className="btn btn-primary" value="Sign In" />
 							<br />
 							<br />
 							Forgot your password? <a href={routes.FORGOT_PASSWORD}>Click Here</a>

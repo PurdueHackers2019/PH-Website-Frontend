@@ -12,13 +12,7 @@ import {
 	sendFlashMessage,
 	clearFlashMessages
 } from '../../actions';
-import {
-	SocialMediaPanel,
-	EventsAttendedTable,
-	ProfilePanel,
-	CustomRedirect,
-	Header
-} from '../Common';
+import { SocialMediaPanel, EventsAttendedTable, ProfilePanel, CustomRedirect } from '../Common';
 
 // TODO: Add autocomplete to input tags
 
@@ -62,12 +56,18 @@ class MemberPage extends Component {
 			match: {
 				params: { id }
 			},
-			flash
+			flash,
+			user
 		} = this.props;
 		fetchMember(id)
 			.then(member => {
 				console.log('MemberPage fetched member:', member);
-				member ? this.setState({ member }) : this.setState({ notFound: true });
+				member
+					? this.setState({
+							member,
+							memberMatched: memberMatches(user, member._id)
+					  })
+					: this.setState({ notFound: true });
 			})
 			.catch(() => this.setState({ notFound: true }));
 
@@ -95,7 +95,12 @@ class MemberPage extends Component {
 		fetchMember(id)
 			.then(member => {
 				console.log('MemberPage fetched member:', member);
-				member ? this.setState({ member }) : this.setState({ notFound: true });
+				member
+					? this.setState({
+							member,
+							memberMatched: memberMatches(this.props.user, member._id)
+					  })
+					: this.setState({ notFound: true });
 			})
 			.catch(() => this.setState({ notFound: true }));
 
@@ -192,7 +197,7 @@ class MemberPage extends Component {
 		if (!member) return <span>Loading...</span>;
 		return (
 			<div>
-				<Header message={member.name} />
+				{/* <Header message={member.name} /> */}
 				<div className="section">
 					<div className="section-container">
 						<h3>

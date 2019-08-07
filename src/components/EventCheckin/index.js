@@ -12,7 +12,7 @@ import {
 	checkoutEvent,
 	autocompleteMembers
 } from '../../actions';
-import { CustomRedirect, Header } from '../Common';
+import { CustomRedirect } from '../Common';
 
 // TODO: Add autocomplete to input tags
 
@@ -148,7 +148,7 @@ class EventCheckinPage extends Component {
 			return <CustomRedirect msgRed="You are not authorized to view this page" />;
 		return (
 			<div>
-				<Header message={shortName(event.name)} />
+				{/* <Header message={shortName(event.name)} /> */}
 				<div className="section">
 					<div className="section-container">
 						<h3>

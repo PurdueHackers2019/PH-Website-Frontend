@@ -9,7 +9,7 @@ import {
 	addPermission,
 	addOrganizer
 } from '../../actions';
-import { Header } from '../Common';
+// import { Header } from '../Common';
 
 class PermissionsPage extends Component {
 	static propTypes = {
@@ -98,7 +98,7 @@ class PermissionsPage extends Component {
 		return (
 			<div className="section">
 				<div className="section-container">
-					<Header message="Permissions" />
+					{/* <Header message="Permissions" /> */}
 					<h3>Permissions</h3>
 					<div className="panel panel-default">
 						<table className="table table-bordered panel-body table-hover table-clickable sortableTable">

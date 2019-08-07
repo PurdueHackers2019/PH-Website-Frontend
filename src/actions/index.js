@@ -148,6 +148,10 @@ export const fetchProfile = params => async dispatch => {
 		dispatch(setToken(response.token));
 		return response;
 	} catch (error) {
+		if (error.response.status === 401) {
+			dispatch(setUser(null));
+			dispatch(setToken(null));
+		}
 		throw error.response.data;
 	}
 };
@@ -587,4 +591,27 @@ export const storageChanged = e => dispatch => {
 	console.log('Local storage changed event:', e);
 	dispatch(setToken(getToken()));
 	dispatch(setUser(getCurrentUser()));
+};
+
+// Reports Page Actions
+export const fetchMembersReport = async () => {
+	try {
+		const {
+			data: { response }
+		} = await axios.get('/api/report/members');
+		return response;
+	} catch (error) {
+		throw error.response.data;
+	}
+};
+
+export const fetchEventReport = async id => {
+	try {
+		const {
+			data: { response }
+		} = await axios.get(`/api/report/event/${id}`);
+		return response;
+	} catch (error) {
+		throw error.response.data;
+	}
 };

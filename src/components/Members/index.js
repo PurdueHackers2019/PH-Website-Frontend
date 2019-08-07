@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { MemberTable, Header } from '../Common';
+import { MemberTable } from '../Common';
 import routes, { hasPermission, err } from '../../constants';
 import { fetchMembers, sendFlashMessage, clearFlashMessages } from '../../actions';
 
@@ -49,12 +49,12 @@ class MembersPage extends Component {
 		return (
 			<div className="section">
 				<div className="section-container">
-					<Header message="Members" />
+					{/* <Header message="Members" /> */}
 					<h3>
 						Members
 						<React.Fragment>
 							{hasPermission(user, 'members') && (
-								<Link to={routes.REPORTS} className="pull-left marginR">
+								<Link to={routes.MEMBERS_REPORT} className="pull-left marginR">
 									<button type="button" className="btn btn-primary btn-sm">
 										Graphs
 									</button>

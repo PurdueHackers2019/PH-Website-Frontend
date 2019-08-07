@@ -1,14 +1,15 @@
 import ax from 'axios';
+import { CONFIG } from '../config';
 
-const { REACT_APP_NODE_ENV } = process.env;
+// const { REACT_APP_NODE_ENV } = process.env;
 
-export const CONFIG = {
-	NODE_ENV: REACT_APP_NODE_ENV || 'development',
-	SERVER_URL:
-		REACT_APP_NODE_ENV === 'production'
-			? 'https://purduehackers.herokuapp.com'
-			: 'http://localhost:5000'
-};
+// export const CONFIG = {
+// 	NODE_ENV: REACT_APP_NODE_ENV || 'development',
+// 	SERVER_URL:
+// 		REACT_APP_NODE_ENV === 'production'
+// 			? 'https://purduehackers.herokuapp.com'
+// 			: 'http://localhost:5000'
+// };
 
 export const axios = ax.create({
 	baseURL: CONFIG.SERVER_URL
@@ -47,7 +48,16 @@ export const isAdmin = user => hasPermission(user, 'admin');
 export const memberMatches = (user, id) =>
 	user && (hasPermission(user, 'admin') || user._id === id);
 
-export const shortName = name => name.substr(0, 32);
+export const shortName = name => {
+	if (name.charAt(31) !== ' ' && name.charAt(32) !== ' ') {
+		for (let i = 31; i > 0; i--) {
+			if (name.charAt(i) === ' ') {
+				return `${name.substring(0, i)}...`;
+			}
+		}
+	}
+	return name.substring(0, 32);
+};
 
 const storage = () => (localStorage.getItem('token') ? localStorage : sessionStorage);
 let _storage = storage();
@@ -66,13 +76,14 @@ export default {
 	EDIT_PROFILE: '/member/:id/edit',
 	EVENTS: '/events',
 	EVENT: '/event/:id',
+	EVENT_REPORT: '/event/:id/report',
 	CREATE_EVENT: '/events/create',
 	EDIT_EVENT: '/event/:id/edit',
 	CHECKIN_EVENT: '/event/:id/checkin',
 	MEMBERS: '/members',
 	MEMBER: '/member/:id',
 	CALENDAR: '/calendar',
-	REPORTS: '/reports',
+	MEMBERS_REPORT: '/members/report',
 	PERMISSIONS: '/permissions',
 	PERMISSION: '/permission/:id',
 	CREDENTIALS: '/credentials',
