@@ -3,8 +3,9 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"start": "next dev",
+		"start": "next start",
 		"build": "next build",
+		"dev": "next dev",
 		"test": "jest",
 		"lint": "eslint src",
 		"deploy": "NODE_ENV=production yarn build && firebase deploy"
