@@ -148,6 +148,10 @@ export const fetchProfile = params => async dispatch => {
 		dispatch(setToken(response.token));
 		return response;
 	} catch (error) {
+		if (error.response.status === 401) {
+			dispatch(setUser(null));
+			dispatch(setToken(null));
+		}
 		throw error.response.data;
 	}
 };

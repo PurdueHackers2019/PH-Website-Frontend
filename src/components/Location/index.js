@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import routes, { hasPermission, formatDate, err } from '../../constants';
 import { sendFlashMessage, clearFlashMessages, fetchLocation, updateLocation } from '../../actions';
-import { CustomRedirect, Header } from '../Common';
+import { CustomRedirect } from '../Common';
 
 // TODO: Add autocomplete to input tags
 
@@ -92,10 +92,10 @@ class LocationPage extends Component {
 		const { members } = location;
 		return (
 			<div>
-				<Header message={location.name} />
+				{/* <Header message={location.name} /> */}
 				<div className="section">
 					<div className="section-container">
-						<Header message={location.name} />
+						{/* <Header message={location.name} /> */}
 						<h3>
 							{location.name}
 							<Link to={routes.LOCATIONS}>

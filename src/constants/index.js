@@ -1,14 +1,15 @@
 import ax from 'axios';
+import { CONFIG } from '../config';
 
-const { REACT_APP_NODE_ENV } = process.env;
+// const { REACT_APP_NODE_ENV } = process.env;
 
-export const CONFIG = {
-	NODE_ENV: REACT_APP_NODE_ENV || 'development',
-	SERVER_URL:
-		REACT_APP_NODE_ENV === 'production'
-			? 'https://purduehackers.herokuapp.com'
-			: 'http://localhost:5000'
-};
+// export const CONFIG = {
+// 	NODE_ENV: REACT_APP_NODE_ENV || 'development',
+// 	SERVER_URL:
+// 		REACT_APP_NODE_ENV === 'production'
+// 			? 'https://purduehackers.herokuapp.com'
+// 			: 'http://localhost:5000'
+// };
 
 export const axios = ax.create({
 	baseURL: CONFIG.SERVER_URL

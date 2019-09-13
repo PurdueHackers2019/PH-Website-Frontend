@@ -32,8 +32,9 @@
 		"no-unused-expressions": "off",
 		"no-nested-ternary": "off",
 		"import/first": 0,
-		"no-mixed-spaces-and-tabs": "error",
+		"no-mixed-spaces-and-tabs": "off",
 		"newline-per-chained-call": "error",
+		"no-plusplus": "off",
 		"prettier/prettier": [
 			"error",
 			{

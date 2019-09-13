@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { hasPermission, formatDate, shortName, err } from '../../constants';
 import { sendFlashMessage, clearFlashMessages, fetchEvent } from '../../actions';
-import { MembersAttendedTable, CustomRedirect, Header } from '../Common';
+import { MembersAttendedTable, CustomRedirect } from '../Common';
 
 // TODO: Add autocomplete to input tags
 
@@ -81,7 +81,7 @@ class EventPage extends Component {
 			return <CustomRedirect msgRed="You are not authorized to view this event" />;
 		return (
 			<div>
-				<Header message={shortName(event.name)} />
+				{/* <Header message={shortName(event.name)} /> */}
 				<div className="section">
 					<div className="section-container">
 						<h3>

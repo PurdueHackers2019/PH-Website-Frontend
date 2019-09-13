@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import qs from 'qs';
 import { sendFlashMessage, clearFlashMessages, resetPassword } from '../../actions';
 import routes, { err } from '../../constants';
-import { Header } from '../Common';
+// import { Header } from '../Common';
 
 class ResetPasswordPage extends Component {
 	static propTypes = {
@@ -56,7 +56,7 @@ class ResetPasswordPage extends Component {
 		return (
 			<div className="section">
 				<div className="section-container">
-					<Header message="Reset Password" />
+					{/* <Header message="Reset Password" /> */}
 					<h3>Reset Your Password</h3>
 					<div className="panel panel-default">
 						<form className="panel-body" onSubmit={this.onSubmit}>

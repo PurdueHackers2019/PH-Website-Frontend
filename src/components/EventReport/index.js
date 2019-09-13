@@ -15,7 +15,7 @@ import {
 } from '../../constants/reports';
 
 import { err } from '../../constants';
-import { CustomRedirect, Header } from '../Common';
+import { CustomRedirect } from '../Common';
 import { Bar } from 'react-chartjs-2';
 
 class ReportsPage extends Component {
@@ -108,7 +108,7 @@ class ReportsPage extends Component {
 			<div>
 				<div className="section">
 					<div className="section-container">
-						<Header message={`Report for ${eventName}`} />
+						{/* <Header message={`Report for ${eventName}`} /> */}
 						<h3>
 							<Link key={`${match.params.id}-1`} to={`/event/${match.params.id}`}>
 								<button type="button" className="pull-left btn btn-primary btn-sm">
