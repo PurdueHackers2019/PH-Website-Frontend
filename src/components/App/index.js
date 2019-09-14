@@ -32,6 +32,7 @@ import ForgotPassword from '../ForgotPassword';
 import ResetPassword from '../ResetPassword';
 import MembersReport from '../MembersReport';
 import EventReport from '../EventReport';
+import Resources from '../Resources';
 import { storageChanged, clearFlashMessages, fetchProfile } from '../../actions';
 
 fontawesome.library.add(faFacebook, faGithub, faTwitter, faEnvelope, faCalendar, faCoffee, faHeart);
@@ -92,6 +93,7 @@ class App extends Component {
 						<Route exact path={routes.MEMBER} component={Member} />
 						<Route exact path={routes.EVENTS} component={Events} />
 						<Route exact path={routes.EVENT} component={Event} />
+						<Route exact path={routes.RESOURCES} component={Resources} />
 						<ProtectedRoute
 							token={token}
 							user={user}
