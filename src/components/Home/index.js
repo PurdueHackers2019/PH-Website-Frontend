@@ -58,21 +58,28 @@ export default () => (
 						Can I still join?
 					</h3>
 					<p>
-						Absolutely! You can find all of our events in the Purdue Hackers
+						Absolutely! You can find all of our events in the Purdue Hackers&nbsp;
 						<a
 							href="https://www.facebook.com/groups/purduehackers/"
 							rel="noopener noreferrer"
 							target="_blank"
 						>
-							facebook group
+							Facebook Group
+						</a>
+						. Also, be sure to join our&nbsp;
+						<a
+							href="https://join.slack.com/t/purdue-hackers/signup?x=x-p272605402646-271212113713-734068729937"
+							rel="noopener noreferrer"
+							target="_blank"
+						>
+							Slack
 						</a>
 						. No prior knowledge or experience is needed, so come say hi!
 					</p>
 					<h3>What if I can&#39;t code?</h3>
 					<p>
 						No problem! As long as you&#39;re passionate about how technology can shape the
-						future, you&#39;ll fit right in. We offer lots of events to help teach coding
-						skills, including a semester-long coding bootcamp called Ignite.
+						future, you&#39;ll fit right in.
 					</p>
 					<h3>What&#39;s up with the logo?</h3>
 					<p>
