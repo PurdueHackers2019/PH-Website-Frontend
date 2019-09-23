@@ -9,6 +9,7 @@ const CommonNav = () => (
 		<NavItem href={routes.MEMBERS}>Members</NavItem>
 		<NavItem href={routes.EVENTS}>Events</NavItem>
 		<NavItem href={routes.CALENDAR}>Calendar</NavItem>
+		<NavItem href={routes.RESOURCES}>Resources</NavItem>
 	</React.Fragment>
 );
 

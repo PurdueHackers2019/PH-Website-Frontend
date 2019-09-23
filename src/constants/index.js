@@ -91,6 +91,7 @@ export default {
 	LOCATIONS_MAP: '/locations/map',
 	LOCATION: '/location/:id',
 	HACKATHONS: '/hackathons',
+	RESOURCES: '/resources',
 	PROJECTS: '/projects',
 	DEV: '/dev',
 	ANVIL_WIFI: '/anvil-wifi'
