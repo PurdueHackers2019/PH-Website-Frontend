@@ -71,8 +71,7 @@ export default () => (
 					<h3>What if I can&#39;t code?</h3>
 					<p>
 						No problem! As long as you&#39;re passionate about how technology can shape the
-						future, you&#39;ll fit right in. We offer lots of events to help teach coding
-						skills, including a semester-long coding bootcamp called Ignite.
+						future, you&#39;ll fit right in.
 					</p>
 					<h3>What&#39;s up with the logo?</h3>
 					<p>
