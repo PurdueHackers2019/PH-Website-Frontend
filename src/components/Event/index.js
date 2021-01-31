@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { hasPermission, formatDate, shortName, err } from '../../constants';
+import { hasPermission, formatDate, shortName, err, isAdmin } from '../../constants';
 import { sendFlashMessage, clearFlashMessages, fetchEvent } from '../../actions';
 import { MembersAttendedTable, CustomRedirect } from '../Common';
 
@@ -135,11 +135,13 @@ class EventPage extends Component {
 							</div>
 						</div>
 						<hr />
-						{event.members && event.members.length ? (
-							<MembersAttendedTable members={event.members} />
-						) : (
-							<h3>No Members attended</h3>
-						)}
+						{
+							// TODO: Test if the is Admin function properly works. Unable to test on local env
+							isAdmin(user) && event.members && event.members.length ? (
+								<MembersAttendedTable members={event.members} />
+							) : (
+									<h3>No Members attended</h3>
+								)}
 					</div>
 				</div>
 			</div>

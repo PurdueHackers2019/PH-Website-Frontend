@@ -6,8 +6,7 @@ export default () => (
 			<div className="section-container">
 				<h1>Who Are We?</h1>
 				<h3>
-					We are a community of students who collaborate, learn, and build kick-ass technical
-					projects.
+					We are the largest CS organization on campus. We provide students with a collaborative platform to build and strengthen technological skills. We host events with sponsors and peers to grow networks and better serve members of our community.
 				</h3>
 				<div className="about-img" />
 				<a href="//eepurl.com/MpyV1">
