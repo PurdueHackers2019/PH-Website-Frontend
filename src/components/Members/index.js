@@ -60,11 +60,6 @@ class MembersPage extends Component {
 									</button>
 								</Link>
 							)}
-							<Link to={routes.LOCATIONS_MAP} className="pull-left">
-								<button type="button" className="btn btn-primary btn-sm">
-									Map
-								</button>
-							</Link>
 							{hasPermission(user, 'members') && (
 								<Link to="#" className="pull-right">
 									<button type="button" className="btn btn-primary btn-sm">
@@ -84,8 +79,8 @@ class MembersPage extends Component {
 					{loading ? (
 						<span>Loading...</span>
 					) : (
-						<MemberTable members={members} push={this.props.history.push} user={user} />
-					)}
+							<MemberTable members={members} push={this.props.history.push} user={user} />
+						)}
 				</div>
 			</div>
 		);
